@@ -4,4 +4,4 @@ const login = params => api.get();
 
 export default {
   login,
-}
+};

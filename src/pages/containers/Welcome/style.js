@@ -19,4 +19,11 @@ export default StyleSheet.create({
     color: '#FFFFFF',
     ...global.gFontSize.Lv3,
   },
+  timeWrap: {
+    flexDirection: 'row',
+    position: 'absolute',
+    justifyContent: 'flex-end',
+    right: 0,
+    bottom: 30,
+  },
 });

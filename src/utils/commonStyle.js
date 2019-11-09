@@ -31,7 +31,7 @@ global.gScreen = {
 };
 
 global.gColors = {
-  primary: '#16B89D',
+  primary: '#71E2BD',
   orange: '#FF892E',
   yellow: '#FFB63B',
   purple: '#616BFF',

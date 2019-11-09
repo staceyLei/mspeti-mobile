@@ -19,8 +19,6 @@ const Register = props => {
   const [phone, setPhone] = useState('');
   const [isShow, setIsShow] = useState(true);
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     if (phone.length === 11) {
       setDisable(false);

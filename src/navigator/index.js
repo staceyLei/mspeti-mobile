@@ -3,7 +3,7 @@ import {
   StackViewStyleInterpolator,
 } from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
-import Welcome from 'container/Welcome';
+import Welcome from 'containers/Welcome';
 import LoginStack from './LoginStack';
 
 const stackNavigation = createStackNavigator(

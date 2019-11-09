@@ -1,5 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  StatusBar,
+} from 'react-native';
 import style from './style';
 
 const Welcome = props => {
@@ -17,9 +23,9 @@ const Welcome = props => {
 
   useEffect(() => {
     if (time <= 0) {
-      clearInterval(timer.current);
+      handleJump();
     }
-  }, [time]);
+  }, [time]); // eslint-disable-line
 
   const handleJump = () => {
     clearInterval(timer.current);
@@ -28,12 +34,15 @@ const Welcome = props => {
 
   return (
     <View style={style.container}>
+      <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0)" />
       <ImageBackground
         source={require('assets/image/welcome.png')}
         resizeMode="stretch"
         style={style.bgImage}>
-        <TouchableOpacity onPress={handleJump} style={style.timeBox}>
-          <Text style={style.timeText}>跳过({time})</Text>
+        <TouchableOpacity onPress={handleJump} style={style.timeWrap}>
+          <View style={style.timeBox}>
+            <Text style={style.timeText}>跳过({time})</Text>
+          </View>
         </TouchableOpacity>
       </ImageBackground>
     </View>
