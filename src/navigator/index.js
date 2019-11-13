@@ -5,6 +5,7 @@ import {
 import {createAppContainer} from 'react-navigation';
 import Welcome from 'containers/Welcome';
 import LoginStack from './LoginStack';
+import Main from './tabsNavigator';
 
 const stackNavigation = createStackNavigator(
   {
@@ -20,9 +21,15 @@ const stackNavigation = createStackNavigator(
         header: null,
       },
     },
+    Main: {
+      screen: Main,
+      navigationOptions: {
+        header: null,
+      },
+    },
   },
   {
-    initialRouteName: 'Welcome',
+    initialRouteName: 'LoginStack',
     transitionConfig: () => () => ({
       // 设置安卓路由切换效果与ios一致
       screenInterpolator: StackViewStyleInterpolator.forHorizontal,

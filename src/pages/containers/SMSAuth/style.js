@@ -37,7 +37,7 @@ export default StyleSheet.create({
     width: '100%',
   },
   inActiveBtn: {
-    backgroundColor: 'rgba(22,184,157,0.5);',
+    backgroundColor: 'rgba(37,102,177,0.5);',
     paddingVertical: 10,
     borderRadius: 25,
     marginTop: 40,

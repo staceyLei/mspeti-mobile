@@ -15,16 +15,17 @@ const ServiceAgreement = props => {
   const [agreementList, setAgreementList] = useState('');
 
   useEffect(() => {
-    api
-      .getAgreementList({
-        pageNo: 1,
-        pageSize: 5,
-        status: 1000,
-        sourceFrom,
-      })
-      .then(res => {
-        setAgreementList(res.records);
-      });
+    // api
+    //   .getAgreementList({
+    //     pageNo: 1,
+    //     pageSize: 5,
+    //     status: 1000,
+    //     sourceFrom,
+    //   })
+    //   .then(res => {
+    //     setAgreementList(res.records);
+    //   });
+    setAgreementList('注册须知');
   }, [sourceFrom]);
 
   return (
@@ -45,7 +46,7 @@ const ServiceAgreement = props => {
                 <Text style={style.aggreeText}>
                   1、与您约定免除或限制责任的条款；
                 </Text>
-                <Text style={style.aggreeText}>
+                {/* <Text style={style.aggreeText}>
                   2、与您约定法律适用和管辖的条款；
                 </Text>
                 <Text style={style.aggreeText}>
@@ -57,7 +58,7 @@ const ServiceAgreement = props => {
                 <Text style={style.aggreeText}>
                   【特别提示】当您按照注册页面提示填写信息、阅读并同意协议且完成全部注册程序后，即表示您已充分阅读、理解并
                   接受协议的全部内容。如您因平台服务与ESHOP发生争议的，适用《ESHOP平台服务协议》处理。如您在使用平台服务过程中与其他用户发生争议的，依您与其他用户达成的协议处理。
-                </Text>
+                </Text> */}
                 <Text style={style.aggreeText}>
                   阅读协议的过程中，如果您不同意相关协议或其中任何条款约定，您应立即停止注册程序。
                 </Text>

@@ -182,12 +182,6 @@ const Login = props => {
           <View style={style.divider} />
         </View>
         <View style={style.iconContainer}>{renderLoginWays(Icons)}</View>
-        <View style={style.aggreeText}>
-          <Text style={style.tipsText}>登录即表示您同意</Text>
-          <TouchableOpacity>
-            <Text style={style.aggreement}>《XXXX用户协议》</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </>
   );

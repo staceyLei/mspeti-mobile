@@ -101,9 +101,6 @@ const Register = props => {
           onPress={handleGetCode}>
           <Text style={style.registerText}>获取验证码</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={style.mail}>
-          <Text style={style.mailText}>邮箱注册</Text>
-        </TouchableOpacity>
       </View>
       <ServiceAgreement
         handleCancel={handleCancel}

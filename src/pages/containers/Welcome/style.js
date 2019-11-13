@@ -4,16 +4,17 @@ export default StyleSheet.create({
   container: {
     width: global.gScreen.width,
     height: global.gScreen.height,
+    backgroundColor: '#FFFFFF',
   },
   bgImage: {
-    width: '100%',
-    height: '100%',
+    width: global.gScreen.width,
+    height: global.gScreen.height,
   },
   timeBox: {
     paddingVertical: 10,
     paddingHorizontal: 30,
     borderRadius: 10,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: 'rgba(37,102,177,0.5)',
   },
   timeText: {
     color: '#FFFFFF',
@@ -22,8 +23,7 @@ export default StyleSheet.create({
   timeWrap: {
     flexDirection: 'row',
     position: 'absolute',
-    justifyContent: 'flex-end',
-    right: 0,
-    bottom: 30,
+    right: 20,
+    bottom: global.gScreen.height * 0.2,
   },
 });

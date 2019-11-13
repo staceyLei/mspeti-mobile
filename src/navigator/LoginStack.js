@@ -23,7 +23,7 @@ const LoginStack = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'SetPassword',
     mode: 'modal',
     defaultNavigationOptions: {
       header: null,

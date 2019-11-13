@@ -29,16 +29,16 @@ const SMSAuth = props => {
 
   const getVeriCode = () => {
     const {phone} = param;
-    api
-      .getVerificationCode({
-        busiType: '3',
-        receviNo: phone,
-        sendType: '1',
-      })
-      .then(res => {
-        setAuthCode(res);
-        Alert.alert('验证码为', res, [{text: '确认'}], {cancelable: false});
-      });
+    // api
+    //   .getVerificationCode({
+    //     busiType: '3',
+    //     receviNo: phone,
+    //     sendType: '1',
+    //   })
+    //   .then(res => {
+    setAuthCode('12345');
+    Alert.alert('验证码为', '12345', [{text: '确认'}], {cancelable: false});
+    //   });
   };
 
   useEffect(() => {

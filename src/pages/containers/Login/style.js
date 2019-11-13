@@ -56,7 +56,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   inActiveBtn: {
-    backgroundColor: 'rgba(22,184,157,0.5);',
+    backgroundColor: 'rgba(37,102,177,0.5)',
     paddingVertical: global.gPadding.s,
     borderRadius: 25,
     marginTop: 2 * global.gMargin.l,
@@ -92,6 +92,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 2 * global.gMargin.l,
+    marginBottom: global.gMargin.m,
   },
   iconBox: {
     justifyContent: 'center',

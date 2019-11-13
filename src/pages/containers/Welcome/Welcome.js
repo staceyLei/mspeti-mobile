@@ -29,15 +29,19 @@ const Welcome = props => {
 
   const handleJump = () => {
     clearInterval(timer.current);
-    props.navigation.navigate('LoginStack');
+    props.navigation.navigate('Main');
   };
 
   return (
     <View style={style.container}>
-      <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0)" />
+      <StatusBar
+        translucent={true}
+        backgroundColor="rgba(0,0,0,0)"
+        barStyle="dark-content"
+      />
       <ImageBackground
         source={require('assets/image/welcome.png')}
-        resizeMode="stretch"
+        // resizeMode="center"
         style={style.bgImage}>
         <TouchableOpacity onPress={handleJump} style={style.timeWrap}>
           <View style={style.timeBox}>

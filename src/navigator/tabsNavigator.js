@@ -5,6 +5,10 @@ import NavigationService from 'utils/navigationService';
 import store from 'store/store';
 import Badge from 'components/Badge';
 import Icons from './const';
+import HomePage from 'containers/HomePage';
+import MyCenter from 'containers/MyCenter';
+import Course from 'containers/Course';
+import Message from 'containers/Message';
 
 const renderIcon = (focused, source) => {
   const img = focused ? Icons[source][0] : Icons[source][1];
@@ -14,11 +18,40 @@ const renderIcon = (focused, source) => {
   return <Image source={img} />;
 };
 const tabsNavigator = createBottomTabNavigator(
-  {},
+  {
+    HomePage: {
+      screen: HomePage,
+      navigationOptions: {
+        tabBarLabel: '首页',
+        tabBarIcon: ({focused}) => renderIcon(focused, 'home'),
+      },
+    },
+    Course: {
+      screen: Course,
+      navigationOptions: {
+        tabBarLabel: '课程',
+        tabBarIcon: ({focused}) => renderIcon(focused, 'course'),
+      },
+    },
+    Message: {
+      screen: Message,
+      navigationOptions: {
+        tabBarLabel: '消息',
+        tabBarIcon: ({focused}) => renderIcon(focused, 'message'),
+      },
+    },
+    MyCenter: {
+      screen: MyCenter,
+      navigationOptions: {
+        tabBarLabel: '我的',
+        tabBarIcon: ({focused}) => renderIcon(focused, 'my'),
+      },
+    },
+  },
   {
     tabBarOptions: {
       activeTintColor: global.gColors.primary,
-      inactiveTintColor: '#9E9EA3',
+      inactiveTintColor: '#1E1E1E',
       showIcon: true,
       style: {
         backgroundColor: '#fff',
