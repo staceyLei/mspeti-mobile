@@ -12,7 +12,7 @@ import Message from 'containers/Message';
 
 const renderIcon = (focused, source) => {
   const img = focused ? Icons[source][0] : Icons[source][1];
-  if (source === 'shopCart') {
+  if (source === 'message') {
     return <Badge img={img} />;
   }
   return <Image source={img} />;

@@ -4,10 +4,7 @@ import {StyleSheet, View, Image, Text} from 'react-native';
 
 const Badge = props => {
   const {img} = props;
-  const num =
-    props.shopCartList && props.shopCartList.goodsItemList
-      ? props.shopCartList.goodsItemList.length
-      : 0;
+  const num = 0;
   return (
     <View>
       <Image source={img} />
@@ -25,8 +22,8 @@ const style = StyleSheet.create({
     height: 14,
     borderRadius: 7,
     position: 'absolute',
-    right: -4,
-    top: -2,
+    right: -7,
+    top: -4,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -36,4 +33,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default connect(state => state.shopCart)(Badge);
+export default Badge;

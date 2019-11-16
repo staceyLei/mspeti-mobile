@@ -29,7 +29,7 @@ const stackNavigation = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'LoginStack',
+    initialRouteName: 'Main',
     transitionConfig: () => () => ({
       // 设置安卓路由切换效果与ios一致
       screenInterpolator: StackViewStyleInterpolator.forHorizontal,
