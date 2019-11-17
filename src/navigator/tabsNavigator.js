@@ -24,6 +24,13 @@ const tabsNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: '首页',
         tabBarIcon: ({focused}) => renderIcon(focused, 'home'),
+        tabBarOnPress: ({navigation, defaultHandler}) => {
+          if (!store.getState().user.isLogin) {
+            navigation.navigate('LoginStack', {from: 'HomePage'});
+          } else {
+            defaultHandler();
+          }
+        },
       },
     },
     Course: {
@@ -45,6 +52,13 @@ const tabsNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: '我的',
         tabBarIcon: ({focused}) => renderIcon(focused, 'my'),
+        tabBarOnPress: ({navigation, defaultHandler}) => {
+          if (!store.getState().user.isLogin) {
+            navigation.navigate('LoginStack', {from: 'MyCenter'});
+          } else {
+            defaultHandler();
+          }
+        },
       },
     },
   },

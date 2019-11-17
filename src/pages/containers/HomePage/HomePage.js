@@ -15,6 +15,7 @@ import Header from 'components/Header';
 import HeaderInput from 'components/HeaderInput';
 import listData from './const';
 import HotClassPanel from './components/HotClassPanel';
+import userActions from '../../../store/actions/userActions';
 
 class HomePage extends Component {
   constructor(props) {
@@ -234,4 +235,7 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+export default connect(
+  state => ({...state.user}),
+  {...userActions},
+)(HomePage);

@@ -40,9 +40,10 @@ const Login = props => {
       }
     } else {
       //密码登陆时
-      const able = [userName, password, graphCode].every(
-        ele => ele.length !== 0,
-      );
+      // const able = [userName, password, graphCode].every(
+      //   ele => ele.length !== 0,
+      // );
+      const able = [userName, password].every(ele => ele.length !== 0);
       setDisabale(!able);
     }
   }, [phone, loginWays, userName, password, graphCode]);
@@ -102,28 +103,25 @@ const Login = props => {
 
   const handleLogin = () => {
     const params = {
-      graphValidateCode: graphCode,
-      loginType: '1',
+      // graphValidateCode: graphCode,
+      username: userName,
+      grant_type: 'password',
       password,
     };
-    if (userName.includes('@')) {
-      params.email = userName;
-    } else {
-      params.mobile = userName;
-    }
     setDisabale(true);
     props.login(params).then(res => {
       setDisabale(false);
-      if (res === '200') {
-        const {from, fromParam} = props.navigation.state.params;
-        if (from) {
-          props.navigation.navigate(from, fromParam);
-        } else {
-          props.navigation.navigate('Main');
-        }
-      } else {
-        // handleChangeCode();
-      }
+      console.log('res', res);
+      // if (res === '200') {
+      //   const {from, fromParam} = props.navigation.state.params;
+      //   if (from) {
+      //     props.navigation.navigate(from, fromParam);
+      //   } else {
+      //     props.navigation.navigate('Main');
+      //   }
+      // } else {
+      //   // handleChangeCode();
+      // }
     });
   };
 
@@ -190,7 +188,7 @@ const Login = props => {
       <View style={style.inputBox}>
         <TextInput
           style={style.inputText}
-          placeholder="请输入用户名/邮箱"
+          placeholder="请输入用户名"
           value={userName}
           placeholderTextColor={global.gColors.fontLv3}
           onChangeText={text => handleChangeText('userName', text)}
@@ -212,7 +210,7 @@ const Login = props => {
           </TouchableOpacity>
         )}
       </View>
-      <View style={style.graphCode}>
+      {/* <View style={style.graphCode}>
         <TextInput
           style={style.codeInput}
           placeholder="请输入验证码"
@@ -223,11 +221,11 @@ const Login = props => {
         <TouchableOpacity
           style={style.codeBox}
           activeOpacity={1}
-          // onPress={handleChangeCode}
+          onPress={handleChangeCode}
         >
-          {/* <Image style={style.codePic} source={{uri: codeUri}} /> */}
+          <Image style={style.codePic} source={{uri: codeUri}} />
         </TouchableOpacity>
-      </View>
+      </View> */}
       <TouchableOpacity
         style={disable ? style.inActiveBtn : style.getCodeBtn}
         activeOpacity={disable ? 1 : 0.5}

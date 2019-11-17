@@ -7,6 +7,7 @@ import {
   StatusBar,
 } from 'react-native';
 import style from './style';
+import {connect} from 'react-redux';
 
 const Welcome = props => {
   const [time, setTime] = useState(3);
@@ -29,6 +30,10 @@ const Welcome = props => {
 
   const handleJump = () => {
     clearInterval(timer.current);
+    if (!props.isLogin) {
+      props.navigation.navigate('LoginStack', {from: 'HomePage'});
+      return;
+    }
     props.navigation.navigate('Main');
   };
 
@@ -53,4 +58,4 @@ const Welcome = props => {
   );
 };
 
-export default Welcome;
+export default connect(state => ({...state.user}))(Welcome);
