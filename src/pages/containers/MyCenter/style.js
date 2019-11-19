@@ -163,8 +163,9 @@ export default StyleSheet.create({
   },
   headBarWrap: {
     position: 'absolute',
-    zIndex: 999,
+    zIndex: 0,
     opacity: 0,
+    backgroundColor: '#2D76CA',
   },
   headBar: {
     flexDirection: 'row',
@@ -173,13 +174,11 @@ export default StyleSheet.create({
     width: global.gScreen.width,
     paddingHorizontal: 10,
     paddingBottom: 10,
-    backgroundColor: '#2D76CA',
     position: 'relative',
     paddingTop: global.gScreen.navBarPaddingTop,
   },
   headBarCircle: {
     position: 'absolute',
-    zIndex: 9999,
     bottom: 0,
     right: 0,
   },
@@ -188,8 +187,11 @@ export default StyleSheet.create({
     height: 32,
     borderRadius: 32 / 2,
   },
+  setupBtn: {
+    paddingVertical: 10,
+  },
   headTit: {
-    ...global.gFontSize.Lv2,
+    ...global.gFontSize.Lv1,
     color: '#FFFFFF',
   },
 });

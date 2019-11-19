@@ -40,7 +40,7 @@ export default class Header extends Component {
         );
       } else {
         NavigationBar.push(
-          <Text key={'title'} style={[styles.title, titleProps]}>
+          <Text key={'title'} style={[styles.title, titleProps.style]}>
             {this.props.title}
           </Text>,
         );

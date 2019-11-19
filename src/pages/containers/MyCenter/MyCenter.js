@@ -12,6 +12,7 @@ import {
 import {connect} from 'react-redux';
 import Swiper from 'react-native-swiper';
 import style from './style';
+import Header from 'components/Header';
 import listData from './const';
 import userActions from 'store/actions/userActions';
 
@@ -69,6 +70,10 @@ class MyCenter extends Component {
     );
   };
 
+  handlePressSetup = () => {
+    this.props.navigation.navigate('SystemSetup');
+  };
+
   renderHeaderView = () => {
     return (
       <View style={style.headWrap}>
@@ -79,9 +84,11 @@ class MyCenter extends Component {
             style={style.bgCircle}
             source={require('assets/icon/circle-bg.png')}
           />
-          <TouchableOpacity style={style.headCtl}>
-            <Image source={require('assets/icon/icon-setup.png')} />
-          </TouchableOpacity>
+          <View style={style.headCtl}>
+            <TouchableOpacity onPress={this.handlePressSetup}>
+              <Image source={require('assets/icon/icon-setup.png')} />
+            </TouchableOpacity>
+          </View>
           <View style={style.perInfo}>
             <View style={style.headBox}>
               <Image
@@ -152,6 +159,7 @@ class MyCenter extends Component {
     const percent = y / (2 * this.state.headHeight);
     this.head.setNativeProps({
       opacity: percent,
+      zIndex: percent,
     });
   };
 
@@ -177,7 +185,9 @@ class MyCenter extends Component {
               source={require('assets/image/headImg.png')}
             />
             <Text style={style.headTit}>我的</Text>
-            <TouchableOpacity style={style.headCtl}>
+            <TouchableOpacity
+              onPress={this.handlePressSetup}
+              style={style.setupBtn}>
               <Image source={require('assets/icon/icon-setup.png')} />
             </TouchableOpacity>
           </View>

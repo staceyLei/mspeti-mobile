@@ -12,16 +12,23 @@ async function request(url, params, type) {
     let options = {
       method: type,
       headers: {
-        'content-type': 'application/json',
-        token,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        // token,
         // language: window.locale === 'zh-CN' ? 'zh_CN' : 'en',
+        Authorization: 'Basic d2ViQXBwOjEyMzQ1Ng==',
       },
     };
+    let formData = new FormData();
+    Object.keys(params).map(ele => {
+      formData.append(ele, params[ele]);
+    });
     if (type === 'post' || type === 'put' || type === 'delete') {
       options = Object.assign(options, {
         body: JSON.stringify(params),
+        // body: formData,
       });
     }
+    console.log('options', options);
     if (type === 'get') {
       let queryStr = '';
       if (params) {
@@ -51,10 +58,11 @@ async function request(url, params, type) {
     ])
       .then(response => response.json())
       .then(data => {
-        if (Number(data.resultCode) === 0) {
-          return data.resultData;
-        }
-        return Promise.reject(data.resultMsg);
+        // if (Number(data.resultCode) === 0) {
+        //   return data.resultData;
+        // }
+        // return Promise.reject(data.resultMsg);
+        return data;
       })
       .catch(error => {
         Toast.show(error, {

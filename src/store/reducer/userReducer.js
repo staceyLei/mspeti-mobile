@@ -1,4 +1,4 @@
-import {GET_USER_INFO, LOGIN_SUCCESS} from '../types';
+import {GET_USER_INFO, LOGIN_SUCCESS, LOGOUT_SUCCESS} from '../types';
 
 const initialState = {
   isLogin: false,
@@ -15,6 +15,11 @@ export default (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...initialState,
+        isLogin: action.payload,
+      };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
         isLogin: action.payload,
       };
     default:

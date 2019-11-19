@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Modal,
+  ScrollView,
 } from 'react-native';
 import {connect} from 'react-redux';
 import HeaderTitle from 'components/HeaderTitle';
@@ -16,9 +17,8 @@ import userActions from 'store/actions/userActions';
 import api from 'services';
 
 const Icons = [
-  {title: '微信', img: require('assets/icon/weChat.png')},
+  {title: '微信', img: require('assets/icon/wechat.png')},
   {title: 'QQ', img: require('assets/icon/QQ.png')},
-  {title: '微博', img: require('assets/icon/weibo.png')},
 ];
 const Login = props => {
   const [disable, setDisabale] = useState(true);
@@ -27,8 +27,7 @@ const Login = props => {
   const [password, setPassword] = useState('');
   const [loginWays, setLoginWays] = useState(0); //0 验证码 1 密码
   const [graphCode, setGraphCode] = useState('');
-  // const url = 'http://172.21.72.8:8830' + api.getGraphValidateCode;
-  // const [codeUri, setCodeUri] = useState(url);
+  const [saw, setIsSaw] = useState(false);
 
   useEffect(() => {
     if (loginWays === 0) {
@@ -50,10 +49,10 @@ const Login = props => {
 
   const renderLoginWays = data =>
     data.map((item, i) => (
-      <View style={style.iconBox} key={i}>
+      <TouchableOpacity style={style.iconBox} key={i}>
         <Image source={item.img} style={style.waysIcon} />
         <Text style={style.tipsText}>{item.title}</Text>
-      </View>
+      </TouchableOpacity>
     ));
 
   const handleChangeText = (type, text) => {
@@ -111,7 +110,6 @@ const Login = props => {
     setDisabale(true);
     props.login(params).then(res => {
       setDisabale(false);
-      console.log('res', res);
       // if (res === '200') {
       //   const {from, fromParam} = props.navigation.state.params;
       //   if (from) {
@@ -135,12 +133,9 @@ const Login = props => {
   const renderCodeLogin = () => (
     <>
       <View style={style.topBox}>
-        <View style={style.inputBox}>
-          <Text style={style.placeHolder}>国家/地区</Text>
-          <TouchableOpacity style={style.localBox}>
-            <Text style={style.localNum}>中国（+86）</Text>
-            <Image source={require('assets/icon/arrow-right.png')} />
-          </TouchableOpacity>
+        <View style={style.titleBox}>
+          <Text style={style.titText}>手机免密登录</Text>
+          <Text style={style.tipText}>HI 欢迎登录</Text>
         </View>
         <View style={style.inputBox}>
           <TextInput
@@ -164,68 +159,55 @@ const Login = props => {
           onPress={disable ? null : handleGetCode}>
           <Text style={style.codeText}>获取验证码</Text>
         </TouchableOpacity>
-        <View style={style.loginOrRegister}>
-          <TouchableOpacity style={style.pwd} onPress={handlePwdLogin}>
-            <Text style={style.pwdTips}>使用密码登录</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={style.register} onPress={handleRegister}>
-            <Text style={style.registerTips}>立即注册</Text>
-          </TouchableOpacity>
-        </View>
       </View>
       <View style={style.bottomBox}>
-        <View style={style.bottomDivider}>
-          <View style={style.divider} />
-          <Text style={[style.pwdTips, style.loginWaysText]}>其他登录方式</Text>
-          <View style={style.divider} />
-        </View>
+        <Text style={style.wayText}>其他登录方式</Text>
         <View style={style.iconContainer}>{renderLoginWays(Icons)}</View>
       </View>
     </>
   );
   const renderPwdLogin = () => (
     <View style={style.pwdLoginBox}>
-      <View style={style.inputBox}>
-        <TextInput
-          style={style.inputText}
-          placeholder="请输入用户名"
-          value={userName}
-          placeholderTextColor={global.gColors.fontLv3}
-          onChangeText={text => handleChangeText('userName', text)}
-        />
-      </View>
-      <View />
-      <View style={style.inputBox}>
-        <TextInput
-          placeholder="请输入密码"
-          value={password}
-          onChangeText={text => handleChangeText('pwd', text)}
-          style={style.inputText}
-          placeholderTextColor={global.gColors.fontLv3}
-          secureTextEntry={true} //隐藏输入内容
-        />
-        {!password.length ? null : (
-          <TouchableOpacity onPress={handleClean}>
-            <Image source={require('assets/icon/circle-cancel.png')} />
-          </TouchableOpacity>
-        )}
-      </View>
-      {/* <View style={style.graphCode}>
-        <TextInput
-          style={style.codeInput}
-          placeholder="请输入验证码"
-          value={graphCode}
-          placeholderTextColor={global.gColors.fontLv3}
-          onChangeText={text => handleChangeText('graphCode', text)}
-        />
-        <TouchableOpacity
-          style={style.codeBox}
-          activeOpacity={1}
-          onPress={handleChangeCode}
-        >
-          <Image style={style.codePic} source={{uri: codeUri}} />
-        </TouchableOpacity>
-      </View> */}
+      <Text style={style.titText}>手机、账号、邮箱登录</Text>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        <View style={style.inputBox}>
+          <TextInput
+            style={style.inputText}
+            placeholder="请输入手机/账号/邮箱"
+            value={userName}
+            placeholderTextColor={global.gColors.fontLv3}
+            onChangeText={text => handleChangeText('userName', text)}
+          />
+        </View>
+        <View style={style.inputBox}>
+          <View style={style.pwdCtl}>
+            <TouchableOpacity
+              style={style.eye}
+              onPress={() => setIsSaw(pre => !pre)}>
+              <Image
+                source={
+                  saw
+                    ? require('assets/icon/eye-open.png')
+                    : require('assets/icon/eye-close.png')
+                }
+              />
+            </TouchableOpacity>
+            <TextInput
+              placeholder="请输入密码"
+              value={password}
+              onChangeText={text => handleChangeText('pwd', text)}
+              style={style.inputText}
+              placeholderTextColor={global.gColors.fontLv3}
+              secureTextEntry={!saw} //隐藏输入内容
+            />
+          </View>
+          {!password.length ? null : (
+            <TouchableOpacity onPress={handleClean}>
+              <Image source={require('assets/icon/circle-cancel.png')} />
+            </TouchableOpacity>
+          )}
+        </View>
+      </ScrollView>
       <TouchableOpacity
         style={disable ? style.inActiveBtn : style.getCodeBtn}
         activeOpacity={disable ? 1 : 0.5}
@@ -251,22 +233,15 @@ const Login = props => {
         translucent={true}
         barStyle="dark-content"
       />
-      <HeaderTitle
-        title="欢迎登陆"
-        leftIcon={
-          loginWays === 0
-            ? require('assets/icon/close.png')
-            : require('assets/icon/arrow-left.png')
-        }
-        leftClick={() => {
-          if (loginWays === 0) {
-            NavigationService.goBack();
-          } else {
-            toCodeLogin();
-          }
-        }}
-        styles={{fontWeight: 'bold'}}
-      />
+      <View style={style.head}>
+        <Image source={require('assets/icon/arrow-left-black.png')} />
+        <TouchableOpacity
+          onPress={loginWays === 0 ? handlePwdLogin : toCodeLogin}>
+          <Text style={style.headText}>
+            {loginWays === 0 ? '密码登录' : '免密登录'}
+          </Text>
+        </TouchableOpacity>
+      </View>
       <View style={style.contentBox}>
         {loginWays === 0 ? renderCodeLogin() : renderPwdLogin()}
       </View>

@@ -6,6 +6,7 @@ import {createAppContainer} from 'react-navigation';
 import Welcome from 'containers/Welcome';
 import LoginStack from './LoginStack';
 import Main from './tabsNavigator';
+import SystemSetup from 'containers/SystemSetup';
 
 const stackNavigation = createStackNavigator(
   {
@@ -23,6 +24,12 @@ const stackNavigation = createStackNavigator(
     },
     Main: {
       screen: Main,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    SystemSetup: {
+      screen: SystemSetup,
       navigationOptions: {
         header: null,
       },

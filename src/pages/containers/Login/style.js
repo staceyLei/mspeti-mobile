@@ -6,6 +6,32 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingTop: global.gScreen.navBarPaddingTop,
   },
+  head: {
+    flexDirection: 'row',
+    paddingHorizontal: 15,
+    width: global.gScreen.width,
+    justifyContent: 'space-between',
+    paddingTop: 10,
+  },
+  headText: {
+    ...global.gFontSize.Lv3,
+  },
+  titleBox: {
+    marginBottom: 40,
+  },
+  eye: {
+    marginRight: 10,
+  },
+  titText: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    lineHeight: 27,
+    marginBottom: 10,
+  },
+  tipText: {
+    ...global.gFontSize.Lv4,
+    color: global.gColors.fontLv3,
+  },
   contentBox: {
     flex: 1,
     justifyContent: 'space-between',
@@ -82,21 +108,31 @@ export default StyleSheet.create({
   bottomBox: {
     width: global.gScreen.width,
     paddingHorizontal: global.gMargin.l + global.gMargin.m,
+    marginBottom: 20,
   },
   tipsText: {
     color: global.gColors.fontLv3,
     ...global.gFontSize.Lv4,
   },
+  wayText: {
+    color: global.gColors.fontLv3,
+    ...global.gFontSize.Lv3,
+    marginBottom: 15,
+  },
   iconContainer: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 2 * global.gMargin.l,
     marginBottom: global.gMargin.m,
   },
   iconBox: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: 30,
+  },
+  pwdCtl: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 5,
   },
   waysIcon: {
     marginBottom: global.gMargin.s,
