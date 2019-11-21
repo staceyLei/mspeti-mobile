@@ -13,6 +13,7 @@
     "@react-native-community/async-storage": "^1.6.2",
     "eslint-plugin-flowtype": "^4.3.0",
     "moment": "^2.24.0",
+    "qs": "^6.9.1",
     "react": "16.9.0",
     "react-native": "0.61.1",
     "react-native-gesture-handler": "^1.4.1",
@@ -31,7 +32,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
-    "@babel/runtime": "^7.6.2",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
     "eslint": "^6.4.0",

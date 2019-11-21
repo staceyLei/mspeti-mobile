@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-root-toast';
+import qs from 'qs';
 
-const prefix = 'http://47.101.141.240:8765';
+const prefix = 'http://47.101.141.240:8762';
 
 async function request(url, params, type) {
   let newUrl = prefix + url;
@@ -12,23 +13,30 @@ async function request(url, params, type) {
     let options = {
       method: type,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         // token,
         // language: window.locale === 'zh-CN' ? 'zh_CN' : 'en',
-        Authorization: 'Basic d2ViQXBwOjEyMzQ1Ng==',
       },
     };
-    let formData = new FormData();
-    Object.keys(params).map(ele => {
-      formData.append(ele, params[ele]);
-    });
-    if (type === 'post' || type === 'put' || type === 'delete') {
-      options = Object.assign(options, {
-        body: JSON.stringify(params),
-        // body: formData,
-      });
+    if (url === '/auth/oauth/token') {
+      options.Authorization = 'Basic YW5kcm9pZDphbmRyb2lk';
     }
-    console.log('options', options);
+    if (type === 'post' || type === 'put' || type === 'delete') {
+      if (url === '/auth/oauth/token') {
+        let queryStr = '';
+        if (params) {
+          queryStr = '?';
+          Object.keys(params).forEach(key => {
+            queryStr += `${key}=${params[key]}&`;
+          });
+          newUrl = (newUrl + queryStr).slice(0, (newUrl + queryStr).length - 1);
+        }
+      } else {
+        options = Object.assign(options, {
+          body: JSON.stringify(params),
+        });
+      }
+    }
     if (type === 'get') {
       let queryStr = '';
       if (params) {
@@ -39,12 +47,14 @@ async function request(url, params, type) {
         newUrl = (newUrl + queryStr).slice(0, (newUrl + queryStr).length - 1);
       }
     }
+    console.log('options', options, newUrl);
     // fetch本身不支持设置请求超时时间
     // 通过Promise.race()比较两个Promise谁先改变状态来达到请求超时的效果
     return Promise.race([
       fetch(newUrl, options)
         .then(res => {
-          if (res.ok) {
+          console.log('result', res);
+          if (Object.keys(res).length) {
             return res;
           }
           return Promise.reject(`${res.status}(${res.statusText})`); // eslint-disable-line

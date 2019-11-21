@@ -15,6 +15,7 @@ import NavigationService from 'utils/navigationService';
 import style from './style';
 import userActions from 'store/actions/userActions';
 import api from 'services';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Icons = [
   {title: '微信', img: require('assets/icon/wechat.png')},
@@ -74,13 +75,22 @@ const Login = props => {
     }
   };
 
-  const handleGetCode = () => {
-    const oldP = props.navigation.state.params;
-    props.navigation.navigate('SMSAuth', {
-      type: loginWays,
-      param: {phone},
-      ...oldP,
-    });
+  const handleGetCode = async () => {
+    // const oldP = props.navigation.state.params;
+    // props.navigation.navigate('SMSAuth', {
+    //   type: loginWays,
+    //   param: {phone},
+    //   ...oldP,
+    // });
+    const access_token = await AsyncStorage.getItem('access_token');
+    api
+      .getAuth({access_token})
+      .then(res => {
+        console.log('res2', res);
+      })
+      .catch(e => {
+        console.log('error', e);
+      });
   };
 
   const handleClean = () => {
@@ -102,7 +112,6 @@ const Login = props => {
 
   const handleLogin = () => {
     const params = {
-      // graphValidateCode: graphCode,
       username: userName,
       grant_type: 'password',
       password,
@@ -120,15 +129,9 @@ const Login = props => {
       // } else {
       //   // handleChangeCode();
       // }
+      AsyncStorage.setItem('access_token', res.access_token);
     });
   };
-
-  // const handleChangeCode = () => {
-  //   const uri = `http://172.21.72.8:8830${
-  //     api.getGraphValidateCode
-  //   }?v=${Math.random()}`;
-  //   setCodeUri(uri);
-  // };
 
   const renderCodeLogin = () => (
     <>
@@ -216,7 +219,7 @@ const Login = props => {
       </TouchableOpacity>
       <View style={style.forgetPwd}>
         <TouchableOpacity onPress={handleRegister}>
-          <Text style={style.pwdTips}>忘记密码</Text>
+          <Text style={style.pwdTips}>免费注册</Text>
         </TouchableOpacity>
       </View>
     </View>
