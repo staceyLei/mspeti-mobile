@@ -119,17 +119,9 @@ const Login = props => {
     setDisabale(true);
     props.login(params).then(res => {
       setDisabale(false);
-      // if (res === '200') {
-      //   const {from, fromParam} = props.navigation.state.params;
-      //   if (from) {
-      //     props.navigation.navigate(from, fromParam);
-      //   } else {
-      //     props.navigation.navigate('Main');
-      //   }
-      // } else {
-      //   // handleChangeCode();
-      // }
-      AsyncStorage.setItem('access_token', res.access_token);
+      if (res === '200') {
+        props.navigation.navigate('HomePage');
+      }
     });
   };
 

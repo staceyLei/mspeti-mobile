@@ -14,6 +14,7 @@ const userActions = {
           type: LOGIN_SUCCESS,
           payload: true,
         });
+        return '200';
       })
       .catch(e => {
         console.log('e', e);
