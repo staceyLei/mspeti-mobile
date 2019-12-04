@@ -57,6 +57,23 @@ flutter:
    - assets/icon/QQ.png
    - assets/icon/wechat.png
    - assets/image/welcome.png
+   - assets/image/headImg.png
+   - assets/icon/menu-attend.png
+   - assets/icon/menu-class.png
+   - assets/icon/menu-homework.png
+   - assets/icon/menu-reading.png
+   - assets/icon/menu-remark.png
+   - assets/icon/menu-result.png
+   - assets/image/banner.png
+   - assets/image/blank.png
+   - assets/image/class1.png
+   - assets/image/class2.png
+   - assets/icon/title-bar.png
+   - assets/icon/arrow-right-blue.png
+
+   
+   
+
 
 
 

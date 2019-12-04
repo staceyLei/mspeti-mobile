@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../Tab/Tabs.dart';
-import '../Login/Login.dart';
-import '../SMSCode/SMSCode.dart';
-import '../Welcome/Welcome.dart';
+import '../pages/container/Tab/Tabs.dart';
+import '../pages/container/Login/Login.dart';
+import '../pages/container/SMSCode/SMSCode.dart';
+import '../pages/container/Welcome/Welcome.dart';
 
 final routes = {
   '/': (context,{arguments}) => Tabs(),

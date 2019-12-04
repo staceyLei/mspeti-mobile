@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
+import '../../../assets/style.dart';
 
-var themeColor = Color.fromRGBO(37, 102, 177, 1);
-var loadingColor = Color.fromRGBO(37, 102, 177, 0.3);
+
 
 class Welcome extends StatefulWidget {
   @override
@@ -18,22 +18,33 @@ class _WelcomeState extends State<Welcome> {
   @override
   void initState() {
     super.initState();
-    print('initState');
     this._timerPeriod = Timer.periodic(Duration(seconds: 1), (Timer timer) {
       if (this._count <= 0) {
+        this._cancelTimer();
         this._jumpToTab();
-        this._timerPeriod.cancel();
       }
       setState(() {
-        if (this._count > 0) {
-          this._count -= 1;
-        }
+        this._count -= 1;
       });
     });
   }
 
+  _cancelTimer() {
+    this._timerPeriod.cancel();
+    this._timerPeriod = null;
+  }
+
   _jumpToTab() {
     Navigator.pushReplacementNamed(context, '/');
+  }
+
+  @override
+  void dispose() {
+    //手动跳转时清除
+    super.dispose();
+    if (this._timerPeriod != null) {
+      this._cancelTimer();
+    }
   }
 
   @override

@@ -3,7 +3,6 @@ import './Course.dart';
 import './HomePage.dart';
 import './Message.dart';
 import './MyCenter.dart';
-import '../Login/Login.dart';
 
 class TabsIcon extends StatelessWidget {
   final String imgUrl;
