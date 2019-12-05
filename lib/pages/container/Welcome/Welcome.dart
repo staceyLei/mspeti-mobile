@@ -22,10 +22,11 @@ class _WelcomeState extends State<Welcome> {
       if (this._count <= 0) {
         this._cancelTimer();
         this._jumpToTab();
-      }
+      }else{
       setState(() {
         this._count -= 1;
       });
+      }
     });
   }
 

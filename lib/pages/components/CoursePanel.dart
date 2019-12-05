@@ -29,7 +29,6 @@ class _CoursePanelState extends State<CoursePanel> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    print('width$width');
     return Container(
       padding: EdgeInsets.all(10.0),
       margin: EdgeInsets.only(top: 10.0),

@@ -51,9 +51,10 @@ class _TabsState extends State<Tabs> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: this._changeIndex,
         currentIndex: this._currentIndex,
-        unselectedLabelStyle: TextStyle(color: Colors.black54, fontSize: 12.0),
-        selectedLabelStyle:
-            TextStyle(color: Color.fromRGBO(32, 102, 177, 1.0), fontSize: 12.0),
+        unselectedItemColor: Colors.black,
+        unselectedFontSize: 12.0,
+        selectedFontSize: 12.0,
+        selectedItemColor: Color.fromRGBO(32, 102, 177, 1.0),
         type: BottomNavigationBarType.fixed,
         iconSize: 24.0,
         items: [
