@@ -71,9 +71,19 @@ flutter:
    - assets/icon/title-bar.png
    - assets/icon/arrow-right-blue.png
    - assets/icon/icon-setup.png
+   - assets/icon/search.png
    - assets/icon/icon-xunzhang.png
    - assets/icon/arrow-right-white.png
    - assets/icon/circle-bg.png
+   - assets/icon/arrow-right-black.png
+   - assets/icon/center-attend.png
+   - assets/icon/center-class.png
+   - assets/icon/center-grow.png
+   - assets/icon/center-message.png
+   - assets/icon/center-remark.png
+
+   
+   
    
 
    

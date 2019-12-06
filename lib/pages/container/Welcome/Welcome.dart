@@ -19,7 +19,7 @@ class _WelcomeState extends State<Welcome> {
   void initState() {
     super.initState();
     this._timerPeriod = Timer.periodic(Duration(seconds: 1), (Timer timer) {
-      if (this._count <= 0) {
+      if (this._count <= 1) {
         this._cancelTimer();
         this._jumpToTab();
       }else{

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import '../../../assets/style.dart';
@@ -377,10 +378,10 @@ class _HomePageState extends State<HomePage> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  Icon(
-                                    Icons.search,
-                                    size: 16.0,
-                                    color: Colors.grey,
+                                  Container(
+                                    width: 16,
+                                    height: 16,
+                                    child: prefix0.Image.asset('assets/icon/search.png',fit:BoxFit.contain),
                                   ),
                                   Text('我的课表',
                                       style: TextStyle(
