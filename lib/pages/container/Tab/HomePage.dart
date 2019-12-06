@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import '../../../assets/style.dart';
-import '../../components/MenuButton.dart';
-import '../../components/CoursePanel.dart';
+import 'package:educationapp/assets/style.dart';
+import 'package:educationapp/pages/components/MenuButton.dart';
+import 'package:educationapp/pages/components/CoursePanel.dart';
 import 'dart:ui';
 
 class HomePage extends StatefulWidget {

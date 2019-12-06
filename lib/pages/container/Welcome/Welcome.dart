@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import '../../../assets/style.dart';
+import 'package:educationapp/assets/style.dart';
 
 
 

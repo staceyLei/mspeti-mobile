@@ -109,7 +109,7 @@ class _MyCenterState extends State<MyCenter> {
                                 children: <Widget>[
                                   InkWell(
                                     onTap: () {
-                                      print('设置');
+                                      Navigator.pushNamed(context, '/SetUp');
                                     },
                                     child: Container(
                                       width: 20,
@@ -272,7 +272,7 @@ class _MyCenterState extends State<MyCenter> {
             ),
           ),
           Positioned(
-            top: 0,
+            top: this._barOpacity > 0 ? 0 : DEFAULT_BAR,//层级问题，挡住底层设置按钮
             child: Opacity(
               opacity: this._barOpacity,
               child: Container(
@@ -304,7 +304,7 @@ class _MyCenterState extends State<MyCenter> {
                         style: TextStyle(color: Colors.white, fontSize: 16.0)),
                     InkWell(
                       onTap: () {
-                        print('设置');
+                        Navigator.pushNamed(context, '/SetUp');
                       },
                       child: Container(
                         width: 20,
