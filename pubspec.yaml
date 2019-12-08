@@ -24,6 +24,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   flutter_swiper: ^1.1.6
+  flutter_redux: ^0.6.0
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,16 @@ flutter:
    - assets/icon/center-remark.png
    - assets/icon/arrow-left-white.png
    - assets/icon/back-exit.png
+   - assets/icon/icon-white-back.png
+   - assets/icon/icon-white-share.png
+   - assets/icon/icon-dark-back.png
+   - assets/icon/icon-dark-share.png
+   - assets/icon/icon-location.png
+   - assets/icon/icon-star-unactive.png
+   - assets/icon/icon-star-active.png
+   - assets/icon/unfocus-on.png
+   - assets/icon/focus-on.png
+   - assets/icon/banner2.png
    
 
    

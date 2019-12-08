@@ -1,9 +1,8 @@
+import 'package:educationapp/store/store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:educationapp/assets/style.dart';
-
-
 
 class Welcome extends StatefulWidget {
   @override
@@ -22,10 +21,10 @@ class _WelcomeState extends State<Welcome> {
       if (this._count <= 1) {
         this._cancelTimer();
         this._jumpToTab();
-      }else{
-      setState(() {
-        this._count -= 1;
-      });
+      } else {
+        setState(() {
+          this._count -= 1;
+        });
       }
     });
   }
@@ -36,7 +35,11 @@ class _WelcomeState extends State<Welcome> {
   }
 
   _jumpToTab() {
-    Navigator.pushReplacementNamed(context, '/');
+    var route = '/Login';
+    if (store.state.user.isLogin) {
+      route = '/';
+    }
+    Navigator.pushReplacementNamed(context, route);
   }
 
   @override

@@ -1,7 +1,12 @@
 import 'package:educationapp/route/route.dart' as router;
+import 'package:educationapp/store/store.dart' as store;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:educationapp/store/store.dart';
 import 'dart:io';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:educationapp/assets/style.dart' as style;
 
 void main() {
   runApp(MyApp());
@@ -17,14 +22,17 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return
-        // AnnotatedRegion<SystemUiOverlayStyle>(
-        //   value: SystemUiOverlayStyle.dark,
-        //   child:
-        MaterialApp(
-            debugShowCheckedModeBanner: false,
-            initialRoute: '/Welcome', //初始化的时候加载的路由
-            onGenerateRoute: router.onGenerateRoute);
-    // );
+    return StoreProvider(
+      store: store.store,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/Welcome', //初始化的时候加载的路由
+        onGenerateRoute: router.onGenerateRoute,
+        theme: ThemeData(
+          primaryColor: style.themeColor,
+          accentColor: style.themeColor,
+        ),
+      ),
+    );
   }
 }

@@ -15,7 +15,6 @@ class _SetUpState extends State<SetUp> {
     return Scaffold(
         backgroundColor: style.bgColor,
         appBar: AppBar(
-          backgroundColor: style.themeColor,
           centerTitle: true,
           title:
               Text('个人设置', style: TextStyle(color: Colors.white, fontSize: 20)),
@@ -65,39 +64,47 @@ class _SetUpState extends State<SetUp> {
                       ],
                     ),
                     Icon(
-                          Icons.keyboard_arrow_right,
-                          color: Colors.grey,
-                        )
+                      Icons.keyboard_arrow_right,
+                      color: Colors.grey,
+                    )
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 20.0,),
+            SizedBox(
+              height: 20.0,
+            ),
             Container(
-              padding: EdgeInsets.all(15.0),
+                padding: EdgeInsets.all(15.0),
                 width: style.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top:Radius.circular(10.0)),
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(10.0)),
                 ),
                 child: InkWell(
-                  onTap: (){
-                    print('退出登录');
+                  onTap: () {
+                    Navigator.pushNamed(context, '/Login');
                   },
                   child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: 28,
-                      height: 28,
-                      child: Image.asset('assets/icon/back-exit.png',fit: BoxFit.contain,),
-                    ),
-                    SizedBox(width: 15.0,),
-                    Text('退出登录',style:TextStyle(fontSize: 18.0,fontWeight:FontWeight.bold)),
-                  ],
-                ),
-              )
-                
-              ),
+                    children: <Widget>[
+                      Container(
+                        width: 28,
+                        height: 28,
+                        child: Image.asset(
+                          'assets/icon/back-exit.png',
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15.0,
+                      ),
+                      Text('退出登录',
+                          style: TextStyle(
+                              fontSize: 18.0, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                )),
           ],
         ));
   }

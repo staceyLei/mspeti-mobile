@@ -67,22 +67,24 @@ class _CoursePanelState extends State<CoursePanel> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                    this._title,
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  SizedBox(height: 10.0,),
-                  Text(
-                    this._info,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Color.fromRGBO(158, 158, 163, 1),
+                      this._title,
+                      style: TextStyle(fontSize: 16.0),
                     ),
-                  ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      this._info,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color.fromRGBO(158, 158, 163, 1),
+                      ),
+                    ),
                   ],
                 ),
                 InkWell(
                   onTap: () {
-                    print('了解更多');
+                    Navigator.pushNamed(context, '/CourseDetails',arguments:{'courseId':1234});
                   },
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,

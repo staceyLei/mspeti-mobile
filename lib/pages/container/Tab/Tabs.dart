@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import './Course.dart';
-import './HomePage.dart';
-import './Message.dart';
-import './MyCenter.dart';
+import 'Course/Course.dart';
+import 'Message/Message.dart';
+import 'MyCenter/MyCenter.dart';
+import 'HomePage/HomePage.dart';
 
 class TabsIcon extends StatelessWidget {
   final String imgUrl;
@@ -54,7 +54,6 @@ class _TabsState extends State<Tabs> {
         unselectedItemColor: Colors.black,
         unselectedFontSize: 12.0,
         selectedFontSize: 12.0,
-        selectedItemColor: Color.fromRGBO(32, 102, 177, 1.0),
         type: BottomNavigationBarType.fixed,
         iconSize: 24.0,
         items: [
