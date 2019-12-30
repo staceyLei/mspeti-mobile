@@ -2,11 +2,10 @@ import 'package:educationapp/route/route.dart' as router;
 import 'package:educationapp/store/store.dart' as store;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:educationapp/store/store.dart';
 import 'dart:io';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
 import 'package:educationapp/assets/style.dart' as style;
+import 'package:flutter/foundation.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,6 +17,12 @@ void main() {
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 }
+
+const Map<TargetPlatform, PageTransitionsBuilder> _defaultBuilders =
+    <TargetPlatform, PageTransitionsBuilder>{
+  TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+  TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+};
 
 class MyApp extends StatelessWidget {
   @override
@@ -31,6 +36,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: style.themeColor,
           accentColor: style.themeColor,
+          pageTransitionsTheme: PageTransitionsTheme(builders: _defaultBuilders),
         ),
       ),
     );

@@ -18,20 +18,66 @@ class _LoginState extends State<Login> {
   String _password = '';
   String _username = '';
   bool _disabled = true;
+  final _phonController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    this._phonController.dispose();
+    super.dispose();
+  }
+
+  handleClean(inputVal) {
+    setState(() {
+      inputVal = '';
+    });
+  }
+
+  onCancel(controller) {
+    // 保证在组件build的第一帧时才去触发取消清空内容
+    WidgetsBinding.instance.addPostFrameCallback((_) => controller.clear());
+  }
+
   List<Widget> _getLoginType(int loginType) {
     if (loginType == 0) {
+      // 验证码登录
       return [
         Container(
           padding: EdgeInsets.fromLTRB(25, 10, 25, 30),
           child: TextField(
+            controller: _phonController,
             onChanged: (v) {
               setState(() {
                 this._phone = v;
                 this._disabled = !(v.length >= 11);
               });
             },
+            inputFormatters: [
+              // 长度限制
+              LengthLimitingTextInputFormatter(11),
+              // 数字限制
+              WhitelistingTextInputFormatter.digitsOnly,
+            ],
+            keyboardType: TextInputType.phone,
             style: TextStyle(fontSize: 16.0, color: Colors.black),
             decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(vertical: 15.0),
+                suffixIcon: this._phone.length > 0
+                    ? IconButton(
+                        icon: Image.asset('assets/icon/circle-cancel.png'),
+                        onPressed: () {
+                          setState(() {
+                            this._phone = '';
+                          });
+                          onCancel(this._phonController);
+                        },
+                      )
+                    : null,
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                         color: Colors.black54,
@@ -41,10 +87,12 @@ class _LoginState extends State<Login> {
         ),
       ];
     }
+    // 密码登录部分
     return [
       Container(
         padding: EdgeInsets.fromLTRB(25, 10, 25, 20),
         child: TextField(
+          controller: this._usernameController,
           onChanged: (v) {
             setState(() {
               this._username = v;
@@ -53,6 +101,18 @@ class _LoginState extends State<Login> {
           },
           style: TextStyle(fontSize: 16.0, color: Colors.black),
           decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(vertical: 15.0),
+              suffixIcon: this._username.length > 0
+                  ? IconButton(
+                      icon: Image.asset('assets/icon/circle-cancel.png'),
+                      onPressed: () {
+                        setState(() {
+                          this._username = '';
+                        });
+                        onCancel(this._usernameController);
+                      },
+                    )
+                  : null,
               focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                       color: Colors.black54,
@@ -63,6 +123,7 @@ class _LoginState extends State<Login> {
       Container(
         padding: EdgeInsets.fromLTRB(25, 0, 25, 30),
         child: TextField(
+          controller: this._passwordController,
           onChanged: (v) {
             setState(() {
               this._password = v;
@@ -72,7 +133,19 @@ class _LoginState extends State<Login> {
           style: TextStyle(fontSize: 16.0, color: Colors.black),
           obscureText: this._isShow,
           decoration: InputDecoration(
-              icon: Container(
+              contentPadding: EdgeInsets.symmetric(vertical: 15.0),
+              suffixIcon: this._password.length > 0
+                  ? IconButton(
+                      icon: Image.asset('assets/icon/circle-cancel.png'),
+                      onPressed: () {
+                        setState(() {
+                          this._password = '';
+                        });
+                        onCancel(this._passwordController);
+                      },
+                    )
+                  : null,
+              prefixIcon: Container(
                 width: 20,
                 height: 20,
                 child: InkWell(
@@ -81,9 +154,11 @@ class _LoginState extends State<Login> {
                       this._isShow = !this._isShow;
                     });
                   },
-                  child: Image.asset(this._isShow
-                      ? "assets/icon/eye-close.png"
-                      : "assets/icon/eye-open.png"),
+                  child: Image.asset(
+                    this._isShow
+                        ? "assets/icon/eye-close.png"
+                        : "assets/icon/eye-open.png",
+                  ),
                 ),
               ),
               focusedBorder: UnderlineInputBorder(
@@ -112,6 +187,7 @@ class _LoginState extends State<Login> {
       params = {
         'username': this._username,
         'password': this._password,
+        'grant_type':'password',
       };
     }
     setState(() {

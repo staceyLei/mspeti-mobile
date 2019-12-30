@@ -28,7 +28,8 @@ var onGenerateRoute = (RouteSettings settings) {
       print('arguments:${settings.arguments}');
       final Route route = MaterialPageRoute(
           builder: (context) =>
-              pageContentBuilder(context, arguments: settings.arguments));
+              pageContentBuilder(context, arguments: settings.arguments),
+              );
       return route;
     } else {
       final Route route =

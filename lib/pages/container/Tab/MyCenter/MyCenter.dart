@@ -46,7 +46,8 @@ class _MyCenterState extends State<MyCenter> {
     {'title': '个人信息', 'leading': 'assets/icon/center-message.png', 'url': ''},
     {'title': '课堂情况', 'leading': 'assets/icon/center-attend.png', 'url': ''},
     {'title': '成长记录', 'leading': 'assets/icon/center-grow.png', 'url': ''},
-    {'title': '我的评价', 'leading': 'assets/icon/center-remark.png', 'url': ''}
+    {'title': '我的评价', 'leading': 'assets/icon/center-remark.png', 'url': ''},
+    {'title': '我的收藏', 'leading': 'assets/icon/collection.png', 'url': ''},
   ];
 
   List<Widget> _renderLearnData(List data) {

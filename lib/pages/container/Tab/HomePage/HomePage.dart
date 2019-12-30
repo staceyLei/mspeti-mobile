@@ -1,15 +1,15 @@
-import 'package:educationapp/store/store.dart';
-import 'package:educationapp/store/reducer/userReducer.dart';
-import 'components/NavBar.dart';
+import 'dart:ui';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:educationapp/store/store.dart';
+import 'package:educationapp/store/modal/User.dart';
 import 'package:educationapp/assets/style.dart';
 import 'package:educationapp/pages/components/MenuButton.dart';
 import 'components/CoursePanel.dart';
-import 'dart:ui';
+import 'components/NavBar.dart';
 import 'const.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
 class HomePage extends StatefulWidget {
   @override

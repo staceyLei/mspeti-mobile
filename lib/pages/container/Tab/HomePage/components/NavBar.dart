@@ -5,6 +5,7 @@ class NavBar extends StatelessWidget {
   double barOpacity;
   var barHeight;
   NavBar({this.barHeight, this.barOpacity, Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -81,3 +82,4 @@ class NavBar extends StatelessWidget {
     );
   }
 }
+

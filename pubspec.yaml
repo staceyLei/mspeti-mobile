@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_swiper: ^1.1.6
   flutter_redux: ^0.6.0
+  dio: ^3.0.7
 
 dev_dependencies:
   flutter_test:
@@ -94,6 +95,9 @@ flutter:
    - assets/icon/unfocus-on.png
    - assets/icon/focus-on.png
    - assets/icon/banner2.png
+   - assets/icon/circle-cancel.png
+   - assets/icon/collection.png
+   
    
 
    
