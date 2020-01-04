@@ -14,7 +14,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   int _loginType = 0; //0 免密登录 1 密码登录
   String _phone = '';
-  bool _isShow = false; //密码是否可见
+  bool _isShow = true; //密码是否隐藏
   String _password = '';
   String _username = '';
   bool _disabled = true;

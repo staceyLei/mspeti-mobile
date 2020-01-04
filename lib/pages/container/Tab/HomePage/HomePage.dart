@@ -7,8 +7,8 @@ import 'package:educationapp/store/store.dart';
 import 'package:educationapp/store/modal/User.dart';
 import 'package:educationapp/assets/style.dart';
 import 'package:educationapp/pages/components/MenuButton.dart';
+import 'package:educationapp/pages/components/NavBar.dart';
 import 'components/CoursePanel.dart';
-import 'components/NavBar.dart';
 import 'const.dart';
 
 class HomePage extends StatefulWidget {
@@ -42,6 +42,57 @@ class _HomePageState extends State<HomePage> {
         }
       });
     });
+  }
+
+  List<Widget> renderNavBar() {
+    return <Widget>[
+      SizedBox(
+        width: 15.0,
+      ),
+      ClipOval(
+        child: Image.asset(
+          'assets/image/headImg.png',
+          fit: BoxFit.cover,
+          width: 35,
+          height: 35,
+        ),
+      ),
+      SizedBox(
+        width: 10,
+      ),
+      Expanded(
+        flex: 1,
+        child: InkWell(
+          onTap: () {
+            print('search');
+          },
+          child: Container(
+            padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(241, 242, 243, 1),
+              borderRadius: BorderRadius.circular(18.0),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  width: 14,
+                  height: 14,
+                  margin: EdgeInsets.only(right: 5.0),
+                  child: Image.asset('assets/icon/search.png',
+                      fit: BoxFit.contain),
+                ),
+                Text('我的课表',
+                    style: TextStyle(color: Colors.grey, fontSize: 14.0))
+              ],
+            ),
+          ),
+        ),
+      ),
+      SizedBox(
+        width: 15.0,
+      ),
+    ];
   }
 
   int _menuCount = (MyConst.menuList.length / 4).ceil();
@@ -297,6 +348,8 @@ class _HomePageState extends State<HomePage> {
                   NavBar(
                     barHeight: this.DEFAULT_BAR,
                     barOpacity: this._barOpacity,
+                    comonent:this.renderNavBar(),
+                    color: Color.fromRGBO(37, 177, 135, 1),
                   ),
                 ])));
       },

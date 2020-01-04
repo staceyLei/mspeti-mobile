@@ -3,7 +3,7 @@ import 'components/InfoCard.dart';
 import 'package:flutter/material.dart';
 import 'components/MenuBar.dart';
 import 'components/LearnData.dart';
-import 'components/NavBar.dart';
+import 'package:educationapp/pages/components/NavBar.dart';
 
 class MyCenter extends StatefulWidget {
   @override
@@ -74,6 +74,33 @@ class _MyCenterState extends State<MyCenter> {
     return null;
   }
 
+  List<Widget> renderNavBar() {
+    return <Widget>[
+      ClipOval(
+        child: Image.asset(
+          'assets/image/headImg.png',
+          fit: BoxFit.cover,
+          width: 35,
+          height: 35,
+        ),
+      ),
+      Text('个人中心', style: TextStyle(color: Colors.white, fontSize: 16.0)),
+      InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, '/SetUp');
+        },
+        child: Container(
+          width: 20,
+          height: 20,
+          child: Image.asset(
+            'assets/icon/icon-setup.png',
+            fit: BoxFit.cover,
+          ),
+        ),
+      )
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,7 +169,10 @@ class _MyCenterState extends State<MyCenter> {
                         child: Image.asset('assets/icon/circle-bg.png'),
                       ),
                       // 我的学习数据板块
-                      LearnPanel(renderLearnData: this._renderLearnData,learnData: this._learnData,),
+                      LearnPanel(
+                        renderLearnData: this._renderLearnData,
+                        learnData: this._learnData,
+                      ),
                     ],
                   ),
                   Container(
@@ -161,11 +191,14 @@ class _MyCenterState extends State<MyCenter> {
             ),
           ),
           // 渐变导航栏
-         NavBar(barOpacity: this._barOpacity,barHeight: this.DEFAULT_BAR,),
+          NavBar(
+            barOpacity: this._barOpacity,
+            barHeight: this.DEFAULT_BAR,
+            comonent: this.renderNavBar(),
+            color: Color.fromRGBO(45, 118, 202, 1),
+          ),
         ],
       ),
     );
   }
 }
-
-
