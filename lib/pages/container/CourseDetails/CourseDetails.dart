@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
+import 'package:educationapp/pages/components/NavBar.dart';
 import 'package:flutter/services.dart';
 import 'components/ButtonLink.dart';
 import 'components/CommentsPanel.dart';
-import 'package:educationapp/pages/components/NavBar.dart';
+import 'components/SchoolInfo.dart';
 
 class CourseDetails extends StatefulWidget {
   final arguments;
@@ -47,19 +48,19 @@ class _CourseDetailsState extends State<CourseDetails> {
 
   List<Widget> renderBarDown() {
     return <Widget>[
-        InkWell(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Image.asset('assets/icon/icon-white-back.png'),
-        ),
-        InkWell(
-          onTap: () {
-            print('share');
-          },
-          child: Image.asset('assets/icon/icon-white-share.png'),
-        ),
-      ];
+      InkWell(
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+        child: Image.asset('assets/icon/icon-white-back.png'),
+      ),
+      InkWell(
+        onTap: () {
+          print('share');
+        },
+        child: Image.asset('assets/icon/icon-white-share.png'),
+      ),
+    ];
   }
 
   List<Widget> renderBarUp() {
@@ -98,18 +99,8 @@ class _CourseDetailsState extends State<CourseDetails> {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            // padding: EdgeInsets.fromLTRB(
-                            //     10, style.topPadding, 10, 10),
-                            // padding: EdgeInsets.only(top: style.topPadding),
                             width: style.width,
                             height: 220,
-                            // decoration: BoxDecoration(
-                            //   image: DecorationImage(
-                            //     image: AssetImage('assets/icon/banner2.png'),
-                            //     fit: BoxFit.cover,
-                            //   ),
-                            // ),
-                            // alignment: Alignment.topLeft,
                             child: Image.asset(
                               'assets/icon/banner2.png',
                               fit: BoxFit.cover,
@@ -188,8 +179,14 @@ class _CourseDetailsState extends State<CourseDetails> {
                                       ],
                                     ),
                                     ButtonLink(
-                                      title: '简介',
-                                    ),
+                                        title: '简介',
+                                        handleOnTap: () {
+                                          showModalBottomSheet(
+                                              context: context,
+                                              builder: (BuildContext builder) {
+                                                return SchoolInfo();
+                                              });
+                                        }),
                                   ],
                                 )
                               ],
@@ -296,6 +293,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                     ),
                   ),
                 ),
+
                 NavBar(
                   barOpacity: 1 - this._barOpacity,
                   barHeight: this.DEFAULT_BAR,

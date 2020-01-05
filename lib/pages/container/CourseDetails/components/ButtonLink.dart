@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 class ButtonLink extends StatelessWidget {
   var title;
   var handleOnTap;
-  ButtonLink({this.title, this.handleOnTap});
+  ButtonLink({this.title, @required this.handleOnTap});
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print(title);
-      },
+      onTap: this.handleOnTap,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[

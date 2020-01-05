@@ -13,6 +13,9 @@ class CommentsPanel extends StatelessWidget {
           Text('全网评价', style: TextStyle(fontSize: 12.0)),
           ButtonLink(
             title: '更多',
+            handleOnTap: () {
+              print('more');
+            },
           ),
         ],
       ),
@@ -22,7 +25,7 @@ class CommentsPanel extends StatelessWidget {
     ];
     List<Widget> commentData = data
         .map((ele) => Container(
-          margin: EdgeInsets.only(bottom: 10.0),
+              margin: EdgeInsets.only(bottom: 10.0),
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: style.borderColor,
@@ -30,9 +33,7 @@ class CommentsPanel extends StatelessWidget {
               ),
               child: Column(
                 children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     ClipOval(
                       child: Image.asset(
                         ele['headImg'],
@@ -41,7 +42,9 @@ class CommentsPanel extends StatelessWidget {
                         height: 40,
                       ),
                     ),
-                    SizedBox(width: 15.0,),
+                    SizedBox(
+                      width: 15.0,
+                    ),
                     Expanded(
                       flex: 1,
                       child: Column(
@@ -62,14 +65,21 @@ class CommentsPanel extends StatelessWidget {
                         ],
                       ),
                     ),
-                    StarBox(star: ele['star'],)
+                    StarBox(
+                      star: ele['star'],
+                    )
                   ]),
-                  SizedBox(height: 10.0,),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(ele['content'],style: TextStyle(color: Colors.black,fontSize: style.sFontSize),),
+                    child: Text(
+                      ele['content'],
+                      style: TextStyle(
+                          color: Colors.black, fontSize: style.sFontSize),
+                    ),
                   ),
-                  
                 ],
               ),
             ))

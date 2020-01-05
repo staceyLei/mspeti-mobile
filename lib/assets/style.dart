@@ -13,3 +13,6 @@ const lightGrey = Color.fromRGBO(158, 158, 163, 1);
 const baseRadius = 5.0;
 const baseFontSize = 14.0;
 const sFontSize = 12.0;
+const titleSize = 18.0;
+const mFontSize = 16.0;
+const secondFontColor = Color.fromRGBO(191, 191, 191, 1);
