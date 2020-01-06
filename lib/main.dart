@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
     return StoreProvider(
       store: store.store,
       child: MaterialApp(
+        navigatorKey: router.navigatorKey,
         debugShowCheckedModeBanner: false,
         initialRoute: '/Welcome', //初始化的时候加载的路由
         onGenerateRoute: router.onGenerateRoute,

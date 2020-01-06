@@ -283,7 +283,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                               borderRadius: BorderRadius.circular(14.0),
                             ),
                             child: Text(
-                              '免费预约',
+                              '立即报名',
                               style: TextStyle(
                                   color: Colors.white, fontSize: 12.0),
                             ),
@@ -293,7 +293,6 @@ class _CourseDetailsState extends State<CourseDetails> {
                     ),
                   ),
                 ),
-
                 NavBar(
                   barOpacity: 1 - this._barOpacity,
                   barHeight: this.DEFAULT_BAR,

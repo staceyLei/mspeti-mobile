@@ -1,3 +1,4 @@
+import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'ButtonLink.dart';
@@ -15,6 +16,7 @@ class CommentsPanel extends StatelessWidget {
             title: '更多',
             handleOnTap: () {
               print('more');
+              navigatorKey.currentState.pushNamed('/CourseComment');
             },
           ),
         ],

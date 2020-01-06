@@ -5,6 +5,7 @@ import 'package:educationapp/pages/container/SetUp/SetUp.dart';
 import 'package:educationapp/pages/container/SMSCode/SMSCode.dart';
 import 'package:educationapp/pages/container/Welcome/Welcome.dart';
 import 'package:educationapp/pages/container/CourseDetails/CourseDetails.dart';
+import 'package:educationapp/pages/container/CourseDetails/components/CommentDetail/CommentDetail.dart';
 
 final routes = {
   '/': (context, {arguments}) => Tabs(),
@@ -17,7 +18,10 @@ final routes = {
   '/Welcome': (context) => Welcome(),
   '/SetUp': (context) => SetUp(),
   '/CourseDetails': (context, {arguments}) => CourseDetails(arguments: arguments,),
+  '/CourseComment':(context,{arguments}) => CommentDetail(),
 };
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
 //固定写法
 var onGenerateRoute = (RouteSettings settings) {
