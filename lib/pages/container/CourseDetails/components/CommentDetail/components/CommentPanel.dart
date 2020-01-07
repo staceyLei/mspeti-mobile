@@ -77,7 +77,7 @@ class CommentPanel extends StatelessWidget {
                   Text(
                     this.name,
                     style: TextStyle(
-                        color: Colors.black,
+                        color: style.baseFontColor,
                         fontSize: style.baseFontSize,
                         fontWeight: FontWeight.bold),
                   ),
@@ -103,7 +103,7 @@ class CommentPanel extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 15.0),
             child: Text(
               this.content,
-              style: TextStyle(color: Colors.black, fontSize: style.baseFontSize),
+              style: TextStyle(color: style.baseFontColor, fontSize: style.baseFontSize),
             ),
           ),
           SizedBox(

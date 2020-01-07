@@ -55,7 +55,7 @@ class CommentsPanel extends StatelessWidget {
                           Text(
                             '${ele['name']}',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: style.baseFontColor,
                                 fontSize: style.baseFontSize,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -79,7 +79,7 @@ class CommentsPanel extends StatelessWidget {
                     child: Text(
                       ele['content'],
                       style: TextStyle(
-                          color: Colors.black, fontSize: style.sFontSize),
+                          color: style.baseFontColor, fontSize: style.sFontSize),
                     ),
                   ),
                 ],

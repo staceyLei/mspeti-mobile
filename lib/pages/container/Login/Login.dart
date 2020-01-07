@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:educationapp/store/action/userAction.dart';
+import 'package:educationapp/assets/style.dart' as style;
 
 class Login extends StatefulWidget {
   var arguments;
@@ -249,7 +250,7 @@ class _LoginState extends State<Login> {
                           title: Text(this._loginType == 0 ? '手机免密登录' : '密码登录',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                                color: style.baseFontColor,
                                 fontSize: 20.0,
                               )),
                           subtitle: Container(
