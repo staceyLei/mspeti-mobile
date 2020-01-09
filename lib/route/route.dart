@@ -1,3 +1,4 @@
+import 'package:educationapp/pages/container/ConfirmOrder/ConfirmOrder.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/container/Tab/Tabs.dart';
 import 'package:educationapp/pages/container/Login/Login.dart';
@@ -19,6 +20,7 @@ final routes = {
   '/SetUp': (context) => SetUp(),
   '/CourseDetails': (context, {arguments}) => CourseDetails(arguments: arguments,),
   '/CourseComment':(context,{arguments}) => CommentDetail(),
+  '/ConfirmOrder':(context,{arguments}) => ConfirmOrder(),
 };
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();

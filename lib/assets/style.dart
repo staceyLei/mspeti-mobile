@@ -17,3 +17,4 @@ const titleSize = 18.0;
 const mFontSize = 16.0;
 const secondFontColor = Color.fromRGBO(191, 191, 191, 1);
 const baseFontColor = Color.fromRGBO(49, 50, 56, 1);
+TextStyle baseFontStyle = TextStyle(color: baseFontColor, fontSize: baseFontSize);

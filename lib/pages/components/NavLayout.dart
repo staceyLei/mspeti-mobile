@@ -12,12 +12,13 @@ class NavLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
         body: Column(
       children: <Widget>[
         Container(
           width: style.width,
           padding: EdgeInsets.fromLTRB(15, style.topPadding, 15, 10),
-          color: this.backgroundColor,
+          color: Colors.white,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -39,8 +40,7 @@ class NavLayout extends StatelessWidget {
                 flex: 1,
                 child: Text(this.title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: style.baseFontColor, fontSize: style.titleSize)),
+                    style: style.baseFontStyle.copyWith(fontSize:style.titleSize)),
               ),
               SizedBox(
                 width: 25,
@@ -50,10 +50,13 @@ class NavLayout extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: SingleChildScrollView(
+          child: Container(
+            color: this.backgroundColor,
+            child: SingleChildScrollView(
             child: Column(
               children: this.components,
             ),
+          ),
           ),
         ),
         this.bottom,

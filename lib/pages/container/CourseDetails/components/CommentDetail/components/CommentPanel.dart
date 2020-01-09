@@ -50,7 +50,7 @@ class CommentPanel extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(style.baseRadius),
+        borderRadius: style.baseRadius,
       ),
       child: Column(
         children: <Widget>[
@@ -76,10 +76,9 @@ class CommentPanel extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     this.name,
-                    style: TextStyle(
-                        color: style.baseFontColor,
-                        fontSize: style.baseFontSize,
-                        fontWeight: FontWeight.bold),
+                    style: style.baseFontStyle.copyWith(
+                      fontWeight:FontWeight.bold
+                    ),
                   ),
                   Text(this.date,
                       style: TextStyle(
@@ -103,7 +102,7 @@ class CommentPanel extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 15.0),
             child: Text(
               this.content,
-              style: TextStyle(color: style.baseFontColor, fontSize: style.baseFontSize),
+              style: style.baseFontStyle,
             ),
           ),
           SizedBox(

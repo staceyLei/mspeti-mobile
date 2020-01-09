@@ -31,7 +31,7 @@ class CommentsPanel extends StatelessWidget {
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: style.borderColor,
-                borderRadius: BorderRadius.circular(style.baseRadius),
+                borderRadius: style.baseRadius,
               ),
               child: Column(
                 children: <Widget>[
@@ -54,10 +54,7 @@ class CommentsPanel extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             '${ele['name']}',
-                            style: TextStyle(
-                                color: style.baseFontColor,
-                                fontSize: style.baseFontSize,
-                                fontWeight: FontWeight.bold),
+                            style: style.baseFontStyle.copyWith(fontWeight:FontWeight.bold),
                           ),
                           Text('${ele['date']}',
                               style: TextStyle(

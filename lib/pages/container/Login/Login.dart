@@ -203,7 +203,7 @@ class _LoginState extends State<Login> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: false,//解决键盘遮挡问题
         body: Container(
           width: double.infinity,
           height: double.infinity,

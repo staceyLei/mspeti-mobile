@@ -274,19 +274,17 @@ class _CourseDetailsState extends State<CourseDetails> {
                         ),
                         InkWell(
                           onTap: () {
-                            print('免费预约');
+                            Navigator.of(context).pushNamed('/ConfirmOrder');
                           },
                           child: Container(
                             padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
                             decoration: BoxDecoration(
-                              color: Theme.of(context).accentColor,
-                              borderRadius: BorderRadius.circular(14.0),
-                              gradient: LinearGradient(
-                                colors: [
-                                  style.themeColor,
+                                color: Theme.of(context).accentColor,
+                                borderRadius: BorderRadius.circular(14.0),
+                                gradient: LinearGradient(colors: [
                                   Color.fromRGBO(0, 117, 255, 1),
-                                  ])
-                            ),
+                                  style.themeColor,
+                                ])),
                             child: Text(
                               '立即报名',
                               style: TextStyle(
