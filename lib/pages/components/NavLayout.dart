@@ -17,7 +17,7 @@ class NavLayout extends StatelessWidget {
       children: <Widget>[
         Container(
           width: style.width,
-          padding: EdgeInsets.fromLTRB(15, style.topPadding, 15, 10),
+          padding: EdgeInsets.fromLTRB(15, style.topPadding+10, 15, 10),
           color: Colors.white,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,

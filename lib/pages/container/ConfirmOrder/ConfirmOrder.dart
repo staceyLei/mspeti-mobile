@@ -27,7 +27,7 @@ class ConfirmOrder extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              // navigatorKey.currentState.pushNamed('/ConfirmOrder');
+              navigatorKey.currentState.pushNamed('/ConfirmPay');
             },
             child: Container(
               padding: EdgeInsets.fromLTRB(20, 5, 20, 5),

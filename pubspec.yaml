@@ -101,6 +101,12 @@ flutter:
    - assets/icon/icon-head.png
    - assets/icon/icon-ticket.png
    - assets/icon/arrow-right-grey.png
+   - assets/icon/radio-uncheck.png
+   - assets/icon/radio-check.png
+   - assets/icon/wechat-pay.png
+   - assets/icon/card-pay.png
+   - assets/icon/zfb-pay.png
+   - assets/icon/balance-pay.png
    
 
    

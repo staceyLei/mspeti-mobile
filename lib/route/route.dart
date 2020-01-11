@@ -7,6 +7,7 @@ import 'package:educationapp/pages/container/SMSCode/SMSCode.dart';
 import 'package:educationapp/pages/container/Welcome/Welcome.dart';
 import 'package:educationapp/pages/container/CourseDetails/CourseDetails.dart';
 import 'package:educationapp/pages/container/CourseDetails/components/CommentDetail/CommentDetail.dart';
+import 'package:educationapp/pages/container/ConfirmPay/ConfirmPay.dart';
 
 final routes = {
   '/': (context, {arguments}) => Tabs(),
@@ -21,6 +22,7 @@ final routes = {
   '/CourseDetails': (context, {arguments}) => CourseDetails(arguments: arguments,),
   '/CourseComment':(context,{arguments}) => CommentDetail(),
   '/ConfirmOrder':(context,{arguments}) => ConfirmOrder(),
+  '/ConfirmPay':(context,{arguments}) => ConfirmPay(),
 };
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
