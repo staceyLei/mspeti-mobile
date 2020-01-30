@@ -1,5 +1,6 @@
 import 'package:educationapp/store/store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:educationapp/assets/style.dart';
@@ -35,7 +36,7 @@ class _WelcomeState extends State<Welcome> {
   }
 
   _jumpToTab() {
-    var route = '/Login';
+    var route = '/SelectSchool';
     if (store.state.user.isLogin) {
       route = '/';
     }
@@ -44,7 +45,7 @@ class _WelcomeState extends State<Welcome> {
 
   @override
   void dispose() {
-    //手动跳转时清除
+    //手动跳转时清除定时器
     super.dispose();
     if (this._timerPeriod != null) {
       this._cancelTimer();

@@ -8,6 +8,7 @@ import 'package:educationapp/pages/container/Welcome/Welcome.dart';
 import 'package:educationapp/pages/container/CourseDetails/CourseDetails.dart';
 import 'package:educationapp/pages/container/CourseDetails/components/CommentDetail/CommentDetail.dart';
 import 'package:educationapp/pages/container/ConfirmPay/ConfirmPay.dart';
+import 'package:educationapp/pages/container/SelectSchool/SelectSchool.dart';
 
 final routes = {
   '/': (context, {arguments}) => Tabs(),
@@ -23,8 +24,10 @@ final routes = {
   '/CourseComment':(context,{arguments}) => CommentDetail(),
   '/ConfirmOrder':(context,{arguments}) => ConfirmOrder(),
   '/ConfirmPay':(context,{arguments}) => ConfirmPay(),
+  '/SelectSchool':(context,{arguments}) => SelectSchool(),
 };
 
+// 代表当前context的路由对象
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
 //固定写法

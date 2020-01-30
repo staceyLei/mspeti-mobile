@@ -26,6 +26,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   flutter_redux: ^0.6.0
   dio: ^3.0.7
+  # shared_preferences: ^0.5.6+1
 
 dev_dependencies:
   flutter_test:

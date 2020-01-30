@@ -19,12 +19,14 @@ class _LoginState extends State<Login> {
   String _password = '';
   String _username = '';
   bool _disabled = true;
+  Map _schoolData;
   final _phonController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   @override
   void initState() {
     super.initState();
+    _schoolData = widget.arguments['school'];
   }
 
   @override
@@ -188,7 +190,7 @@ class _LoginState extends State<Login> {
       params = {
         'username': this._username,
         'password': this._password,
-        'grant_type':'password',
+        'grant_type': 'password',
       };
     }
     setState(() {
@@ -200,10 +202,11 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    print('name:${this._schoolData['name']}');
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,//解决键盘遮挡问题
+        resizeToAvoidBottomPadding: false, //解决键盘遮挡问题
         body: Container(
           width: double.infinity,
           height: double.infinity,
@@ -290,60 +293,67 @@ class _LoginState extends State<Login> {
                       ))
                 ],
               ),
-              Column(
-                children: <Widget>[
-                  ListTile(
-                    title: Text('其他登录方式'),
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      InkWell(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              width: 28.0,
-                              height: 28.0,
-                              child: Image.asset("assets/icon/QQ.png"),
-                            ),
-                            Text(
-                              'QQ',
-                              style:
-                                  TextStyle(fontSize: 12.0, color: Colors.grey),
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      InkWell(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              width: 28.0,
-                              height: 28.0,
-                              child: Image.asset("assets/icon/wechat.png"),
-                            ),
-                            Text(
-                              '微信',
-                              style:
-                                  TextStyle(fontSize: 12.0, color: Colors.grey),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                ],
+              // Column(
+              //   children: <Widget>[
+              //     ListTile(
+              //       title: Text('其他登录方式'),
+              //     ),
+              //     Row(
+              //       crossAxisAlignment: CrossAxisAlignment.center,
+              //       children: <Widget>[
+              //         SizedBox(
+              //           width: 20.0,
+              //         ),
+              //         InkWell(
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.center,
+              //             children: <Widget>[
+              //               Container(
+              //                 width: 28.0,
+              //                 height: 28.0,
+              //                 child: Image.asset("assets/icon/QQ.png"),
+              //               ),
+              //               Text(
+              //                 'QQ',
+              //                 style:
+              //                     TextStyle(fontSize: 12.0, color: Colors.grey),
+              //               )
+              //             ],
+              //           ),
+              //         ),
+              //         SizedBox(
+              //           width: 20.0,
+              //         ),
+              //         InkWell(
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.center,
+              //             children: <Widget>[
+              //               Container(
+              //                 width: 28.0,
+              //                 height: 28.0,
+              //                 child: Image.asset("assets/icon/wechat.png"),
+              //               ),
+              //               Text(
+              //                 '微信',
+              //                 style:
+              //                     TextStyle(fontSize: 12.0, color: Colors.grey),
+              //               )
+              //             ],
+              //           ),
+              //         )
+              //       ],
+              //     ),
+              //     SizedBox(
+              //       height: 10.0,
+              //     ),
+              //   ],
+              // ),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 15.0),
+                child: Text(
+                  '${this._schoolData['name']}机构' ?? '',
+                  style: TextStyle(color: style.sFontColor, fontSize: style.titleSize),
+                ),
               ),
             ],
           ),
