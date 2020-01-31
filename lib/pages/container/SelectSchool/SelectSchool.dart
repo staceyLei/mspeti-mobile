@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:flutter/services.dart';
 import 'package:educationapp/route/route.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'const.dart';
 
 class SelectSchool extends StatefulWidget {
@@ -13,11 +14,30 @@ class SelectSchool extends StatefulWidget {
 
 class _SelectSchoolState extends State<SelectSchool> {
   List<Map<String, String>> arr;
-  bool status = true; //true为展示状态；false为搜索状态
+  bool _status = true; //true为展示状态；false为搜索状态
+  TextEditingController _controller = TextEditingController();
+  bool _isAutoFocus = true; //一开始时跳转到搜索页自动获焦
+  FocusNode _focusNode = FocusNode();
+  SharedPreferences _prefs;
+  List<Map<String, String>> _searchRes;
   @override
   void initState() {
     super.initState();
     arr = schoolData;
+    // 监听失去焦点事件，失去焦点时候搜索
+    _focusNode.addListener(() {
+      bool hasFocus = _focusNode.hasFocus;
+      if (!hasFocus && !_status) {
+        _searchData();
+      }
+    });
+  }
+
+  void _searchData() {
+    print('search data:${_controller.text}');
+    this.setState(() {
+      _searchRes = arr;
+    });
   }
 
   Widget renderList(List data) {
@@ -26,13 +46,17 @@ class _SelectSchoolState extends State<SelectSchool> {
       itemCount: data.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
-            onTap: () {
-              navigatorKey.currentState.pushNamed('/Login',
-                  arguments: {"school": data[index]});
+            onTap: () async {
+              _prefs = await SharedPreferences.getInstance();
+              _prefs.setString('schoolName', data[index]['name']);
+              _prefs.setString('schoolId', data[index]['id']);
+              _focusNode.unfocus();
+              navigatorKey.currentState.pushNamed('/Login');
             },
             child: Container(
               padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
+                color: Colors.white,
                   border: Border(
                 bottom: BorderSide(color: style.borderColor, width: 1.0),
               )),
@@ -44,6 +68,7 @@ class _SelectSchoolState extends State<SelectSchool> {
     );
   }
 
+// 展示列表状态
   Widget renderShow() {
     return Column(
       children: <Widget>[
@@ -61,9 +86,8 @@ class _SelectSchoolState extends State<SelectSchool> {
         ),
         Container(
           padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-          decoration: BoxDecoration(
-              border:
-                  Border(bottom: BorderSide(color: style.bgColor, width: 10))),
+          decoration:
+              BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[]),
           child: Container(
               padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
               decoration: BoxDecoration(
@@ -77,7 +101,7 @@ class _SelectSchoolState extends State<SelectSchool> {
                 child: InkWell(
                   onTap: () {
                     this.setState(() {
-                      this.status = false;
+                      this._status = false;
                     });
                   },
                   child: Row(
@@ -85,7 +109,10 @@ class _SelectSchoolState extends State<SelectSchool> {
                       Container(
                         width: 16,
                         height: 16,
-                        child: Image.asset("assets/icon/search.png",fit: BoxFit.fitHeight,),
+                        child: Image.asset(
+                          "assets/icon/search.png",
+                          fit: BoxFit.fitHeight,
+                        ),
                       ),
                       SizedBox(
                         width: 15.0,
@@ -98,12 +125,16 @@ class _SelectSchoolState extends State<SelectSchool> {
         ),
         Expanded(
           flex: 1,
-          child: this.renderList(this.arr),
+          child: Container(
+            color: style.bgColor,
+            child: this.renderList(this.arr),
+          ),
         )
       ],
     );
   }
 
+// 搜索列表状态
   Widget renderSearch() {
     return Column(
       children: <Widget>[
@@ -127,8 +158,10 @@ class _SelectSchoolState extends State<SelectSchool> {
                         maxHeight: 20.0,
                       ),
                       child: TextField(
+                          controller: _controller,
+                          focusNode: _focusNode,
                           decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(0),
+                              contentPadding: EdgeInsets.all(10),
                               prefixIcon: Container(
                                 width: 16,
                                 height: 16,
@@ -143,14 +176,18 @@ class _SelectSchoolState extends State<SelectSchool> {
                     )),
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: InkWell(
-                onTap: () {
-                  this.setState(() {
-                    this.status = true;
-                  });
-                },
+            InkWell(
+              onTap: () {
+                this.setState(() {
+                  this._status = true;
+                  _isAutoFocus = true;
+                  _searchRes = [];
+                });
+                _controller.text = '';
+                _focusNode.unfocus();
+              },
+              child: Container(
+                padding: EdgeInsets.all(10.0),
                 child: Text('取消', style: TextStyle(color: Colors.green)),
               ),
             )
@@ -158,9 +195,14 @@ class _SelectSchoolState extends State<SelectSchool> {
         ),
         Expanded(
           flex: 1,
-          child: Container(
-            color: style.bgColor,
-            child: this.renderList([]),
+          child: GestureDetector(
+            onTap: () {
+              _focusNode.unfocus();
+            },
+            child: Container(
+              color: style.bgColor,
+              child: this.renderList(_searchRes ?? []),
+            ),
           ),
         )
       ],
@@ -169,10 +211,17 @@ class _SelectSchoolState extends State<SelectSchool> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_status && _isAutoFocus) {
+      // 切换页面之后跳转到搜索页时获取焦点
+      this.setState(() {
+        _isAutoFocus = false;
+      });
+      FocusScope.of(context).requestFocus(_focusNode);
+    }
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
-      body: this.status ? this.renderShow() : this.renderSearch(),
+      body: this._status ? this.renderShow() : this.renderSearch(),
     );
   }
 }

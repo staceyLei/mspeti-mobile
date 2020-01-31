@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:educationapp/assets/style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -35,8 +36,10 @@ class _WelcomeState extends State<Welcome> {
     this._timerPeriod = null;
   }
 
-  _jumpToTab() {
-    var route = '/SelectSchool';
+  _jumpToTab() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String schoolId = prefs.getString('schoolId');
+    var route = schoolId.isNotEmpty ? '/Login':'/SelectSchool';
     if (store.state.user.isLogin) {
       route = '/';
     }

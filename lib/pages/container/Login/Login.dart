@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:educationapp/store/action/userAction.dart';
 import 'package:educationapp/assets/style.dart' as style;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   var arguments;
@@ -19,14 +20,25 @@ class _LoginState extends State<Login> {
   String _password = '';
   String _username = '';
   bool _disabled = true;
-  Map _schoolData;
+  Map _schoolData = {};
   final _phonController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  SharedPreferences _prefs;
   @override
   void initState() {
+    _initData();
     super.initState();
-    _schoolData = widget.arguments['school'];
+  }
+
+  void _initData() async {
+    _prefs = await SharedPreferences.getInstance();
+    this.setState(() {
+      this._schoolData = {
+        "name": _prefs.getString('schoolName'),
+        "id": _prefs.getString("schoolId")
+      };
+    });
   }
 
   @override
@@ -202,7 +214,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    print('name:${this._schoolData['name']}');
+    // _initData();
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
@@ -350,9 +362,25 @@ class _LoginState extends State<Login> {
               // ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Text(
-                  '${this._schoolData['name']}机构' ?? '',
-                  style: TextStyle(color: style.sFontColor, fontSize: style.titleSize),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, '/SelectSchool');
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        this._schoolData['name'] ?? '',
+                        style: TextStyle(
+                            color: style.sFontColor, fontSize: style.titleSize),
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_up,
+                        size: 30,
+                        color: style.themeColor,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
