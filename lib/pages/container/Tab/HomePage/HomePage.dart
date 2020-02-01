@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   child: Image.asset('assets/icon/search.png',
                       fit: BoxFit.contain),
                 ),
-                Text('我的课表',
+                Text('搜索应用',
                     style: TextStyle(color: Colors.grey, fontSize: 14.0))
               ],
             ),

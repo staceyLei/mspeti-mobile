@@ -125,13 +125,11 @@ class _ConfirmPayState extends State<ConfirmPay> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.dark,
-      child: NavLayout(
+    return NavLayout(
           backgroundColor: style.bgColor,
           title: '确认支付',
           components: this.renderComponents(),
-          bottom: this.renderBottom()),
+          bottom: this.renderBottom()
     );
   }
 }

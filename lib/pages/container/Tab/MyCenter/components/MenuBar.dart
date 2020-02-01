@@ -1,17 +1,20 @@
+import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 
 class MenuBar extends StatelessWidget {
-  String leading;
-  String title;
-  String url;
+  final String leading;
+  final String title;
+  final String url;
   MenuBar({Key key, this.title, this.url, this.leading}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return (InkWell(
       onTap: () {
-        print('url:$url');
+        if(url.isNotEmpty){
+        navigatorKey.currentState.pushNamed(url);
+        }
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(10, 20, 10, 15),

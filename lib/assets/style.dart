@@ -8,7 +8,7 @@ const loadingColor = Color.fromRGBO(37, 102, 177, 0.3);
 double width = MediaQueryData.fromWindow(window).size.width;
 double height = MediaQueryData.fromWindow(window).size.height;
 double topPadding = MediaQueryData.fromWindow(window).padding.top;
-const borderColor = Color.fromRGBO(231, 230, 235, 1);
+const borderColor = Color.fromRGBO(243, 243, 243, 1);
 const redColor = Color.fromRGBO(255, 62, 48, 1);
 const lightGrey = Color.fromRGBO(158, 158, 163, 1);
 const sFontColor = Color.fromRGBO(105, 105, 112, 1);
@@ -22,4 +22,9 @@ const baseFontColor = Color.fromRGBO(50, 49, 56, 1);
 TextStyle baseFontStyle =
     TextStyle(color: baseFontColor, fontSize: baseFontSize);
 TextStyle sFontStyle = TextStyle(color: baseFontColor, fontSize: sFontSize);
-TextStyle hintStyle = TextStyle(color: Color.fromRGBO(158, 158, 163, 1), fontSize: baseFontSize);
+TextStyle secondFontStyle =
+    TextStyle(color: Color.fromRGBO(158, 158, 163, 1), fontSize: 13.0);
+TextStyle hintStyle =
+    TextStyle(color: Color.fromRGBO(158, 158, 163, 1), fontSize: baseFontSize);
+const warnColor = Color.fromRGBO(255, 235, 210, 1);
+const successColor = Color.fromRGBO(205, 255, 189, 1);

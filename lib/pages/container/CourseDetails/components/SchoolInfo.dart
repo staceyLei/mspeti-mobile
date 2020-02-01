@@ -196,6 +196,10 @@ class SchoolInfo extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Theme.of(context).accentColor,
                   borderRadius: BorderRadius.circular(20.0),
+                  gradient: LinearGradient(colors: [
+                                  Color.fromRGBO(0, 117, 255, 1),
+                                  style.themeColor,
+                                ])
                 ),
                 child: Text(
                   '确定',

@@ -30,7 +30,7 @@ class CommentsPanel extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 10.0),
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                color: style.borderColor,
+                color: style.bgColor,
                 borderRadius: style.baseRadius,
               ),
               child: Column(

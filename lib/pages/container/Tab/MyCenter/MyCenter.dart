@@ -43,10 +43,10 @@ class _MyCenterState extends State<MyCenter> {
 
   List _menuData = [
     {'title': '我的课程', 'leading': 'assets/icon/center-class.png', 'url': ''},
-    {'title': '个人信息', 'leading': 'assets/icon/center-message.png', 'url': ''},
+    {'title': '个人信息', 'leading': 'assets/icon/center-message.png', 'url': '/UserInfo'},
     {'title': '课堂情况', 'leading': 'assets/icon/center-attend.png', 'url': ''},
     {'title': '成长记录', 'leading': 'assets/icon/center-grow.png', 'url': ''},
-    {'title': '我的评价', 'leading': 'assets/icon/center-remark.png', 'url': ''},
+    {'title': '课堂评价', 'leading': 'assets/icon/center-remark.png', 'url': ''},
     {'title': '我的收藏', 'leading': 'assets/icon/collection.png', 'url': ''},
   ];
 

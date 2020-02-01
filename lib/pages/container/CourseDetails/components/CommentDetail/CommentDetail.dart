@@ -15,22 +15,25 @@ class CommentDetail extends StatelessWidget {
         )
       ];
     } else {
-      return comment.map((ele) => CommentPanel(
-            headImg: ele['headImg'],
-            name: ele['name'],
-            date: ele['date'],
-            star: ele['star'],
-            content: ele['content'],
-            commentImg: ele['commentImg'],
-          )).toList();
+      return comment
+          .map((ele) => CommentPanel(
+                headImg: ele['headImg'],
+                name: ele['name'],
+                date: ele['date'],
+                star: ele['star'],
+                content: ele['content'],
+                commentImg: ele['commentImg'],
+              ))
+          .toList();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.dark,
-      child:NavLayout(title:'课程评价',components: this.renderComment(),backgroundColor: Colors.white,),
+    return NavLayout(
+      title: '课程评价',
+      components: this.renderComment(),
+      backgroundColor: Colors.white,
     );
   }
 }

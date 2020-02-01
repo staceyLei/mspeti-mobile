@@ -13,14 +13,12 @@ class ConfirmOrder extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Text("应付款:",
-              style: style.baseFontStyle),
+          Text("应付款:", style: style.baseFontStyle),
           Text(
             "¥54.00",
-            style:
-                style.baseFontStyle.copyWith(
-                  color:style.redColor,
-                ),
+            style: style.baseFontStyle.copyWith(
+              color: style.redColor,
+            ),
           ),
           SizedBox(
             width: 5,
@@ -74,7 +72,8 @@ class ConfirmOrder extends StatelessWidget {
                 ),
                 Text(
                   '广州悦学悦知辅导机构',
-                  style: style.baseFontStyle.copyWith(fontSize:style.mFontSize),
+                  style:
+                      style.baseFontStyle.copyWith(fontSize: style.mFontSize),
                 )
               ],
             ),
@@ -129,7 +128,7 @@ class ConfirmOrder extends StatelessWidget {
                         padding: EdgeInsets.all(5.0),
                         decoration: BoxDecoration(
                           borderRadius: style.baseRadius,
-                          color: Color.fromRGBO(255, 235, 210, 1),
+                          color: style.warnColor,
                         ),
                         child: Text('剩余：5',
                             style: TextStyle(
@@ -146,72 +145,98 @@ class ConfirmOrder extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 20.0,),
+            SizedBox(
+              height: 20.0,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("任课老师",style:style.baseFontStyle),
-                Text("张三 李四",style: style.baseFontStyle,)
+                Text("任课老师", style: style.baseFontStyle),
+                Text(
+                  "张三 李四",
+                  style: style.baseFontStyle,
+                )
               ],
             ),
-          SizedBox(height: 20.0,),
-          Row(
+            SizedBox(
+              height: 20.0,
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("课程优惠",style:style.baseFontStyle),
+                Text("课程优惠", style: style.baseFontStyle),
                 Expanded(
                   flex: 1,
                   child: InkWell(
-                    onTap: (){
+                    onTap: () {
                       //todo
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text("-¥106",style: TextStyle(
-                        color: style.redColor,
-                        fontSize: style.baseFontSize
-                      ),),
-                      SizedBox(width: 5,),
-                      Container(
-                        width: 10,
-                        height: 10,
-                        child: Image.asset("assets/icon/arrow-right-grey.png",fit: BoxFit.fitHeight,),
-                      )
-                    ],
+                      children: <Widget>[
+                        Text(
+                          "-¥106",
+                          style: TextStyle(
+                              color: style.redColor,
+                              fontSize: style.baseFontSize),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          width: 10,
+                          height: 10,
+                          child: Image.asset(
+                            "assets/icon/arrow-right-grey.png",
+                            fit: BoxFit.fitHeight,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
                 )
               ],
             ),
-             SizedBox(height: 20.0,),
-          Row(
+            SizedBox(
+              height: 20.0,
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("课程时间",style:style.baseFontStyle),
-                Text("2020-1-5 至 2020-1-24",style: style.baseFontStyle,)
+                Text("课程时间", style: style.baseFontStyle),
+                Text(
+                  "2020-1-5 至 2020-1-24",
+                  style: style.baseFontStyle,
+                )
               ],
             ),
-            SizedBox(height: 20.0,),
-          Row(
+            SizedBox(
+              height: 20.0,
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   width: 48,
-                  child: Text("备注",style:style.baseFontStyle,textAlign: TextAlign.right,),
+                  child: Text(
+                    "备注",
+                    style: style.baseFontStyle,
+                    textAlign: TextAlign.right,
+                  ),
                 ),
-                SizedBox(width: 5.0,),
+                SizedBox(
+                  width: 5.0,
+                ),
                 Expanded(
                   flex: 1,
                   child: TextField(
                     decoration: InputDecoration(
-                      hintStyle: TextStyle(fontSize: style.baseFontSize),
-                      contentPadding: EdgeInsets.all(0),
-                      border: UnderlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: '选填，需要与机构协商一致'
-                    ),
+                        hintStyle: TextStyle(fontSize: style.baseFontSize),
+                        contentPadding: EdgeInsets.all(0),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide.none,
+                        ),
+                        hintText: '选填，需要与机构协商一致'),
                   ),
                 )
               ],
@@ -225,54 +250,59 @@ class ConfirmOrder extends StatelessWidget {
         decoration:
             BoxDecoration(color: Colors.white, borderRadius: style.baseRadius),
         child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  width: 24,
-                  height: 24,
-                  child: Image.asset('assets/icon/icon-ticket.png',fit:BoxFit.fill),
-                ),
-                SizedBox(width: 10,),
-                Text("可用优惠",style:style.baseFontStyle),
-                Expanded(
-                  flex: 1,
-                  child: InkWell(
-                    onTap: (){
-                      //todo
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text("5元券",style: TextStyle(
-                        color: style.redColor,
-                        fontSize: style.baseFontSize
-                      ),),
-                      SizedBox(width: 5,),
-                      Container(
-                        width: 10,
-                        height: 10,
-                        child: Image.asset("assets/icon/arrow-right-grey.png",fit: BoxFit.fitHeight,),
-                      )
-                    ],
-                  ),
-                ),
-                )
-              ],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              width: 24,
+              height: 24,
+              child:
+                  Image.asset('assets/icon/icon-ticket.png', fit: BoxFit.fill),
             ),
+            SizedBox(
+              width: 10,
+            ),
+            Text("可用优惠", style: style.baseFontStyle),
+            Expanded(
+              flex: 1,
+              child: InkWell(
+                onTap: () {
+                  //todo
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      "5元券",
+                      style: TextStyle(
+                          color: style.redColor, fontSize: style.baseFontSize),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      width: 10,
+                      height: 10,
+                      child: Image.asset(
+                        "assets/icon/arrow-right-grey.png",
+                        fit: BoxFit.fitHeight,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       )
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.dark,
-      child: NavLayout(
+    return NavLayout(
         backgroundColor: style.bgColor,
         title: '确认报名',
         components: this.renderComponents(),
-        bottom: this.renderBottom()
-      ),
-    );
+        bottom: this.renderBottom());
   }
 }
