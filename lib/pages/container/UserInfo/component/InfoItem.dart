@@ -43,7 +43,7 @@ class InfoItem extends StatelessWidget {
             ),
             content
             ??
-            Text('请输入',style:style.secondFontStyle),
+            Text('未设置',style:style.secondFontStyle),
             isModify
                 ? Container(
                     padding: EdgeInsets.only(left: 10.0),

@@ -154,7 +154,7 @@ class _LoginState extends State<Login> {
                       icon: Image.asset('assets/icon/circle-cancel.png'),
                       onPressed: () {
                         setState(() {
-                          this._password = '';
+                          _disabled = true;
                         });
                         onCancel(this._passwordController);
                       },
@@ -214,7 +214,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    // _initData();
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
@@ -289,6 +288,10 @@ class _LoginState extends State<Login> {
                             color: this._disabled
                                 ? Theme.of(context).accentColor.withOpacity(0.5)
                                 : Theme.of(context).accentColor,
+                            gradient: LinearGradient(colors: [
+                              Color.fromRGBO(0, 117, 255, 1),
+                              style.themeColor,
+                            ]),
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                           child: Row(

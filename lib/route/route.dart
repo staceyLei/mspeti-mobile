@@ -10,6 +10,7 @@ import 'package:educationapp/pages/container/CourseDetails/components/CommentDet
 import 'package:educationapp/pages/container/ConfirmPay/ConfirmPay.dart';
 import 'package:educationapp/pages/container/SelectSchool/SelectSchool.dart';
 import 'package:educationapp/pages/container/UserInfo/UserInfo.dart';
+import 'package:educationapp/pages/container/UserInfo/component/EditInfo.dart';
 
 final routes = {
   '/': (context, {arguments}) => Tabs(),
@@ -27,6 +28,7 @@ final routes = {
   '/ConfirmPay':(context,{arguments}) => ConfirmPay(),
   '/SelectSchool':(context,{arguments}) => SelectSchool(),
   '/UserInfo':(context,{arguments}) => UserInfo(),
+  '/EditInfo':(context,{arguments}) => EditInfo(arguments: arguments,),
 };
 
 // 代表当前context的路由对象

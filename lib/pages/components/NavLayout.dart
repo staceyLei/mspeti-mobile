@@ -7,8 +7,9 @@ class NavLayout extends StatelessWidget {
   final String title;
   final Color backgroundColor;
   final Widget bottom;
+  final Widget right;
 
-  NavLayout({this.components, this.title, this.backgroundColor, this.bottom});
+  NavLayout({this.components, this.title, this.backgroundColor, this.bottom,this.right});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class NavLayout extends StatelessWidget {
                     children: <Widget>[
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).pop();
+                          Navigator.pop(context);
                         },
                         child: Container(
                           width: 25,
@@ -47,7 +48,7 @@ class NavLayout extends StatelessWidget {
                             style: style.baseFontStyle
                                 .copyWith(fontSize: style.titleSize)),
                       ),
-                      SizedBox(
+                      right??SizedBox(
                         width: 25,
                       ),
                     ],

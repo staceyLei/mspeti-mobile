@@ -189,7 +189,7 @@ class SchoolInfo extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
             child: InkWell(
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context);
               },
               child: Container(
                 padding: EdgeInsets.all(10.0),

@@ -22,6 +22,7 @@ const baseFontColor = Color.fromRGBO(50, 49, 56, 1);
 TextStyle baseFontStyle =
     TextStyle(color: baseFontColor, fontSize: baseFontSize);
 TextStyle sFontStyle = TextStyle(color: baseFontColor, fontSize: sFontSize);
+TextStyle mFontStyle = TextStyle(color: baseFontColor, fontSize: mFontSize);
 TextStyle secondFontStyle =
     TextStyle(color: Color.fromRGBO(158, 158, 163, 1), fontSize: 13.0);
 TextStyle hintStyle =

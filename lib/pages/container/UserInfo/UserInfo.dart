@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'package:educationapp/pages/container/UserInfo/const.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/components/NavLayout.dart';
 import 'package:educationapp/assets/style.dart' as style;
-// import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:educationapp/pages/components/BaseButton.dart';
 import 'component/InfoItem.dart';
 
 class UserInfo extends StatelessWidget {
@@ -26,6 +28,13 @@ class UserInfo extends StatelessWidget {
     );
   }
 
+// 打开手机相册/拍照获取图片
+  _getImage(bool isCamera) async {
+    var source = isCamera ? ImageSource.camera : ImageSource.gallery;
+    File image = await ImagePicker.pickImage(source: source);
+    return image;
+  }
+
   @override
   Widget build(BuildContext context) {
     return NavLayout(
@@ -37,10 +46,51 @@ class UserInfo extends StatelessWidget {
         ),
         InfoItem(
           title: '头像',
-          action: () async {
-            // var image =
-            //     await ImagePicker.pickImage(source: ImageSource.gallery);
-            // print(image);
+          action: () {
+            showModalBottomSheet(
+                context: context,
+                builder: (_) => Stack(children: <Widget>[
+                      Container(
+                        height: 15,
+                        width: style.width,
+                        color: Colors.black54,
+                      ),
+                      Container(
+                          width: style.width,
+                          height: 155.0,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15),
+                            ),
+                          ),
+                          child: Column(children: <Widget>[
+                            BaseButton(
+                              title: '拍照',
+                              onTap: () async {
+                                var res = await _getImage(true);
+                                print(res);
+                              },
+                            ),
+                            BaseButton(
+                              title: '从手机相册选取',
+                              onTap: () {
+                                _getImage(false);
+                              },
+                            ),
+                            Container(
+                                width: style.width,
+                                color: style.bgColor,
+                                height: 5.0),
+                            BaseButton(
+                              title: '取消',
+                              onTap: () {
+                                Navigator.pop(_);
+                              },
+                            ),
+                          ])),
+                    ]));
           },
           isModify: true,
           content: ClipOval(
@@ -64,7 +114,7 @@ class UserInfo extends StatelessWidget {
           title: '邮箱',
           isModify: true,
           action: () {
-            print('modify email');
+            Navigator.pushNamed(context, '/EditInfo', arguments: {'status': 0});
           },
           content: _getContent("email"),
         ),
@@ -72,7 +122,7 @@ class UserInfo extends StatelessWidget {
           title: '联系方式',
           isModify: true,
           action: () {
-            print('modify phone');
+            Navigator.pushNamed(context, '/EditInfo', arguments: {'status': 1});
           },
           prefix: _getAuth(),
           content: _getContent("phone"),
