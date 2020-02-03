@@ -5,14 +5,15 @@ import 'component/const.dart';
 import 'component/ClassifyBtn.dart';
 import 'component/CourseItem.dart';
 
-class Course extends StatefulWidget {
+class CourseList extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _CourseState();
+    return _CourseListState();
   }
 }
 
-class _CourseState extends State<Course> {
+class _CourseListState extends State<CourseList> {
+  String _selected = "all";
   List<Map> _courseData;
 
   @override
@@ -21,13 +22,26 @@ class _CourseState extends State<Course> {
     this._courseData = courseData ?? [];
   }
 
+  List<Widget> _renderTopBtn() {
+    return (btnData ?? []).map((item) {
+      return ClassifyBtn(
+        isActive: item['key'] == _selected,
+        onTap: () {
+          this.setState(() {
+            _selected = item['key'];
+          });
+        },
+        title: item['value'],
+      );
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
         backgroundColor: Colors.white,
-        // drawer: Drawer(),
         body: MediaQuery.removePadding(
             context: context,
             removeTop: true,
@@ -35,13 +49,23 @@ class _CourseState extends State<Course> {
               Container(
                 width: style.width,
                 padding: EdgeInsets.fromLTRB(15, style.topPadding + 5, 15, 10),
-                decoration: BoxDecoration(
-                  border: Border(
-                              bottom:BorderSide(color: style.borderColor,width:0.5)
-                            ),
                 color: Colors.white,
-                ),
                 child: Row(children: <Widget>[
+                  InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          padding: EdgeInsets.all(5),
+                          child: Image.asset(
+                            "assets/icon/arrow-left-grey.png",
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width:5),
                   Expanded(
                     flex: 1,
                     child: InkWell(
@@ -53,45 +77,52 @@ class _CourseState extends State<Course> {
                           decoration: BoxDecoration(
                             color: style.grey,
                             borderRadius: BorderRadius.circular(20),
-                            
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Text('搜索课程', style: style.hintStyle),
                               Container(
                                 width: 16,
                                 height: 16,
                                 child: Image.asset(
                                     'assets/icon/course-search.png',
                                     fit: BoxFit.contain),
-                              )
+                              ),
+                              SizedBox(width:10),
+                              Text('搜索课程', style: style.hintStyle),
                             ],
                           ),
                         )),
                   ),
                   SizedBox(width: 10),
                   InkWell(
-                      onTap: () {
-                        print('fenlei');
-                      },
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: style.grey),
-                        child: Text(
-                          '分类',
-                          style: TextStyle(
-                            fontSize: style.mFontSize,
-                            fontWeight: FontWeight.bold,
-                            color: style.lightGrey,
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          child: Image.asset(
+                            "assets/icon/switch-layout.png",
+                            fit: BoxFit.contain,
                           ),
                         ),
-                      ))
+                      ),
                 ]),
               ),
+              Container(
+                  width: style.width,
+                  padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
+                  decoration: BoxDecoration(
+                      border: Border(
+                    bottom: BorderSide(color: style.grey, width: 0.5),
+                  )),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: this._renderTopBtn(),
+                    ),
+                  )),
               Expanded(
                   flex: 1,
                   child: ListView.builder(

@@ -11,6 +11,7 @@ import 'package:educationapp/pages/container/ConfirmPay/ConfirmPay.dart';
 import 'package:educationapp/pages/container/SelectSchool/SelectSchool.dart';
 import 'package:educationapp/pages/container/UserInfo/UserInfo.dart';
 import 'package:educationapp/pages/container/UserInfo/component/EditInfo.dart';
+import 'package:educationapp/pages/container/CourseList/CourseList.dart';
 
 final routes = {
   '/': (context, {arguments}) => Tabs(),
@@ -29,6 +30,7 @@ final routes = {
   '/SelectSchool':(context,{arguments}) => SelectSchool(),
   '/UserInfo':(context,{arguments}) => UserInfo(),
   '/EditInfo':(context,{arguments}) => EditInfo(arguments: arguments,),
+  '/CourseList':(context,{arguments}) => CourseList(),
 };
 
 // 代表当前context的路由对象

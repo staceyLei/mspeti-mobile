@@ -45,7 +45,7 @@ class _MyCenterState extends State<MyCenter> {
     {'title': '我的课程', 'leading': 'assets/icon/center-class.png', 'url': ''},
     {'title': '个人信息', 'leading': 'assets/icon/center-message.png', 'url': '/UserInfo'},
     {'title': '课堂情况', 'leading': 'assets/icon/center-attend.png', 'url': ''},
-    {'title': '成长记录', 'leading': 'assets/icon/center-grow.png', 'url': ''},
+    {'title': '我的作业', 'leading': 'assets/icon/center-grow.png', 'url': ''},
     {'title': '课堂评价', 'leading': 'assets/icon/center-remark.png', 'url': ''},
     {'title': '我的收藏', 'leading': 'assets/icon/collection.png', 'url': ''},
   ];
@@ -158,7 +158,7 @@ class _MyCenterState extends State<MyCenter> {
                               ),
                               SizedBox(height: 20.0),
                               // 我的资料卡板块
-                              InfoCard(),
+                              // InfoCard(),
                             ],
                           ),
                         ),
@@ -168,6 +168,11 @@ class _MyCenterState extends State<MyCenter> {
                         bottom: 114,
                         child: Image.asset('assets/icon/circle-bg.png'),
                       ),
+                      Positioned(
+                        left: 15.0,
+                        top: this.DEFAULT_BAR,
+                        child: InfoCard()
+                        ),
                       // 我的学习数据板块
                       LearnPanel(
                         renderLearnData: this._renderLearnData,
@@ -191,12 +196,12 @@ class _MyCenterState extends State<MyCenter> {
             ),
           ),
           // 渐变导航栏
-          NavBar(
+          _barOpacity > 0 ? NavBar(
             barOpacity: this._barOpacity,
             barHeight: this.DEFAULT_BAR,
             comonent: this.renderNavBar(),
             color: Color.fromRGBO(45, 118, 202, 1),
-          ),
+          ):SizedBox(),
         ],
       ),
     );

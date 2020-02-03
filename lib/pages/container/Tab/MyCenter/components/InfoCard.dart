@@ -1,10 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/store/store.dart';
+import 'package:educationapp/assets/style.dart' as style;
+import 'package:educationapp/pages/container/CardInfo/CardInfo.dart';
 
 class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Container(
+      width:style.width - 15.0,
+      child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
@@ -35,7 +40,7 @@ class InfoCard extends StatelessWidget {
                 ),
                 SizedBox(height: 5.0),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
+                  padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(3.0),
                     color: Color.fromRGBO(255, 159, 34, 1),
@@ -55,9 +60,11 @@ class InfoCard extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            print('我的资料卡');
+            showDialog(context: context, builder: (_) => CardInfo());
           },
-          child: Row(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child:Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
@@ -72,9 +79,11 @@ class InfoCard extends StatelessWidget {
                 width: 20.0,
               ),
             ],
+          )
           ),
         )
       ],
+    ),
     );
   }
 }

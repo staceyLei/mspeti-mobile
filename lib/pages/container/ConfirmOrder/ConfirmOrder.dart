@@ -88,10 +88,10 @@ class ConfirmOrder extends StatelessWidget {
                   height: 80,
                   decoration: BoxDecoration(
                     borderRadius: style.baseRadius,
-                  ),
-                  child: Image.asset(
-                    "assets/icon/banner2.png",
-                    fit: BoxFit.cover,
+                    image: DecorationImage(
+                      image: AssetImage("assets/icon/banner2.png"),
+                      fit:BoxFit.cover,
+                      )
                   ),
                 ),
                 SizedBox(

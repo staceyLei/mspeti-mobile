@@ -13,7 +13,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: this.barOpacity > 0 ? 0 : this.barHeight, //层级问题，挡住底层设置按钮
+      top: 0,
       child: Opacity(
         opacity: this.barOpacity,
         child: Container(

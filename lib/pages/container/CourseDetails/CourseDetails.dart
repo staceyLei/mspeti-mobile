@@ -260,7 +260,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              '￥59.00',
+                              '¥59.00',
                               style: TextStyle(
                                   color: style.redColor,
                                   fontSize: 18.0,
@@ -269,7 +269,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                             SizedBox(
                               width: 5.0,
                             ),
-                            Text('日常价:￥165', style: TextStyle(fontSize: 10.0)),
+                            Text('日常价:¥165', style: TextStyle(fontSize: 10.0)),
                           ],
                         ),
                         InkWell(

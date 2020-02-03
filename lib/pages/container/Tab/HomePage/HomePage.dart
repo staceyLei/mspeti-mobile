@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:educationapp/route/route.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,9 +47,6 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> renderNavBar() {
     return <Widget>[
-      SizedBox(
-        width: 15.0,
-      ),
       ClipOval(
         child: Image.asset(
           'assets/image/headImg.png',
@@ -57,9 +55,7 @@ class _HomePageState extends State<HomePage> {
           height: 35,
         ),
       ),
-      SizedBox(
-        width: 10,
-      ),
+      SizedBox(width:20),
       Expanded(
         flex: 1,
         child: InkWell(
@@ -88,9 +84,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-      ),
-      SizedBox(
-        width: 15.0,
       ),
     ];
   }
@@ -152,7 +145,7 @@ class _HomePageState extends State<HomePage> {
         ),
         InkWell(
           onTap: () {
-            print('查看更多');
+            navigatorKey.currentState.pushNamed('/CourseList');
           },
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -345,12 +338,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   // 渐变导航栏
-                  NavBar(
-                    barHeight: this.DEFAULT_BAR,
-                    barOpacity: this._barOpacity,
-                    comonent:this.renderNavBar(),
-                    color: Color.fromRGBO(37, 177, 135, 1),
-                  ),
+                  this._barOpacity > 0
+                      ? NavBar(
+                          barHeight: this.DEFAULT_BAR,
+                          barOpacity: this._barOpacity,
+                          comonent: this.renderNavBar(),
+                          color: Color.fromRGBO(37, 177, 135, 1),
+                        )
+                      : SizedBox(),
                 ])));
       },
     );

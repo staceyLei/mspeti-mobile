@@ -11,6 +11,7 @@ double topPadding = MediaQueryData.fromWindow(window).padding.top;
 const borderColor = Color.fromRGBO(243, 243, 243, 1);
 const redColor = Color.fromRGBO(255, 62, 48, 1);
 const lightGrey = Color.fromRGBO(158, 158, 163, 1);
+const grey = Color.fromRGBO(247, 247, 247, 1);
 const sFontColor = Color.fromRGBO(105, 105, 112, 1);
 BorderRadius baseRadius = BorderRadius.circular(5.0);
 const baseFontSize = 14.0;
@@ -29,3 +30,13 @@ TextStyle hintStyle =
     TextStyle(color: Color.fromRGBO(158, 158, 163, 1), fontSize: baseFontSize);
 const warnColor = Color.fromRGBO(255, 235, 210, 1);
 const successColor = Color.fromRGBO(205, 255, 189, 1);
+TextStyle femaleStyle = TextStyle(
+    color: redColor,
+    fontSize: sFontSize,
+    fontWeight: FontWeight.normal,
+    decoration: TextDecoration.none);
+TextStyle maleStyle = TextStyle(
+    color: themeColor,
+    fontSize: sFontSize,
+    fontWeight: FontWeight.normal,
+    decoration: TextDecoration.none);

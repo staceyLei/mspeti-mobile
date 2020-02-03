@@ -110,6 +110,12 @@ flutter:
    - assets/icon/card-pay.png
    - assets/icon/zfb-pay.png
    - assets/icon/balance-pay.png
+   - assets/icon/icon-female.png
+   - assets/image/card-bg.png
+   - assets/icon/icon-male.png
+   - assets/icon/course-search.png
+   - assets/icon/switch-layout.png
+   - assets/icon/arrow-left-grey.png
    
 
    
