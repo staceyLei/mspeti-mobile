@@ -39,7 +39,7 @@ class UserInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavLayout(
       title: '个人信息',
-      backgroundColor: style.bgColor,
+      backgroundColor: style.grey,
       components: <Widget>[
         SizedBox(
           height: 1,

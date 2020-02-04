@@ -188,6 +188,7 @@ class _EditInfoState extends State<EditInfo> {
   @override
   Widget build(BuildContext context) {
     return NavLayout(
+      backgroundColor: style.grey,
       title: '修改信息',
       right: InkWell(
         onTap: () {

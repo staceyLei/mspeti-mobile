@@ -300,7 +300,7 @@ class ConfirmOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavLayout(
-        backgroundColor: style.bgColor,
+        backgroundColor: style.grey,
         title: '确认报名',
         components: this.renderComponents(),
         bottom: this.renderBottom());

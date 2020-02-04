@@ -116,6 +116,11 @@ flutter:
    - assets/icon/course-search.png
    - assets/icon/switch-layout.png
    - assets/icon/arrow-left-grey.png
+   - assets/icon/collect-more.png
+   - assets/icon/collect-search.png
+   - assets/icon/switch-row.png
+   - assets/icon/collect-unselect.png
+   - assets/icon/collect-select.png
    
 
    

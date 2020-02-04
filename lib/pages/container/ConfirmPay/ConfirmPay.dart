@@ -126,7 +126,7 @@ class _ConfirmPayState extends State<ConfirmPay> {
   @override
   Widget build(BuildContext context) {
     return NavLayout(
-          backgroundColor: style.bgColor,
+          backgroundColor: style.grey,
           title: '确认支付',
           components: this.renderComponents(),
           bottom: this.renderBottom()

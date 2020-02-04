@@ -5,6 +5,7 @@ import 'package:educationapp/store/action/userAction.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:educationapp/pages/components/BaseButton.dart';
 
 class SetUp extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _SetUpState extends State<SetUp> {
               children: <Widget>[
                 Container(
                   width: style.width,
-                  padding: EdgeInsets.all(15.0),
+                  padding: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius:
@@ -82,38 +83,10 @@ class _SetUpState extends State<SetUp> {
                 SizedBox(
                   height: 20.0,
                 ),
-                Container(
-                    padding: EdgeInsets.all(15.0),
-                    width: style.width,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(10.0)),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        UserAction.toLogOut();
+                BaseButton(title: '退出登录',onTap: (){
+                   UserAction.toLogOut();
                         Navigator.pushNamed(context, '/Login');
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            width: 28,
-                            height: 28,
-                            child: Image.asset(
-                              'assets/icon/back-exit.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 15.0,
-                          ),
-                          Text('退出登录',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                    )),
+                },),
               ],
             ));
       },

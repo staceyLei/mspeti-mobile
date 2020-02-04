@@ -15,6 +15,7 @@ class BaseButton extends StatelessWidget {
           width: style.width,
           padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
+            color: Colors.white,
               border: Border(
                   bottom: BorderSide(color: style.borderColor, width: 0.5))),
           child: Text(

@@ -15,6 +15,7 @@ class CourseList extends StatefulWidget {
 class _CourseListState extends State<CourseList> {
   String _selected = "all";
   List<Map> _courseData;
+  bool _layout = false; // false为行列 true为纵列布局
 
   @override
   void initState() {
@@ -36,12 +37,21 @@ class _CourseListState extends State<CourseList> {
     }).toList();
   }
 
+  List<Widget> _renderList() {
+    return _courseData.map((item) {
+      return CourseItem(
+        item: item,
+        layout: _layout,
+      );
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: _layout ? style.grey : Colors.white,
         body: MediaQuery.removePadding(
             context: context,
             removeTop: true,
@@ -52,20 +62,20 @@ class _CourseListState extends State<CourseList> {
                 color: Colors.white,
                 child: Row(children: <Widget>[
                   InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: 30,
-                          height: 30,
-                          padding: EdgeInsets.all(5),
-                          child: Image.asset(
-                            "assets/icon/arrow-left-grey.png",
-                            fit: BoxFit.contain,
-                          ),
-                        ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      padding: EdgeInsets.all(5),
+                      child: Image.asset(
+                        "assets/icon/arrow-left-grey.png",
+                        fit: BoxFit.contain,
                       ),
-                      SizedBox(width:5),
+                    ),
+                  ),
+                  SizedBox(width: 5),
                   Expanded(
                     flex: 1,
                     child: InkWell(
@@ -88,7 +98,7 @@ class _CourseListState extends State<CourseList> {
                                     'assets/icon/course-search.png',
                                     fit: BoxFit.contain),
                               ),
-                              SizedBox(width:10),
+                              SizedBox(width: 10),
                               Text('搜索课程', style: style.hintStyle),
                             ],
                           ),
@@ -96,24 +106,29 @@ class _CourseListState extends State<CourseList> {
                   ),
                   SizedBox(width: 10),
                   InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: 20,
-                          height: 20,
-                          child: Image.asset(
-                            "assets/icon/switch-layout.png",
-                            fit: BoxFit.contain,
-                          ),
-                        ),
+                    onTap: () {
+                      this.setState(() {
+                        _layout = !_layout;
+                      });
+                    },
+                    child: Container(
+                      width: 20,
+                      height: 20,
+                      child: Image.asset(
+                        _layout
+                            ? "assets/icon/switch-layout.png"
+                            : "assets/icon/switch-row.png",
+                        fit: BoxFit.contain,
                       ),
+                    ),
+                  ),
                 ]),
               ),
               Container(
                   width: style.width,
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
                   decoration: BoxDecoration(
+                    color: Colors.white,
                       border: Border(
                     bottom: BorderSide(color: style.grey, width: 0.5),
                   )),
@@ -124,13 +139,16 @@ class _CourseListState extends State<CourseList> {
                     ),
                   )),
               Expanded(
-                  flex: 1,
-                  child: ListView.builder(
-                      padding: EdgeInsets.only(top:10),
-                      itemCount: _courseData.length,
-                      itemBuilder: (context, index) {
-                        return CourseItem(item: _courseData[index]);
-                      }))
+                flex: 1,
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Wrap(
+                    spacing: 15,
+                    runSpacing: 15,
+                    children: this._renderList(),
+                  ),
+                ),
+              )
             ])),
       ),
     );
