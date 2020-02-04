@@ -8,8 +8,15 @@ class NavLayout extends StatelessWidget {
   final Color backgroundColor;
   final Widget bottom;
   final Widget right;
+  final double rightDistance;
 
-  NavLayout({this.components, this.title, this.backgroundColor, this.bottom,this.right});
+  NavLayout(
+      {this.components,
+      this.title,
+      this.backgroundColor,
+      this.bottom,
+      this.rightDistance,
+      this.right});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,11 @@ class NavLayout extends StatelessWidget {
                   width: style.width,
                   padding:
                       EdgeInsets.fromLTRB(15, style.topPadding + 10, 15, 10),
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(color: style.grey, width: 1.0)),
+                    color: Colors.white,
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -41,6 +52,7 @@ class NavLayout extends StatelessWidget {
                           ),
                         ),
                       ),
+                      rightDistance != null ? SizedBox(width: rightDistance-25,):SizedBox(),
                       Expanded(
                         flex: 1,
                         child: Text(this.title,
@@ -48,9 +60,10 @@ class NavLayout extends StatelessWidget {
                             style: style.baseFontStyle
                                 .copyWith(fontSize: style.titleSize)),
                       ),
-                      right??SizedBox(
-                        width: 25,
-                      ),
+                      right ??
+                          SizedBox(
+                            width: rightDistance??25,
+                          ),
                     ],
                   ),
                 ),

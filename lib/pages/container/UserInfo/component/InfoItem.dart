@@ -35,7 +35,7 @@ class InfoItem extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text(title, style: style.baseFontStyle),
+                  Text(title, style: style.mFontStyle),
                   SizedBox(width: 5,),
                   prefix??SizedBox(width: 0,),
                 ],
@@ -43,7 +43,7 @@ class InfoItem extends StatelessWidget {
             ),
             content
             ??
-            Text('未设置',style:style.secondFontStyle),
+            Text('未设置',style:style.secondFontStyle.copyWith(fontSize:style.mFontSize)),
             isModify
                 ? Container(
                     padding: EdgeInsets.only(left: 10.0),

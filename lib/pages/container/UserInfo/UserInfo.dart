@@ -10,7 +10,7 @@ import 'component/InfoItem.dart';
 class UserInfo extends StatelessWidget {
   Widget _getContent(String key) {
     String value = userInfo[key];
-    return value.isNotEmpty ? Text(value, style: style.secondFontStyle) : null;
+    return value.isNotEmpty ? Text(value, style: style.secondFontStyle.copyWith(fontSize:style.mFontSize)) : null;
   }
 
   Widget _getAuth() {
@@ -97,8 +97,8 @@ class UserInfo extends StatelessWidget {
             child: Image.asset(
               "assets/image/headImg.png",
               fit: BoxFit.cover,
-              width: 36.0,
-              height: 36.0,
+              width: 40.0,
+              height: 40.0,
             ),
           ),
         ),

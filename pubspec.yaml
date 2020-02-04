@@ -121,6 +121,8 @@ flutter:
    - assets/icon/switch-row.png
    - assets/icon/collect-unselect.png
    - assets/icon/collect-select.png
+   - assets/icon/icon-dustbin.png
+   - assets/icon/collection-heart.png
    
 
    

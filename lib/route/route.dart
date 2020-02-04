@@ -12,6 +12,9 @@ import 'package:educationapp/pages/container/SelectSchool/SelectSchool.dart';
 import 'package:educationapp/pages/container/UserInfo/UserInfo.dart';
 import 'package:educationapp/pages/container/UserInfo/component/EditInfo.dart';
 import 'package:educationapp/pages/container/CourseList/CourseList.dart';
+import 'package:educationapp/pages/container/Collection/Collection.dart';
+import 'package:educationapp/pages/container/SearchPage/SearchPage.dart';
+import 'package:educationapp/pages/container/CollectionSearch/CollectionSearch.dart';
 
 final routes = {
   '/': (context, {arguments}) => Tabs(),
@@ -31,6 +34,9 @@ final routes = {
   '/UserInfo':(context,{arguments}) => UserInfo(),
   '/EditInfo':(context,{arguments}) => EditInfo(arguments: arguments,),
   '/CourseList':(context,{arguments}) => CourseList(),
+  '/Collection':(context,{arguments}) => Collection(),
+  '/SearchPage':(context,{arguments}) => SearchPage(),
+  '/CollectionSearch':(context,{arguments}) => CollectionSearch(),
 };
 
 // 代表当前context的路由对象

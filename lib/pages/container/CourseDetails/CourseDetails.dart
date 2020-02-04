@@ -83,7 +83,7 @@ class _CourseDetailsState extends State<CourseDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: style.bgColor,
+        backgroundColor: style.grey,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.dark,
           child: Container(
