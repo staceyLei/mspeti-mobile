@@ -15,6 +15,7 @@ import 'package:educationapp/pages/container/CourseList/CourseList.dart';
 import 'package:educationapp/pages/container/Collection/Collection.dart';
 import 'package:educationapp/pages/container/SearchPage/SearchPage.dart';
 import 'package:educationapp/pages/container/CollectionSearch/CollectionSearch.dart';
+import 'package:educationapp/pages/container/Homework/Homework.dart';
 
 final routes = {
   '/': (context, {arguments}) => Tabs(),
@@ -37,6 +38,7 @@ final routes = {
   '/Collection':(context,{arguments}) => Collection(),
   '/SearchPage':(context,{arguments}) => SearchPage(),
   '/CollectionSearch':(context,{arguments}) => CollectionSearch(),
+  '/Homework':(context,{arguments}) => Homework(),
 };
 
 // 代表当前context的路由对象

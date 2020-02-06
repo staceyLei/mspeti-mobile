@@ -123,6 +123,12 @@ flutter:
    - assets/icon/collect-select.png
    - assets/icon/icon-dustbin.png
    - assets/icon/collection-heart.png
+   - assets/icon/homework-check.png
+   - assets/icon/homework-uncheck.png
+   - assets/icon/homework-none.png
+   - assets/icon/camera.png
+   - assets/icon/video.png
+   - assets/icon/icon-create.png
    
 
    
