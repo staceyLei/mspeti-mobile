@@ -1,3 +1,4 @@
+import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/BaseLayout.dart';
@@ -48,11 +49,11 @@ class _HomeworkState extends State<Homework> {
             onTap: () {
               this.setState(() {
                 String newStatus = item['key'];
-                _checkStatus = newStatus; 
+                _checkStatus = newStatus;
                 List newData = _homeworkData
                     .where((ele) => ele['status'] == newStatus)
                     .toList();
-                _renderData = newStatus == 'all'?_homeworkData: newData;
+                _renderData = newStatus == 'all' ? _homeworkData : newData;
               });
             },
             child: HomeworkItem(
@@ -73,7 +74,10 @@ class _HomeworkState extends State<Homework> {
   Widget _renderContent(buildContext, index) {
     Map item = _renderData[index];
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          navigatorKey.currentState
+              .pushNamed('/HomeworkDetail', arguments: {'details': item});
+        },
         child: HomeworkPanel(
             title: item['title'],
             course: item['course'],

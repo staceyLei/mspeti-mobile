@@ -9,6 +9,7 @@ class NavLayout extends StatelessWidget {
   final Widget bottom;
   final Widget right;
   final double rightDistance;
+  final EdgeInsets padding;
 
   NavLayout(
       {this.components,
@@ -16,6 +17,7 @@ class NavLayout extends StatelessWidget {
       this.backgroundColor,
       this.bottom,
       this.rightDistance,
+      this.padding,
       this.right});
 
   @override
@@ -23,6 +25,7 @@ class NavLayout extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: Scaffold(
+          backgroundColor: backgroundColor,
             resizeToAvoidBottomPadding: false,
             body: Column(
               children: <Widget>[
@@ -70,9 +73,10 @@ class NavLayout extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    color: this.backgroundColor,
+                    padding: padding,
                     child: SingleChildScrollView(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: this.components,
                       ),
                     ),

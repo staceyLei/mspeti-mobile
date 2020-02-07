@@ -15,7 +15,7 @@ class MyConst {
         "assets/icon/menu-homework.png",
         fit: BoxFit.fill,
       ),
-      "url": '',
+      "url": '/Homework',
     },
     {
       "title": "课堂考勤",
@@ -41,7 +41,7 @@ class MyConst {
       ),
     },
     {
-      "title": "课堂评价",
+      "title": "我的点评",
       "image": Image.asset(
         "assets/icon/menu-remark.png",
         fit: BoxFit.fill,
