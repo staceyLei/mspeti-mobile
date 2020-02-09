@@ -29,6 +29,7 @@ dependencies:
   shared_preferences: ^0.5.6+1
   image_picker: ^0.6.3+1
   fluttertoast: ^3.1.3
+  video_player: ^0.10.6
 
 dev_dependencies:
   flutter_test:
@@ -129,6 +130,9 @@ flutter:
    - assets/icon/camera.png
    - assets/icon/video.png
    - assets/icon/icon-create.png
+   - assets/icon/homework-wait.png
+   - assets/icon/homework-success.png
+   - assets/icon/homework-grade.png
    
 
    

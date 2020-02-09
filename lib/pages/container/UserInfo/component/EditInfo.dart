@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavLayout.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:educationapp/pages/components/BaseInput.dart';
 
 class EditInfo extends StatefulWidget {
   final arguments;
@@ -19,10 +21,12 @@ class _EditInfoState extends State<EditInfo> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _codeController = TextEditingController();
+  final TextEditingController _oldPwd = TextEditingController();
+  final TextEditingController _newPwd = TextEditingController();
   int _time = 10;
   Timer _timer;
   bool _isGetCode = false; //是否获取验证码
-  int _status; //0 邮箱 1 手机号
+  int _status; //0 邮箱 1 手机号 2密码
 
   _EditInfoState({this.arguments}) {
     this._status = this.arguments['status'];
@@ -52,60 +56,27 @@ class _EditInfoState extends State<EditInfo> {
     if (_status == 0) {
       return <Widget>[
         SizedBox(height: 10),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(
-                top: BorderSide(color: style.borderColor, width: 1),
-                bottom: BorderSide(color: style.borderColor, width: 1),
-              )),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text('邮箱', style: style.baseFontStyle),
-              Expanded(
-                  flex: 1,
-                  child: TextField(
-                    controller: _emailController,
-                    textAlign: TextAlign.end,
-                    decoration: InputDecoration(
-                        border:
-                            UnderlineInputBorder(borderSide: BorderSide.none),
-                        hintStyle: style.hintStyle,
-                        hintText: '请输入邮箱'),
-                  )),
-            ],
-          ),
-        )
+        BaseInput(
+          title:'邮箱',
+          hintText: '请输入邮箱',
+          controller: _emailController,
+        ),
       ];
     }
     return [
       SizedBox(height: 1),
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 15.0),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border(
-              bottom: BorderSide(color: style.borderColor, width: 1),
-            )),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text('联系方式', style: style.baseFontStyle),
-            Expanded(
-                flex: 1,
-                child: TextField(
-                  controller: _phoneController,
-                  enabled: !_isGetCode,
-                  textAlign: TextAlign.end,
-                  decoration: InputDecoration(
-                      border: UnderlineInputBorder(borderSide: BorderSide.none),
-                      hintStyle: style.hintStyle,
-                      hintText: '请输入手机号码'),
-                )),
-          ],
-        ),
+      BaseInput(
+        title: '联系方式',
+        hintText: '请输入手机号码',
+        controller: _phoneController,
+        enabled: !_isGetCode,
+        keyboardType:TextInputType.phone,
+        formatters: [
+          // 长度限制
+          LengthLimitingTextInputFormatter(11),
+          // 数字限制
+          WhitelistingTextInputFormatter.digitsOnly,
+        ],
       ),
       Container(
         padding: EdgeInsets.symmetric(horizontal: 15.0),
@@ -117,7 +88,7 @@ class _EditInfoState extends State<EditInfo> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text('验证码', style: style.baseFontStyle),
+            Text('验证码', style: style.mFontStyle),
             Expanded(
                 flex: 1,
                 child: TextField(
@@ -125,7 +96,8 @@ class _EditInfoState extends State<EditInfo> {
                   textAlign: TextAlign.end,
                   decoration: InputDecoration(
                       border: UnderlineInputBorder(borderSide: BorderSide.none),
-                      hintStyle: style.hintStyle,
+                      hintStyle:
+                          style.hintStyle.copyWith(fontSize: style.mFontSize),
                       hintText: '输入验证码'),
                 )),
             SizedBox(width: 10.0),
@@ -164,9 +136,13 @@ class _EditInfoState extends State<EditInfo> {
                   ),
                   child: !_isGetCode
                       ? Text('获取验证码',
-                          style: style.baseFontStyle
+                          style: style.mFontStyle
                               .copyWith(color: style.themeColor))
-                      : Text('${_time}s后重新获取')),
+                      : Text(
+                          '${_time}s后重新获取',
+                          style: style.secondFontStyle
+                              .copyWith(fontSize: style.mFontSize),
+                        )),
             )
           ],
         ),
@@ -175,6 +151,21 @@ class _EditInfoState extends State<EditInfo> {
         padding: EdgeInsets.all(10),
         child: Text('绑定手机号码，更便于提供更好服务',
             style: style.baseFontStyle.copyWith(color: style.lightGrey)),
+      )
+    ];
+  }
+
+  List<Widget> _renderPassword() {
+    return [
+      BaseInput(
+        title:'原密码',
+        hintText:'请输入原密码',
+        controller: _oldPwd,
+      ),
+      BaseInput(
+        title:'新密码',
+        hintText:'请输入新密码',
+        controller: _newPwd,
       )
     ];
   }
@@ -198,7 +189,7 @@ class _EditInfoState extends State<EditInfo> {
                 msg: '请输入正确的邮箱', gravity: ToastGravity.CENTER);
             return;
           }
-          if(_status == 1){
+          if (_status == 1) {
             //校验验证码是否正确，号码不能为空！
           }
           Fluttertoast.showToast(msg: '修改成功', gravity: ToastGravity.CENTER);
@@ -207,11 +198,11 @@ class _EditInfoState extends State<EditInfo> {
           Navigator.pop(context);
         },
         child: Container(
-          width: 25.0,
-          child: Text('完成', style: style.baseFontStyle),
+          width: 30.0,
+          child: Text('完成', style: style.mFontStyle),
         ),
       ),
-      components: _renderComponents(),
+      components: _status == 2 ? _renderPassword(): _renderComponents(),
     );
   }
 }

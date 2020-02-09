@@ -11,6 +11,11 @@ const homeworkData = [
 图片提交。
    ''',
    "time":"2020年 3月5日 周三",
+   "homeworkWord":"hahaha",
+   "homeworkImg":"",
+   "homeworkVideo":"",
+   "grade":"98",
+   "teacherComment":"下次继续努力",
    "img":"assets/image/class2.png"
    },
   {"id": "2",
@@ -25,6 +30,11 @@ const homeworkData = [
 图片提交。
    ''',
    "time":"2020年 3月5日 周三",
+   "homeworkWord":"hahaha",
+   "homeworkImg":"",
+   "homeworkVideo":"",
+   "grade":"98",
+   "teacherComment":"下次继续努力",
    "img":"assets/image/class1.png"
    },
   {"id": "3",
@@ -39,6 +49,11 @@ const homeworkData = [
 图片提交。
    ''',
    "time":"2020年 3月5日 周三",
+   "homeworkWord":"hahaha",
+   "homeworkImg":"",
+   "homeworkVideo":"",
+   "grade":"98",
+   "teacherComment":"下次继续努力",
    "img":"assets/image/class2.png"
    },
    {"id": "4",
@@ -53,6 +68,11 @@ const homeworkData = [
 图片提交。
    ''',
    "time":"2020年 3月5日 周三",
+   "homeworkWord":"hahaha",
+   "homeworkImg":"",
+   "homeworkVideo":"",
+   "grade":"98",
+   "teacherComment":"下次继续努力",
    "img":"assets/image/class1.png"
    },
 ];

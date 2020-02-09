@@ -30,7 +30,7 @@ class _CollectionState extends State<Collection> {
     return Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
       InkWell(
           onTap: () {
-            navigatorKey.currentState.pushNamed('/SearchPage');
+            navigatorKey.currentState.pushNamed('/CollectionSearch');
           },
           child: Container(
               width: 18,

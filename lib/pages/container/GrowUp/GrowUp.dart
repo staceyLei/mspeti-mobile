@@ -62,7 +62,7 @@ class _GrowUpState extends State<GrowUp> {
   Widget _renderFloatBtn() {
     return InkWell(
         onTap: () {
-          navigatorKey.currentState.pushNamed('/NewGrowUp');
+          navigatorKey.currentState.pushNamed('/NewGrowUp',arguments: {'status':0});
         },
         child: Container(
           width: 55,
@@ -131,7 +131,10 @@ class _GrowUpState extends State<GrowUp> {
                         itemBuilder: (buildContext, index) {
                           Map item = _renderData[index];
                           return InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).pushNamed('/NewGrowUp',
+                                    arguments: {'status': 1, 'item': item});
+                              },
                               child: GrowUpItem(
                                 content: item['content'],
                                 headImg: item['headImg'],

@@ -1,3 +1,4 @@
+import 'package:educationapp/route/route.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:educationapp/store/modal/User.dart';
 import 'package:educationapp/store/store.dart';
@@ -40,12 +41,12 @@ class _SetUpState extends State<SetUp> {
                   padding: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(10.0)),
+                    border: Border(
+                        bottom: BorderSide(color: style.grey, width: 1.0)),
                   ),
                   child: InkWell(
                     onTap: () {
-                      print('修改信息');
+                      navigatorKey.currentState.pushNamed('/UserInfo');
                     },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,13 +81,35 @@ class _SetUpState extends State<SetUp> {
                     ),
                   ),
                 ),
+                InkWell(
+                    onTap: () {
+                      navigatorKey.currentState
+                          .pushNamed('/EditInfo', arguments: {'status': 2});
+                    },
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(20, 20, 10, 20),
+                      color: Colors.white,
+                      width: style.width,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('修改密码', style: style.mFontStyle),
+                            Icon(
+                              Icons.keyboard_arrow_right,
+                              color: Colors.grey,
+                            )
+                          ]),
+                    )),
                 SizedBox(
                   height: 20.0,
                 ),
-                BaseButton(title: '退出登录',onTap: (){
-                   UserAction.toLogOut();
-                        Navigator.pushNamed(context, '/Login');
-                },),
+                BaseButton(
+                  title: '退出登录',
+                  onTap: () {
+                    UserAction.toLogOut();
+                    Navigator.pushNamed(context, '/Login');
+                  },
+                ),
               ],
             ));
       },

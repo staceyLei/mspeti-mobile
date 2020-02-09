@@ -43,7 +43,7 @@ final routes = {
   '/CollectionSearch':(context,{arguments}) => CollectionSearch(),
   '/Homework':(context,{arguments}) => Homework(),
   '/GrowUp':(context,{arguments}) => GrowUp(),
-  '/NewGrowUp':(context,{arguments}) => NewGrowUp(),
+  '/NewGrowUp':(context,{arguments}) => NewGrowUp(arguments: arguments,),
   '/HomeworkDetail':(context,{arguments}) => HomeworkDetail(arguments:arguments),
 };
 
