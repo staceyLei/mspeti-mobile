@@ -2,8 +2,8 @@ import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:flutter/services.dart';
-import 'component/GrowUpItem.dart';
 import 'component/const.dart';
+import 'component/GrowUpItem.dart';
 
 class GrowUp extends StatefulWidget {
   @override
@@ -136,10 +136,7 @@ class _GrowUpState extends State<GrowUp> {
                                     arguments: {'status': 1, 'item': item});
                               },
                               child: GrowUpItem(
-                                content: item['content'],
-                                headImg: item['headImg'],
-                                name: item['name'],
-                                time: item['time'],
+                                item: item,
                               ));
                         }))
               ],

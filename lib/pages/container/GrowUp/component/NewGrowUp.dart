@@ -13,10 +13,7 @@ class NewGrowUp extends StatelessWidget {
     Map item = arguments['item'];
     return [
       GrowUpItem(
-        headImg: item['headImg'],
-        name: item['name'],
-        time: item['time'],
-        content: item['content'],
+        item: item,
       ),
     ];
   }

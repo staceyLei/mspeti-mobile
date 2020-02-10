@@ -217,21 +217,13 @@ class _LoginState extends State<Login> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
-        resizeToAvoidBottomPadding: false, //解决键盘遮挡问题
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          padding: EdgeInsets.all(10.0),
-          child: Column(
+        // resizeToAvoidBottomPadding: false, //解决键盘遮挡问题
+        body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Row(
+                  Container(
+                    padding:EdgeInsets.fromLTRB(10, style.topPadding+5, 10, 0),
+                    child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       InkWell(
@@ -254,12 +246,18 @@ class _LoginState extends State<Login> {
                         },
                         child: Text(
                           this._loginType == 0 ? '密码登录' : '免密登录',
-                          style: TextStyle(fontSize: 14.0, color: Colors.black),
+                          style:style.baseFontStyle,
                         ),
-                      )
+                      ),
                     ],
                   ),
-                  Container(
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: ListView(
+                      padding: EdgeInsets.all(0),
+                      children: <Widget>[
+                      Container(
                       child: ListTile(
                           title: Text(this._loginType == 0 ? '手机免密登录' : '密码登录',
                               style: TextStyle(
@@ -306,8 +304,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                       ))
-                ],
-              ),
+                  ],)),
               // Column(
               //   children: <Widget>[
               //     ListTile(
@@ -389,7 +386,6 @@ class _LoginState extends State<Login> {
             ],
           ),
         ),
-      ),
     );
   }
 }

@@ -1,44 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
-import 'package:video_player/video_player.dart';
+import 'package:educationapp/pages/components/VideoItem.dart';
 
 class GrowUpItem extends StatefulWidget {
-  final String headImg;
-  final String name;
-  final String time;
-  final String content;
-  GrowUpItem({this.headImg, this.name, this.time, this.content});
+  final Map item;
+  GrowUpItem({this.item});
 
   @override
   State<GrowUpItem> createState() {
-    return _GrowUpItemState(
-        headImg: headImg, name: name, time: time, content: content);
+    return _GrowUpItemState();
   }
 }
 
 class _GrowUpItemState extends State<GrowUpItem> {
-  final String headImg;
-  final String name;
-  final String time;
-  final String content;
-  VideoPlayerController _videoPlayerController;
-
-  _GrowUpItemState({this.headImg, this.name, this.time, this.content});
-  @override
-  void initState() {
-    super.initState();
-    _videoPlayerController = VideoPlayerController.network(
-        'http://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4')
-      ..initialize().then((_) {
-        //确保第一帧在视频初始化后展示
-        setState(() {});
-      });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _videoPlayerController.dispose();
+  List<Widget> _renderHomeworkDetail() {
+    List<Widget> res = [
+      VideoItem(video: widget.item['video']),
+    ];
+    List imgArr = widget.item['img'].split(",");
+    res.addAll(imgArr.map((ele) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+            width: 75, height: 75, child: Image.asset(ele, fit: BoxFit.cover)),
+      );
+    }));
+    return res;
   }
 
   @override
@@ -54,7 +41,7 @@ class _GrowUpItemState extends State<GrowUpItem> {
             children: <Widget>[
               ClipOval(
                 child: Image.asset(
-                  headImg,
+                  widget.item['headImg'],
                   width: 50,
                   height: 50,
                   fit: BoxFit.cover,
@@ -63,11 +50,11 @@ class _GrowUpItemState extends State<GrowUpItem> {
               SizedBox(width: 10),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(
-                  name,
+                  widget.item['name'],
                   style: style.mFontStyle,
                   maxLines: 2,
                 ),
-                Text(time,
+                Text(widget.item['time'],
                     style: style.sFontStyle.copyWith(color: style.lightGrey))
               ]),
             ],
@@ -76,36 +63,14 @@ class _GrowUpItemState extends State<GrowUpItem> {
               margin: EdgeInsets.only(left: 60),
               width: style.width - 60,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(content, style: style.baseFontStyle),
+                  Text(widget.item['content'], style: style.baseFontStyle),
                   SizedBox(height: 15),
-                  _videoPlayerController.value.initialized
-                      ? Container(
-                        width: 100,
-                        height: 100,
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                          Container(
-                            width: 100,
-                            height: 100,
-                            child: VideoPlayer(_videoPlayerController),
-                          ),
-                          IconButton(
-                              icon: Icon(
-                                Icons.play_circle_outline,
-                                color: Colors.white,
-                                size: 60,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _videoPlayerController.value.isPlaying
-                                      ? _videoPlayerController.pause()
-                                      : _videoPlayerController.play();
-                                });
-                              })
-                        ]))
-                      : SizedBox()
+                  Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: _renderHomeworkDetail())
                 ],
               )),
         ],
