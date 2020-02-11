@@ -19,11 +19,16 @@ class _GrowUpItemState extends State<GrowUpItem> {
     ];
     List imgArr = widget.item['img'].split(",");
     res.addAll(imgArr.map((ele) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(5),
-        child: Container(
-            width: 75, height: 75, child: Image.asset(ele, fit: BoxFit.cover)),
-      );
+      return InkWell(
+          onTap: () {
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: Container(
+                width: 75,
+                height: 75,
+                child: Image.asset(ele, fit: BoxFit.cover)),
+          ));
     }));
     return res;
   }

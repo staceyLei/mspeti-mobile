@@ -281,10 +281,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                             decoration: BoxDecoration(
                                 color: Theme.of(context).accentColor,
                                 borderRadius: BorderRadius.circular(14.0),
-                                gradient: LinearGradient(colors: [
-                                  Color.fromRGBO(0, 117, 255, 1),
-                                  style.themeColor,
-                                ])),
+                                gradient: style.baseGradient),
                             child: Text(
                               '立即报名',
                               style: TextStyle(

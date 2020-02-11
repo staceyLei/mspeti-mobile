@@ -286,10 +286,7 @@ class _LoginState extends State<Login> {
                             color: this._disabled
                                 ? Theme.of(context).accentColor.withOpacity(0.5)
                                 : Theme.of(context).accentColor,
-                            gradient: LinearGradient(colors: [
-                              Color.fromRGBO(0, 117, 255, 1),
-                              style.themeColor,
-                            ]),
+                            gradient: style.baseGradient,
                             borderRadius: BorderRadius.circular(25.0),
                           ),
                           child: Row(

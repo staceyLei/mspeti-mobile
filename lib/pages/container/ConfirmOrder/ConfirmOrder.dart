@@ -32,10 +32,7 @@ class ConfirmOrder extends StatelessWidget {
               decoration: BoxDecoration(
                   color: style.themeColor,
                   borderRadius: BorderRadius.circular(14.0),
-                  gradient: LinearGradient(colors: [
-                    Color.fromRGBO(0, 117, 255, 1),
-                    style.themeColor,
-                  ])),
+                  gradient: style.baseGradient),
               child: Text(
                 '确认报名',
                 style: TextStyle(color: Colors.white, fontSize: 12.0),

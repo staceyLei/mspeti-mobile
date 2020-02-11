@@ -25,7 +25,7 @@ class LearnPanel extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text('我的学习数据',
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+                style: style.mFontStyle.copyWith(fontWeight:FontWeight.bold)),
             SizedBox(
               height: 20.0,
             ),
@@ -50,13 +50,13 @@ class LearnData extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(title, style: TextStyle(fontSize: 12.0)),
+        Text(title, style: style.baseFontStyle),
         SizedBox(
           height: 5.0,
         ),
         Text(value,
             style: TextStyle(
-              fontSize: 20.0,
+              fontSize: 22.0,
               color: Color.fromRGBO(43, 136, 244, 1),
               fontWeight: FontWeight.bold,
             )),

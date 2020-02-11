@@ -161,10 +161,7 @@ class _CollectionState extends State<Collection> {
             decoration: BoxDecoration(
                 color: style.themeColor,
                 borderRadius: BorderRadius.circular(15.0),
-                gradient: LinearGradient(colors: [
-                  Color.fromRGBO(0, 117, 255, 1),
-                  style.themeColor,
-                ])),
+                gradient: style.baseGradient),
             child: Text('全部删除',
                 style:
                     TextStyle(color: Colors.white, fontSize: style.mFontSize)),

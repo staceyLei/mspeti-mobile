@@ -10,6 +10,7 @@ class NavLayout extends StatelessWidget {
   final Widget right;
   final double rightDistance;
   final EdgeInsets padding;
+  final bool hasBorder;
 
   NavLayout(
       {this.components,
@@ -18,6 +19,7 @@ class NavLayout extends StatelessWidget {
       this.bottom,
       this.rightDistance,
       this.padding,
+      this.hasBorder = true,
       this.right});
 
   @override
@@ -25,7 +27,7 @@ class NavLayout extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: Scaffold(
-          backgroundColor: backgroundColor,
+            backgroundColor: backgroundColor,
             resizeToAvoidBottomPadding: false,
             body: Column(
               children: <Widget>[
@@ -35,7 +37,9 @@ class NavLayout extends StatelessWidget {
                       EdgeInsets.fromLTRB(15, style.topPadding + 10, 15, 10),
                   decoration: BoxDecoration(
                     border: Border(
-                        bottom: BorderSide(color: style.grey, width: 1.0)),
+                        bottom: hasBorder
+                            ? BorderSide(color: style.grey, width: 1.0)
+                            : BorderSide.none),
                     color: Colors.white,
                   ),
                   child: Row(
@@ -55,7 +59,11 @@ class NavLayout extends StatelessWidget {
                           ),
                         ),
                       ),
-                      rightDistance != null ? SizedBox(width: rightDistance-25,):SizedBox(),
+                      rightDistance != null
+                          ? SizedBox(
+                              width: rightDistance - 25,
+                            )
+                          : SizedBox(),
                       Expanded(
                         flex: 1,
                         child: Text(this.title,
@@ -65,7 +73,7 @@ class NavLayout extends StatelessWidget {
                       ),
                       right ??
                           SizedBox(
-                            width: rightDistance??25,
+                            width: rightDistance ?? 25,
                           ),
                     ],
                   ),

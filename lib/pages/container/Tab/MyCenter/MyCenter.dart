@@ -46,7 +46,7 @@ class _MyCenterState extends State<MyCenter> {
     {'title': '个人信息', 'leading': 'assets/icon/center-message.png', 'url': '/UserInfo'},
     {'title': '我的作业', 'leading': 'assets/icon/center-attend.png', 'url': '/Homework'},
     {'title': '我的成长', 'leading': 'assets/icon/center-grow.png', 'url': '/GrowUp'},
-    {'title': '我的点评', 'leading': 'assets/icon/center-remark.png', 'url': ''},
+    {'title': '我的点评', 'leading': 'assets/icon/center-remark.png', 'url': '/Comment'},
     {'title': '我的收藏', 'leading': 'assets/icon/collection.png', 'url': '/Collection'},
   ];
 

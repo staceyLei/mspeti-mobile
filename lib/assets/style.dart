@@ -40,3 +40,7 @@ TextStyle maleStyle = TextStyle(
     fontSize: sFontSize,
     fontWeight: FontWeight.normal,
     decoration: TextDecoration.none);
+LinearGradient baseGradient = LinearGradient(colors: [
+  Color.fromRGBO(0, 117, 255, 1),
+  themeColor,
+]);

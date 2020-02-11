@@ -131,8 +131,8 @@ class _HomeworkState extends State<Homework> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                               Container(
-                                width: 125,
-                                height: 72,
+                                width: 90,
+                                height: 90,
                                 child: Image.asset(
                                   'assets/icon/homework-none.png',
                                   fit: BoxFit.contain,
@@ -140,7 +140,7 @@ class _HomeworkState extends State<Homework> {
                               ),
                               Text('暂无作业',
                                   style: style.secondFontStyle
-                                      .copyWith(fontSize: 20)),
+                                      .copyWith(fontSize: 20,color: style.lightGrey)),
                             ])
                       : ListView.builder(
                           itemCount: _renderData.length,

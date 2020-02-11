@@ -134,6 +134,8 @@ flutter:
    - assets/icon/homework-success.png
    - assets/icon/homework-grade.png
    - assets/video/test.mp4
+   - assets/icon/commentStar-active.png
+   - assets/icon/commentStar-unactive.png
    
 
    

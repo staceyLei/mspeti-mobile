@@ -19,6 +19,8 @@ import 'package:educationapp/pages/container/Homework/Homework.dart';
 import 'package:educationapp/pages/container/Homework/component/HomeworkDetail.dart';
 import 'package:educationapp/pages/container/GrowUp/GrowUp.dart';
 import 'package:educationapp/pages/container/GrowUp/component/NewGrowUp.dart';
+import 'package:educationapp/pages/container/Comment/Comment.dart';
+import 'package:educationapp/pages/container/Comment/component/AddComment.dart';
 
 final routes = {
   '/': (context, {arguments}) => Tabs(),
@@ -45,6 +47,8 @@ final routes = {
   '/GrowUp':(context,{arguments}) => GrowUp(),
   '/NewGrowUp':(context,{arguments}) => NewGrowUp(arguments: arguments,),
   '/HomeworkDetail':(context,{arguments}) => HomeworkDetail(arguments:arguments),
+  '/AddComment':(context,{arguments}) => AddComment(arguments:arguments),
+  '/Comment':(context,{arguments}) => Comment(),
 };
 
 // 代表当前context的路由对象
