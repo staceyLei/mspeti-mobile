@@ -26,12 +26,12 @@ class MyConst {
       "url": '',
     },
     {
-      "title": "每日阅读",
+      "title": "我的课程",
       "image": Image.asset(
         "assets/icon/menu-reading.png",
         fit: BoxFit.fill,
       ),
-      "url": '',
+      "url": '/MyCourse',
     },
     {
       "title": "我的成绩",
@@ -46,7 +46,15 @@ class MyConst {
         "assets/icon/menu-remark.png",
         fit: BoxFit.fill,
       ),
-      "url": '',
+      "url": '/Comment',
     },
+    {
+      "title": "我的收藏",
+      "image": Image.asset(
+        "assets/icon/menu-collect.png",
+        fit: BoxFit.fill,
+      ),
+      "url": '/Collection',
+    }
   ];
 }

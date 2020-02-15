@@ -10,8 +10,8 @@ class HomeworkPanel extends StatelessWidget {
 
   final _colors = {
     '0': style.redColor,
-    '1': Color.fromRGBO(255, 162, 0, 1),
-    '2': Color.fromRGBO(69, 182, 21, 1)
+    '1': style.orangeColor,
+    '2': style.greenColor
   };
   final _alert = {'0': '未提交', '1': '待评改', '2': '已完成'};
 

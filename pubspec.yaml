@@ -67,6 +67,7 @@ flutter:
    - assets/icon/menu-attend.png
    - assets/icon/menu-class.png
    - assets/icon/menu-homework.png
+   - assets/icon/menu-collect.png
    - assets/icon/menu-reading.png
    - assets/icon/menu-remark.png
    - assets/icon/menu-result.png

@@ -31,7 +31,7 @@ class _TabsState extends State<Tabs> {
   var pages = [
     HomePage(),
     Course(),
-    Message(),
+    // Message(),
     MyCenter(),
   ];
   int _currentIndex;
@@ -67,11 +67,11 @@ class _TabsState extends State<Tabs> {
             icon: TabsIcon("assets/icon/book.png"),
             activeIcon: TabsIcon("assets/icon/book-active.png"),
           ),
-          BottomNavigationBarItem(
-            title: Text('通知'),
-            icon: TabsIcon("assets/icon/message.png"),
-            activeIcon: TabsIcon("assets/icon/message-active.png"),
-          ),
+          // BottomNavigationBarItem(
+          //   title: Text('通知'),
+          //   icon: TabsIcon("assets/icon/message.png"),
+          //   activeIcon: TabsIcon("assets/icon/message-active.png"),
+          // ),
           BottomNavigationBarItem(
             title: Text('我的'),
             icon: TabsIcon("assets/icon/myCenter.png"),

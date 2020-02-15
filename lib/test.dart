@@ -4,5 +4,4 @@ main() {
     {'id': 1},
     {'id': 2}
   ];
-  print([].isEmpty);
 }

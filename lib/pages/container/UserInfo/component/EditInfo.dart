@@ -128,21 +128,16 @@ class _EditInfoState extends State<EditInfo> {
               },
               child: Container(
                   height: 50.0,
+                  width: 85,
                   alignment: Alignment(0, 0),
                   padding: EdgeInsets.only(left: 15),
                   decoration: BoxDecoration(
                     border: Border(
                         left: BorderSide(color: style.borderColor, width: 1)),
                   ),
-                  child: !_isGetCode
-                      ? Text('获取验证码',
+                  child: Text(!_isGetCode?'获取验证码':'${_time}s',
                           style: style.mFontStyle
-                              .copyWith(color: style.themeColor))
-                      : Text(
-                          '${_time}s后重新获取',
-                          style: style.secondFontStyle
-                              .copyWith(fontSize: style.mFontSize),
-                        )),
+                              .copyWith(color: style.themeColor))),
             )
           ],
         ),
