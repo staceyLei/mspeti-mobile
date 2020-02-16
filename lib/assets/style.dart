@@ -46,3 +46,4 @@ LinearGradient baseGradient = LinearGradient(colors: [
 ]);
 const orangeColor = Color.fromRGBO(255, 162, 0, 1);
 const greenColor = Color.fromRGBO(69, 182, 21, 1);
+const grey200 = Color.fromRGBO(200, 200, 200, 1);

@@ -23,6 +23,7 @@ import 'package:educationapp/pages/container/Comment/Comment.dart';
 import 'package:educationapp/pages/container/Comment/component/AddComment.dart';
 import 'package:educationapp/pages/container/MyCourse/MyCourse.dart';
 import 'package:educationapp/pages/container/MyCourse/component/CourseContent.dart';
+import 'package:educationapp/pages/container/TimeTable/TimeTable.dart';
 
 final routes = {
   '/': (context, {arguments}) => Tabs(),
@@ -52,6 +53,7 @@ final routes = {
   '/AddComment':(context,{arguments}) => AddComment(arguments:arguments),
   '/Comment':(context,{arguments}) => Comment(),
   '/MyCourse':(context,{arguments}) => MyCourse(),
+  '/TimeTable':(context,{arguments}) => TimeTable(),
   '/CourseContent':(context,{arguments}) => CourseContent(arguments:arguments),
 };
 

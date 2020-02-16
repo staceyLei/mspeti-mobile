@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 class MyConst {
   static var menuList = [
     {
-      "title": "我的课表",
+      "title": "课程日历",
       "image": Image.asset(
         "assets/icon/menu-class.png",
         fit: BoxFit.fill,
       ),
-      "url": '',
+      "url": '/TimeTable',
     },
     {
       "title": "课堂作业",
@@ -17,14 +17,14 @@ class MyConst {
       ),
       "url": '/Homework',
     },
-    {
-      "title": "课堂考勤",
-      "image": Image.asset(
-        "assets/icon/menu-attend.png",
-        fit: BoxFit.fill,
-      ),
-      "url": '',
-    },
+    // {
+    //   "title": "课堂考勤",
+    //   "image": Image.asset(
+    //     "assets/icon/menu-attend.png",
+    //     fit: BoxFit.fill,
+    //   ),
+    //   "url": '',
+    // },
     {
       "title": "我的课程",
       "image": Image.asset(
@@ -34,11 +34,12 @@ class MyConst {
       "url": '/MyCourse',
     },
     {
-      "title": "我的成绩",
+      "title": "我的成长",
       "image": Image.asset(
         "assets/icon/menu-result.png",
         fit: BoxFit.fill,
       ),
+      "url":"/GrowUp"
     },
     {
       "title": "我的点评",

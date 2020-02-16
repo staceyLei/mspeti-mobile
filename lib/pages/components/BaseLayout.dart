@@ -69,7 +69,6 @@ class BaseLayout extends StatelessWidget {
                   ),
                 ),
                 navBarB ?? SizedBox(),
-                SizedBox(height: 5),
                 Expanded(
                   flex: 1,
                   child: Container(

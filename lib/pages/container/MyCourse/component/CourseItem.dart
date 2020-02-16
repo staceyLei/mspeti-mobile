@@ -87,7 +87,7 @@ class CourseItem extends StatelessWidget {
                   style: style.sFontStyle.copyWith(
                       color: style.themeColor, fontWeight: FontWeight.bold)),
               flex: 1),
-        ])
+        ]),
       ]),
     );
   }

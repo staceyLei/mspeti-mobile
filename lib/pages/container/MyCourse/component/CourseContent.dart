@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/components/NavLayout.dart';
 import 'package:educationapp/assets/style.dart' as style;
+import 'package:educationapp/pages/components/Calender.dart';
 
 class CourseContent extends StatelessWidget {
   final arguments;

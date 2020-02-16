@@ -67,6 +67,7 @@ class _CommentState extends State<Comment> {
     return Container(
       width: style.width,
       padding: EdgeInsets.only(left: 15),
+      margin: EdgeInsets.only(bottom:5),
       decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
         BoxShadow(blurRadius: 1, color: Color.fromRGBO(0, 0, 0, 0.05),offset: Offset(0, 2)),
       ]),
