@@ -138,6 +138,12 @@ flutter:
    - assets/icon/commentStar-active.png
    - assets/icon/commentStar-unactive.png
    - assets/icon/timetable-circle.png
+   - assets/icon/ask-for-leave.png
+   - assets/icon/has-class.png
+   - assets/icon/arrive-class.png
+   - assets/icon/wait-for-check.png
+   - assets/icon/qingjia.png
+   - assets/icon/out-of-class.png
    
 
    

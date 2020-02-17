@@ -55,36 +55,15 @@ class _HomePageState extends State<HomePage> {
           height: 35,
         ),
       ),
-      SizedBox(width:20),
+      SizedBox(width: 20),
       Expanded(
+        child: Text('早上好 今天是周三',
+            style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+                fontWeight: FontWeight.bold)),
         flex: 1,
-        child: InkWell(
-          onTap: () {
-            print('search');
-          },
-          child: Container(
-            padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
-            decoration: BoxDecoration(
-              color: Color.fromRGBO(241, 242, 243, 1),
-              borderRadius: BorderRadius.circular(18.0),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Container(
-                  width: 14,
-                  height: 14,
-                  margin: EdgeInsets.only(right: 5.0),
-                  child: Image.asset('assets/icon/search.png',
-                      fit: BoxFit.contain),
-                ),
-                Text('搜索应用',
-                    style: TextStyle(color: Colors.grey, fontSize: 14.0))
-              ],
-            ),
-          ),
-        ),
-      ),
+      )
     ];
   }
 

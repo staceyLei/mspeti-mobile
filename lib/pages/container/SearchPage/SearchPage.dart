@@ -3,8 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'const.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
+  final arguments;
+  SearchPage({this.arguments});
+  @override
+  State<SearchPage> createState() {
+    return _SearchPageState();
+  }
+}
+
+class _SearchPageState extends State<SearchPage> {
   List _history = [];
+  List _searchRes = [];
+  TextEditingController _controller = TextEditingController();
+  FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      bool focus = _focusNode.hasFocus;
+      if (!focus) {
+        this.setState(() {
+          _searchRes = [];
+        });
+      }
+    });
+  }
 
   List<Widget> _renderHistory() {
     _history = history;
@@ -34,30 +59,39 @@ class SearchPage extends StatelessWidget {
           Row(
             children: <Widget>[
               Expanded(
-                  flex: 1,
-                  child: InkWell(
-                      onTap: () {
-                        navigatorKey.currentState
-                            .pushReplacementNamed('/CollectionSearch');
-                      },
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white),
-                        child: Row(children: [
-                          Container(
-                            width: 16,
-                            height: 16,
-                            child: Image.asset('assets/icon/course-search.png',
-                                fit: BoxFit.contain),
-                          ),
-                          SizedBox(width: 10),
-                          Text('搜索',
-                              style: style.hintStyle
-                                  .copyWith(fontSize: style.mFontSize)),
-                        ]),
-                      ))),
+                flex: 1,
+                child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.white,
+                    ),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: 20.0,
+                      ),
+                      child: TextField(
+                          controller: _controller,
+                          focusNode: _focusNode,
+                          style: style.mFontStyle,
+                          autofocus: true,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(bottom: 10),
+                              prefixIcon: Container(
+                                width: 16,
+                                height: 16,
+                                padding: EdgeInsets.all(2.5),
+                                child: Image.asset(
+                                    "assets/icon/course-search.png"),
+                              ),
+                              hintText: '搜索课程',
+                              hintStyle: style.hintStyle
+                                  .copyWith(fontSize: style.mFontSize),
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide.none,
+                              ))),
+                    )),
+              ),
               InkWell(
                 onTap: () {
                   navigatorKey.currentState.pop();

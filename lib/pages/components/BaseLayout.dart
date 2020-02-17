@@ -9,6 +9,9 @@ class BaseLayout extends StatelessWidget {
   final Widget navBarB;
   final Widget right;
   final bool hasBorder;
+  final BoxDecoration decoration;
+  final EdgeInsets componentMargin;
+  final EdgeInsets componentPadding;
 
   BaseLayout(
       {this.components,
@@ -16,6 +19,9 @@ class BaseLayout extends StatelessWidget {
       this.backgroundColor,
       this.right,
       this.hasBorder = true,
+      this.decoration,
+      this.componentMargin,
+      this.componentPadding,
       this.navBarB});
 
   @override
@@ -24,6 +30,7 @@ class BaseLayout extends StatelessWidget {
         value: SystemUiOverlayStyle.dark,
         child: Scaffold(
             resizeToAvoidBottomPadding: false,
+            backgroundColor: backgroundColor,
             body: Column(
               children: <Widget>[
                 Container(
@@ -72,8 +79,10 @@ class BaseLayout extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    color: this.backgroundColor,
+                    decoration: this.decoration,
                     child: this.components,
+                    padding: componentPadding,
+                    margin: this.componentMargin,
                   ),
                 ),
               ],

@@ -24,6 +24,8 @@ import 'package:educationapp/pages/container/Comment/component/AddComment.dart';
 import 'package:educationapp/pages/container/MyCourse/MyCourse.dart';
 import 'package:educationapp/pages/container/MyCourse/component/CourseContent.dart';
 import 'package:educationapp/pages/container/TimeTable/TimeTable.dart';
+import 'package:educationapp/pages/container/TimeTable/component/TimeTableDetail.dart';
+
 
 final routes = {
   '/': (context, {arguments}) => Tabs(),
@@ -55,6 +57,7 @@ final routes = {
   '/MyCourse':(context,{arguments}) => MyCourse(),
   '/TimeTable':(context,{arguments}) => TimeTable(),
   '/CourseContent':(context,{arguments}) => CourseContent(arguments:arguments),
+  '/TimeTableDetail':(context,{arguments}) => TimeTableDetail(arguments:arguments),
 };
 
 // 代表当前context的路由对象

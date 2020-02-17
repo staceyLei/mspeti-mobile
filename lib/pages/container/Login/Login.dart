@@ -361,7 +361,7 @@ class _LoginState extends State<Login> {
             //   ],
             // ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 15.0),
+              padding: EdgeInsets.only(top: 5.0),
               child: GestureDetector(
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/SelectSchool');

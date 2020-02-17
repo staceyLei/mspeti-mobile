@@ -1,3 +1,4 @@
+import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:educationapp/assets/style.dart' as style;
@@ -46,7 +47,7 @@ class _CourseState extends State<Course> {
                     flex: 1,
                     child: InkWell(
                         onTap: () {
-                          print('search');
+                          navigatorKey.currentState.pushNamed('/SearchPage',arguments: {'from':'course'});
                         },
                         child: Container(
                           padding: EdgeInsets.fromLTRB(15, 10, 15, 10),

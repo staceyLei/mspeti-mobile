@@ -1,3 +1,4 @@
+import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/components/Calender.dart';
 import 'package:educationapp/pages/components/BaseLayout.dart';
@@ -27,26 +28,24 @@ class _TimeTableState extends State<TimeTable> {
 
   Widget _renderEmpty() {
     return Container(
-      color:Colors.white,
-      width: style.width,
-      child:Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 70,
-            height: 70,
-            child: Image.asset(
-              'assets/icon/homework-none.png',
-              fit: BoxFit.contain,
-            ),
-          ),
-          SizedBox(height:20),
-          Text('今天没有课噢，预习一下别的课程吧~',
-              style: style.baseFontStyle
-                  .copyWith(color: style.lightGrey)),
-        ])
-    );
+        color: Colors.white,
+        width: style.width,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 70,
+                height: 70,
+                child: Image.asset(
+                  'assets/icon/homework-none.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(height: 20),
+              Text('今天没有课噢，预习一下别的课程吧~',
+                  style: style.baseFontStyle.copyWith(color: style.lightGrey)),
+            ]));
   }
 
   _handleOnChangeDay(int selectedDay) {
@@ -77,10 +76,14 @@ class _TimeTableState extends State<TimeTable> {
       components: _showData.isEmpty
           ? _renderEmpty()
           : ListView.builder(
-            padding: EdgeInsets.all(0),
+              padding: EdgeInsets.all(0),
               itemCount: _showData.length,
               itemBuilder: (context, index) => InkWell(
-                  onTap: () {}, child: TimeTableItem(item: _showData[index]))),
+                  onTap: () {
+                    navigatorKey.currentState.pushNamed('/TimeTableDetail',
+                        arguments: {'courseInfo': _showData[index]});
+                  },
+                  child: TimeTableItem(item: _showData[index]))),
     );
   }
 }
