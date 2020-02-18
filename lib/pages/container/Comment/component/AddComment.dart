@@ -75,6 +75,11 @@ class _AddCommentState extends State<AddComment> {
         ));
   }
 
+  String _getNowDate() {
+    DateTime now = DateTime.now();
+    return '${now.year}年${now.month}月${now.day}日';
+  }
+
   @override
   Widget build(BuildContext context) {
     return NavLayout(
@@ -105,7 +110,7 @@ class _AddCommentState extends State<AddComment> {
                     Text(_item['course'], style: style.mFontStyle)
                   ],
                 )),
-            Text('2020年3月5日', style: style.mFontStyle),
+            Text(_getNowDate(), style: style.mFontStyle),
           ]),
           SizedBox(height: 20),
           Text('给Ta评个分吧',

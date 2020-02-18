@@ -81,7 +81,7 @@ class HomeworkDetail extends StatelessWidget {
           SizedBox(height: 10),
           Text(_item['content'],
               style: style.mFontStyle
-                  .copyWith(color: Color.fromRGBO(68, 68, 79, 1))),
+                  .copyWith(color: style.blueBlack)),
           _item['status'] == '0'
               ? Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),

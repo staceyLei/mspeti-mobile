@@ -4,6 +4,18 @@ const btnData = [
   {"key": "rec", "value": "推荐"},
 ];
 
+const classify = [
+  {"key": "all", "value": "全部"},
+  {"key": "math", "value": "数学"},
+  {"key": "chinese", "value": "语文"},
+  {"key": "eng", "value": "英语"},
+  {"key": "art", "value": "美术"},
+  {"key": "phy", "value": "物理"},
+  {"key": "music", "value": "音乐"},
+  {"key": "dance", "value": "舞蹈"},
+  {"key": "che", "value": "化学"},
+];
+
 const courseData = [
   {
     "name": '寒假全期小/初/高数学辅导班',

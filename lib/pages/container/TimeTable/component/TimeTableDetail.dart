@@ -50,7 +50,7 @@ class _TimeTableDetailState extends State<TimeTableDetail> {
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                  color: Color.fromRGBO(68, 68, 79, 1),
+                  color: style.blueBlack,
                   borderRadius: BorderRadius.circular(25)),
               child: SizedBox(
                   width: 30,

@@ -6,7 +6,7 @@ class CourseItem extends StatelessWidget {
   double _percent;
   double _total;
   CourseItem({this.item}) {
-    _total = (style.width - 2 * 15 - 2 * 20 - 50);
+    _total = (style.width - 2 * 15 - 2 * 20 - 20);
     _percent = ((double.parse(item['nowCourseHours']) /
         double.parse(item['courseHours'])));
   }
@@ -83,7 +83,7 @@ class CourseItem extends StatelessWidget {
           ),
           SizedBox(width: 10),
           Expanded(
-              child: Text('${(_percent * 100).toStringAsFixed(2)}%',
+              child: Text('${(_percent * 100).toStringAsFixed(0)}%',
                   style: style.sFontStyle.copyWith(
                       color: style.themeColor, fontWeight: FontWeight.bold)),
               flex: 1),

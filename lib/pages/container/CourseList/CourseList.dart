@@ -1,3 +1,4 @@
+import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:educationapp/assets/style.dart' as style;
@@ -80,7 +81,8 @@ class _CourseListState extends State<CourseList> {
                     flex: 1,
                     child: InkWell(
                         onTap: () {
-                          print('search');
+                          navigatorKey.currentState
+                              .pushNamed('/SearchPage', arguments:{'from': 'courseList'});
                         },
                         child: Container(
                           padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
@@ -99,7 +101,9 @@ class _CourseListState extends State<CourseList> {
                                     fit: BoxFit.contain),
                               ),
                               SizedBox(width: 10),
-                              Text('搜索课程', style: style.hintStyle),
+                              Text('搜索课程',
+                                  style: style.hintStyle
+                                      .copyWith(fontSize: style.mFontSize)),
                             ],
                           ),
                         )),
@@ -128,10 +132,10 @@ class _CourseListState extends State<CourseList> {
                   width: style.width,
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                      color: Colors.white,
                       border: Border(
-                    bottom: BorderSide(color: style.grey, width: 0.5),
-                  )),
+                        bottom: BorderSide(color: style.grey, width: 0.5),
+                      )),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(

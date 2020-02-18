@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/components/NavLayout.dart';
 import 'package:educationapp/assets/style.dart' as style;
-import 'package:educationapp/pages/components/Calender.dart';
 
 class CourseContent extends StatelessWidget {
   final arguments;
@@ -10,7 +9,7 @@ class CourseContent extends StatelessWidget {
   double _total;
   CourseContent({this.arguments}) {
     _item = arguments['item'];
-    _total = 200;
+    _total = style.width-2*20-2*10-80;
     _percent = ((double.parse(_item['nowCourseHours']) /
         double.parse(_item['courseHours'])));
   }
@@ -183,7 +182,7 @@ class CourseContent extends StatelessWidget {
                       ),
                       SizedBox(width: 5),
                       Expanded(
-                          child: Text('${(_percent * 100).toStringAsFixed(2)}%',
+                          child: Text('${(_percent * 100).toStringAsFixed(0)}%',
                               style: style.sFontStyle
                                   .copyWith(color: style.baseFontColor)),
                           flex: 1),
@@ -196,7 +195,9 @@ class CourseContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               OutlineButton(
-                onPressed: () {},
+                onPressed: () {
+                  
+                },
                 borderSide: BorderSide(color: style.orangeColor),
                 highlightedBorderColor: style.orangeColor,
                 child: Text(
