@@ -67,9 +67,12 @@ class _CommentState extends State<Comment> {
     return Container(
       width: style.width,
       padding: EdgeInsets.only(left: 15),
-      margin: EdgeInsets.only(bottom:5),
+      margin: EdgeInsets.only(bottom: 5),
       decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
-        BoxShadow(blurRadius: 1, color: Color.fromRGBO(0, 0, 0, 0.05),offset: Offset(0, 2)),
+        BoxShadow(
+            blurRadius: 1,
+            color: Color.fromRGBO(0, 0, 0, 0.05),
+            offset: Offset(0, 2)),
       ]),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,16 +86,17 @@ class _CommentState extends State<Comment> {
               child: Column(children: [
                 Text('我发出的',
                     style: style.mFontStyle.copyWith(
-                        fontWeight:FontWeight.bold,color: !_isSend?style.lightGrey:style.baseFontColor)),
-                _isSend
-                    ? Container(
-                        margin: EdgeInsets.symmetric(vertical: 5),
-                        width: 30,
-                        height: 4,
-                        decoration: BoxDecoration(
-                            gradient: style.baseGradient,
-                            borderRadius: BorderRadius.circular(2)))
-                    : SizedBox()
+                        fontWeight: FontWeight.bold,
+                        color:
+                            !_isSend ? style.lightGrey : style.baseFontColor)),
+                if (_isSend)
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: 5),
+                      width: 30,
+                      height: 4,
+                      decoration: BoxDecoration(
+                          gradient: style.baseGradient,
+                          borderRadius: BorderRadius.circular(2))),
               ])),
           SizedBox(width: 30),
           InkWell(
@@ -104,16 +108,17 @@ class _CommentState extends State<Comment> {
               child: Column(children: [
                 Text('我收到的',
                     style: style.mFontStyle.copyWith(
-                        fontWeight:FontWeight.bold,color: _isSend?style.lightGrey:style.baseFontColor)),
-                !_isSend
-                    ? Container(
-                        margin: EdgeInsets.symmetric(vertical: 5),
-                        width: 30,
-                        height: 4,
-                        decoration: BoxDecoration(
-                            gradient: style.baseGradient,
-                            borderRadius: BorderRadius.circular(2)))
-                    : SizedBox()
+                        fontWeight: FontWeight.bold,
+                        color:
+                            _isSend ? style.lightGrey : style.baseFontColor)),
+                if (!_isSend)
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: 5),
+                      width: 30,
+                      height: 4,
+                      decoration: BoxDecoration(
+                          gradient: style.baseGradient,
+                          borderRadius: BorderRadius.circular(2))),
               ])),
         ],
       ),

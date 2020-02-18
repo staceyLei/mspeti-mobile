@@ -100,7 +100,7 @@ class NewGrowUp extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   gradient: style.baseGradient),
-              child: Text('提交作业',
+              child: Text('提交',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,

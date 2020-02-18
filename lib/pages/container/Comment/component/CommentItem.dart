@@ -66,37 +66,35 @@ class CommentItem extends StatelessWidget {
                       Text('${item['commentCourse']} ${item['commentTime']}',
                           style: style.baseFontStyle)
                     ])),
-            !isSend
-                ? InkWell(
-                    onTap: () {
-                      navigatorKey.currentState
-                          .pushNamed('/AddComment', arguments: {
-                        'data': {
-                          "teacher": item['commentName'],
-                          "course": item['commentCourse'],
-                          "headImg": item['headImg']
-                        }
-                      });
-                    },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                      decoration: BoxDecoration(
-                          border:
-                              Border.all(color: style.themeColor, width: 1.0),
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.white),
-                      child: Text('评价',
-                          style: style.secondFontStyle.copyWith(
-                              color: style.themeColor,
-                              fontWeight: FontWeight.bold)),
-                    ))
-                : SizedBox()
+            if (!isSend)
+              InkWell(
+                  onTap: () {
+                    navigatorKey.currentState
+                        .pushNamed('/AddComment', arguments: {
+                      'data': {
+                        "teacher": item['commentName'],
+                        "course": item['commentCourse'],
+                        "headImg": item['headImg']
+                      }
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: style.themeColor, width: 1.0),
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white),
+                    child: Text('评价',
+                        style: style.secondFontStyle.copyWith(
+                            color: style.themeColor,
+                            fontWeight: FontWeight.bold)),
+                  ))
           ],
         ),
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: _renderStarBox(item['commentStar'])),
-            SizedBox(height:15),
+        SizedBox(height: 15),
         Container(
           padding: EdgeInsets.all(15),
           color: style.grey,

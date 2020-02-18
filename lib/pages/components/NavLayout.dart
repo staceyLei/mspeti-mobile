@@ -59,11 +59,10 @@ class NavLayout extends StatelessWidget {
                           ),
                         ),
                       ),
-                      rightDistance != null
-                          ? SizedBox(
+                      if(rightDistance != null)
+                      SizedBox(
                               width: rightDistance - 25,
-                            )
-                          : SizedBox(),
+                            ),
                       Expanded(
                         flex: 1,
                         child: Text(this.title,
@@ -90,7 +89,7 @@ class NavLayout extends StatelessWidget {
                     ),
                   ),
                 ),
-                this.bottom ?? SizedBox(),
+                if(bottom !=null) this.bottom
               ],
             )));
   }

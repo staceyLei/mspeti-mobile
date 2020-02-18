@@ -111,7 +111,7 @@ class _TimeTableDetailState extends State<TimeTableDetail> {
                       Container(
                           width: 70,
                           height: 70,
-                          child: _selectStatus == TimeTableStatus.normal.index
+                          child:( _selectStatus == TimeTableStatus.normal.index)
                               ? SizedBox()
                               : Image.asset(
                                   _getStatus(_selectStatus),

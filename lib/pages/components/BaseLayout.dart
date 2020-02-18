@@ -68,14 +68,11 @@ class BaseLayout extends StatelessWidget {
                             style: style.baseFontStyle
                                 .copyWith(fontSize: style.titleSize)),
                       ),
-                      right ??
-                          SizedBox(
-                            width: 25,
-                          ),
+                      if(right != null) right
                     ],
                   ),
                 ),
-                navBarB ?? SizedBox(),
+                if(navBarB != null) navBarB,
                 Expanded(
                   flex: 1,
                   child: Container(

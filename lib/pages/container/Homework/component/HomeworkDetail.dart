@@ -60,19 +60,18 @@ class HomeworkDetail extends StatelessWidget {
                     style: style.mFontStyle.copyWith(
                         color: style.lightGrey, fontWeight: FontWeight.bold)),
               ]),
-              ['1', '2'].contains(_item['status'])
-                  ? Expanded(
-                      flex: 1,
-                      child: SizedBox(
-                          width: 75,
-                          height: 75,
-                          child: Image.asset(
-                            _item['status'] == '1'
-                                ? 'assets/icon/homework-wait.png'
-                                : 'assets/icon/homework-success.png',
-                            fit: BoxFit.contain,
-                          )))
-                  : SizedBox()
+              if (['1', '2'].contains(_item['status']))
+                Expanded(
+                    flex: 1,
+                    child: SizedBox(
+                        width: 75,
+                        height: 75,
+                        child: Image.asset(
+                          _item['status'] == '1'
+                              ? 'assets/icon/homework-wait.png'
+                              : 'assets/icon/homework-success.png',
+                          fit: BoxFit.contain,
+                        )))
             ],
           ),
           SizedBox(height: 20),
@@ -80,8 +79,7 @@ class HomeworkDetail extends StatelessWidget {
               style: style.mFontStyle.copyWith(fontWeight: FontWeight.bold)),
           SizedBox(height: 10),
           Text(_item['content'],
-              style: style.mFontStyle
-                  .copyWith(color: style.blueBlack)),
+              style: style.mFontStyle.copyWith(color: style.blueBlack)),
           _item['status'] == '0'
               ? Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
@@ -156,52 +154,51 @@ class HomeworkDetail extends StatelessWidget {
                   children: _renderHomeworkDetail(),
                 ),
           SizedBox(height: 10),
-          _item['status'] == '2'
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('作业得分',
-                        style: style.mFontStyle
-                            .copyWith(fontWeight: FontWeight.bold)),
-                    SizedBox(height: 10),
-                    SizedBox(
-                      width: style.width,
-                      child: Column(children: [
-                        Text(_item['grade'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 70,
-                                color: style.redColor)),
-                        Container(
-                          width: 115,
-                          height: 26,
-                          child: Image.asset(
-                            'assets/icon/homework-grade.png',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ]),
-                    ),
-                    SizedBox(height: 10),
-                    Text('教师评语',
-                        style: style.mFontStyle
-                            .copyWith(fontWeight: FontWeight.bold)),
-                    SizedBox(height: 10),
+          if (_item['status'] == '2')
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('作业得分',
+                    style:
+                        style.mFontStyle.copyWith(fontWeight: FontWeight.bold)),
+                SizedBox(height: 10),
+                SizedBox(
+                  width: style.width,
+                  child: Column(children: [
+                    Text(_item['grade'],
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 70,
+                            color: style.redColor)),
                     Container(
-                      padding: EdgeInsets.all(20),
-                      margin: EdgeInsets.only(bottom: 15),
-                      width: style.width,
-                      decoration: BoxDecoration(
-                          color: style.grey,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Text(
-                        _item['teacherComment'],
-                        style: style.mFontStyle,
+                      width: 115,
+                      height: 26,
+                      child: Image.asset(
+                        'assets/icon/homework-grade.png',
+                        fit: BoxFit.contain,
                       ),
-                    )
-                  ],
+                    ),
+                  ]),
+                ),
+                SizedBox(height: 10),
+                Text('教师评语',
+                    style:
+                        style.mFontStyle.copyWith(fontWeight: FontWeight.bold)),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  margin: EdgeInsets.only(bottom: 15),
+                  width: style.width,
+                  decoration: BoxDecoration(
+                      color: style.grey,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Text(
+                    _item['teacherComment'],
+                    style: style.mFontStyle,
+                  ),
                 )
-              : SizedBox()
+              ],
+            )
         ],
         bottom: _item['status'] == '0'
             ? InkWell(

@@ -317,14 +317,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   // 渐变导航栏
-                  this._barOpacity > 0
-                      ? NavBar(
-                          barHeight: this.DEFAULT_BAR,
-                          barOpacity: this._barOpacity,
-                          comonent: this.renderNavBar(),
-                          color: Color.fromRGBO(37, 177, 135, 1),
-                        )
-                      : SizedBox(),
+                  if (this._barOpacity > 0)
+                    NavBar(
+                      barHeight: this.DEFAULT_BAR,
+                      barOpacity: this._barOpacity,
+                      comonent: this.renderNavBar(),
+                      color: Color.fromRGBO(37, 177, 135, 1),
+                    )
                 ])));
       },
     );

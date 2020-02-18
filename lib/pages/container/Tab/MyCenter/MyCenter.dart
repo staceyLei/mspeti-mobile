@@ -42,12 +42,36 @@ class _MyCenterState extends State<MyCenter> {
   ];
 
   List _menuData = [
-    {'title': '我的课程', 'leading': 'assets/icon/center-class.png', 'url': '/MyCourse'},
-    {'title': '个人信息', 'leading': 'assets/icon/center-message.png', 'url': '/UserInfo'},
-    {'title': '我的作业', 'leading': 'assets/icon/center-attend.png', 'url': '/Homework'},
-    {'title': '我的成长', 'leading': 'assets/icon/center-grow.png', 'url': '/GrowUp'},
-    {'title': '我的点评', 'leading': 'assets/icon/center-remark.png', 'url': '/Comment'},
-    {'title': '我的收藏', 'leading': 'assets/icon/collection.png', 'url': '/Collection'},
+    {
+      'title': '我的课程',
+      'leading': 'assets/icon/center-class.png',
+      'url': '/MyCourse'
+    },
+    {
+      'title': '个人信息',
+      'leading': 'assets/icon/center-message.png',
+      'url': '/UserInfo'
+    },
+    {
+      'title': '我的作业',
+      'leading': 'assets/icon/center-attend.png',
+      'url': '/Homework'
+    },
+    {
+      'title': '我的成长',
+      'leading': 'assets/icon/center-grow.png',
+      'url': '/GrowUp'
+    },
+    {
+      'title': '我的点评',
+      'leading': 'assets/icon/center-remark.png',
+      'url': '/Comment'
+    },
+    {
+      'title': '我的收藏',
+      'leading': 'assets/icon/collection.png',
+      'url': '/Collection'
+    },
   ];
 
   List<Widget> _renderLearnData(List data) {
@@ -169,10 +193,7 @@ class _MyCenterState extends State<MyCenter> {
                         child: Image.asset('assets/icon/circle-bg.png'),
                       ),
                       Positioned(
-                        left: 15.0,
-                        top: this.DEFAULT_BAR,
-                        child: InfoCard()
-                        ),
+                          left: 15.0, top: this.DEFAULT_BAR, child: InfoCard()),
                       // 我的学习数据板块
                       LearnPanel(
                         renderLearnData: this._renderLearnData,
@@ -196,12 +217,13 @@ class _MyCenterState extends State<MyCenter> {
             ),
           ),
           // 渐变导航栏
-          _barOpacity > 0 ? NavBar(
-            barOpacity: this._barOpacity,
-            barHeight: this.DEFAULT_BAR,
-            comonent: this.renderNavBar(),
-            color: Color.fromRGBO(45, 118, 202, 1),
-          ):SizedBox(),
+          if (_barOpacity > 0)
+            NavBar(
+              barOpacity: this._barOpacity,
+              barHeight: this.DEFAULT_BAR,
+              comonent: this.renderNavBar(),
+              color: Color.fromRGBO(45, 118, 202, 1),
+            )
         ],
       ),
     );

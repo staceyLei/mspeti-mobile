@@ -65,20 +65,18 @@ class CollectionItem extends StatelessWidget {
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold)),
                                 ]),
-                            !status
-                                ? InkWell(
-                                  onTap:onCancel,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal:15),
-                                    width: 48,
-                                    height: 18,
-                                    child: Image.asset(
-                                        "assets/icon/collect-more.png",
-                                        fit: BoxFit.contain),
-                                  ),
-                                )
-                                
-                                : SizedBox()
+                            if (!status)
+                              InkWell(
+                                onTap: onCancel,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  width: 48,
+                                  height: 18,
+                                  child: Image.asset(
+                                      "assets/icon/collect-more.png",
+                                      fit: BoxFit.contain),
+                                ),
+                              )
                           ]),
                     ]),
               )),
@@ -93,14 +91,13 @@ class CollectionItem extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(15, 5, 15, 10),
       width: style.width,
       child: Row(children: [
-        status
-            ? Container(
-                width: 18,
-                height: 18,
-                child: Image.asset(isSelected
-                    ? "assets/icon/collect-select.png"
-                    : "assets/icon/collect-unselect.png"))
-            : SizedBox(),
+        if (status)
+          Container(
+              width: 18,
+              height: 18,
+              child: Image.asset(isSelected
+                  ? "assets/icon/collect-select.png"
+                  : "assets/icon/collect-unselect.png")),
         SizedBox(width: 10),
         Expanded(
           flex: 1,

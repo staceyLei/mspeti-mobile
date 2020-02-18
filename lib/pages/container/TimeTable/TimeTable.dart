@@ -71,7 +71,7 @@ class _TimeTableState extends State<TimeTable> {
       title: '课程日历',
       navBarB: Stack(alignment: Alignment.center, children: [
         Calendar(timeTable: _classData, handleOnChange: _handleOnChangeDay),
-        _loading ? CircularProgressIndicator() : SizedBox(),
+        if(_loading) CircularProgressIndicator(),
       ]),
       components: _showData.isEmpty
           ? _renderEmpty()
