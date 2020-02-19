@@ -61,8 +61,7 @@ class _SelectSchoolState extends State<SelectSchool> {
                 bottom: BorderSide(color: style.borderColor, width: 1.0),
               )),
               child: Text(data[index]['name'],
-                  style: TextStyle(
-                      color: style.sFontColor, fontSize: style.baseFontSize)),
+                  style: style.mFontStyle),
             ));
       },
     );
@@ -117,7 +116,7 @@ class _SelectSchoolState extends State<SelectSchool> {
                       SizedBox(
                         width: 15.0,
                       ),
-                      Text("搜索机构", style: style.hintStyle),
+                      Text("搜索机构", style: style.hintStyle.copyWith(fontSize:style.mFontSize)),
                     ],
                   ),
                 ),

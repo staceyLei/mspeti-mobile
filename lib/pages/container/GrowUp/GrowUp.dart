@@ -29,7 +29,6 @@ class _GrowUpState extends State<GrowUp> {
         color: Colors.white,
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           InkWell(
             onTap: () {

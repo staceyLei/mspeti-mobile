@@ -311,14 +311,14 @@ class _LoginState extends State<Login> {
             //       title: Text('其他登录方式'),
             //     ),
             //     Row(
-            //       crossAxisAlignment: CrossAxisAlignment.center,
+            //       ,
             //       children: <Widget>[
             //         SizedBox(
             //           width: 20.0,
             //         ),
             //         InkWell(
             //           child: Column(
-            //             crossAxisAlignment: CrossAxisAlignment.center,
+            //             ,
             //             children: <Widget>[
             //               Container(
             //                 width: 28.0,
@@ -338,7 +338,7 @@ class _LoginState extends State<Login> {
             //         ),
             //         InkWell(
             //           child: Column(
-            //             crossAxisAlignment: CrossAxisAlignment.center,
+            //             ,
             //             children: <Widget>[
             //               Container(
             //                 width: 28.0,
@@ -367,7 +367,6 @@ class _LoginState extends State<Login> {
                   Navigator.pushReplacementNamed(context, '/SelectSchool');
                 },
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       this._schoolData['name'] ?? '',

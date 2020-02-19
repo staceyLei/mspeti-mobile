@@ -11,10 +11,8 @@ class InfoCard extends StatelessWidget {
       width:style.width - 15.0,
       child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ClipOval(
               child: Image.asset(
@@ -46,7 +44,6 @@ class InfoCard extends StatelessWidget {
                     color: Color.fromRGBO(255, 159, 34, 1),
                   ),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Image.asset('assets/icon/icon-xunzhang.png'),
                       Text('0勋章',
@@ -65,7 +62,6 @@ class InfoCard extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(10),
             child:Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
                 '我的资料卡',

@@ -43,7 +43,6 @@ class NavLayout extends StatelessWidget {
                     color: Colors.white,
                   ),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       InkWell(
                         onTap: () {

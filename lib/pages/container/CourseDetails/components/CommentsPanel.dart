@@ -90,7 +90,6 @@ class CommentsPanel extends StatelessWidget {
           padding: EdgeInsets.all(10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text("暂无评论~", style: TextStyle(fontSize: 22.0)),
             ],

@@ -31,7 +31,6 @@ class NavBar extends StatelessWidget {
           height: this.barHeight,
           child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children:this.comonent),
         ),
       ),

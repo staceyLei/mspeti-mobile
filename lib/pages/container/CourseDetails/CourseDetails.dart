@@ -93,9 +93,6 @@ class _CourseDetailsState extends State<CourseDetails> {
               children: <Widget>[
                 SingleChildScrollView(
                     controller: _controller,
-                    child: MediaQuery.removePadding(
-                      context: context,
-                      removeTop: true,
                       child: Column(
                         children: <Widget>[
                           Container(
@@ -111,7 +108,6 @@ class _CourseDetailsState extends State<CourseDetails> {
                             color: Colors.white,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text('寒假全期小/初/高数学辅导班',
                                     style: TextStyle(
@@ -156,7 +152,6 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Column(
                                       crossAxisAlignment:
@@ -239,7 +234,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                           ),
                         ],
                       ),
-                    )),
+                    ),
                 // 底部按钮模块
                 Positioned(
                   bottom: 0,
@@ -253,11 +248,9 @@ class _CourseDetailsState extends State<CourseDetails> {
                       ),
                     ]),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
                               '¥59.00',

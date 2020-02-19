@@ -54,7 +54,6 @@ class ConfirmOrder extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   width: 24.0,

@@ -127,7 +127,6 @@ class _HomeworkState extends State<Homework> {
                   flex: 1,
                   child: _homeworkData.isEmpty
                       ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                               Container(

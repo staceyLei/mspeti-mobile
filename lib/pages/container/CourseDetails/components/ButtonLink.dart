@@ -9,7 +9,6 @@ class ButtonLink extends StatelessWidget {
     return InkWell(
       onTap: this.handleOnTap,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
             title,

@@ -22,10 +22,8 @@ class MenuBar extends StatelessWidget {
             border: Border(bottom: BorderSide(color: style.borderColor))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   width: 28,

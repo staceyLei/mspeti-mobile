@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:educationapp/assets/style.dart' as style;
+
 class MenuButton extends StatelessWidget {
   final onPressed;
   final String title;
@@ -10,16 +12,15 @@ class MenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         IconButton(
           onPressed: this.onPressed,
-          iconSize: 54,
+          iconSize: (style.width - 150) / 4,
           icon: image,
         ),
         Text(
           title,
-          style: TextStyle(fontSize: 12.0, color: Colors.grey),
+          style: style.baseFontStyle.copyWith(color: style.lightGrey),
         )
       ],
     );

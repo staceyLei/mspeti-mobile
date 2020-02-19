@@ -10,6 +10,7 @@ import 'package:educationapp/assets/style.dart';
 import 'package:educationapp/pages/components/MenuButton.dart';
 import 'package:educationapp/pages/components/NavBar.dart';
 import 'components/CoursePanel.dart';
+import 'package:educationapp/assets/style.dart' as style;
 import 'const.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,8 +23,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ScrollController _controller = ScrollController();
   double _t;
-  double topPadding = MediaQueryData.fromWindow(window).padding.top;
-  double width = MediaQueryData.fromWindow(window).size.width;
   final double DEFAULT_BAR = MediaQueryData.fromWindow(window).padding.top + 44;
 
   double _barOpacity = 0.0;
@@ -94,7 +93,6 @@ class _HomePageState extends State<HomePage> {
       }
       var swiperItem = Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: data.map((f) => f).toList(),
       );
 
@@ -107,10 +105,8 @@ class _HomePageState extends State<HomePage> {
   List<Widget> courseBox = [
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Image.asset('assets/icon/title-bar.png'),
             SizedBox(
@@ -118,7 +114,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Text(
               '热门课程',
-              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+              style: style.mFontStyle.copyWith(fontWeight:FontWeight.bold),
             ),
           ],
         ),
@@ -127,13 +123,9 @@ class _HomePageState extends State<HomePage> {
             navigatorKey.currentState.pushNamed('/CourseList');
           },
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text('查看更多',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 12.0,
-                  )),
+                  style: style.baseFontStyle.copyWith(color:Colors.blue)),
               SizedBox(
                 width: 5,
               ),
@@ -184,34 +176,25 @@ class _HomePageState extends State<HomePage> {
             child: Scaffold(
                 backgroundColor: bgColor,
                 body: Stack(alignment: Alignment.centerLeft, children: <Widget>[
-                  MediaQuery.removePadding(
-                    context: context,
-                    removeTop: true,
-                    child: SingleChildScrollView(
+                  SingleChildScrollView(
                       controller: this._controller,
                       child: Column(
                         children: <Widget>[
                           Container(
-                            height: 260.0,
+                            height: style.width/4*3,
                             child: Stack(
                               children: <Widget>[
                                 Container(
-                                  height: 210.0,
+                                  height:  style.width/16*9,
                                   decoration: BoxDecoration(
                                       color: Color.fromRGBO(37, 177, 135, 1),
                                       borderRadius: BorderRadius.vertical(
-                                          bottom: Radius.circular(50.0))),
+                                          bottom: Radius.circular(30.0))),
                                 ),
                                 Container(
                                   padding:
                                       EdgeInsets.only(top: topPadding + 10),
-                                  decoration: BoxDecoration(
-                                      color: Color.fromRGBO(37, 177, 135, 1),
-                                      borderRadius: BorderRadius.vertical(
-                                          bottom: Radius.circular(50.0))),
                                   child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       SizedBox(
                                         width: 15.0,
@@ -220,8 +203,8 @@ class _HomePageState extends State<HomePage> {
                                         child: Image.asset(
                                           "assets/image/headImg.png",
                                           fit: BoxFit.cover,
-                                          width: 55.0,
-                                          height: 55.0,
+                                          width: style.width*0.16,
+                                          height: style.width*0.16,
                                         ),
                                       ),
                                       Container(
@@ -241,7 +224,7 @@ class _HomePageState extends State<HomePage> {
                                 // 轮播图
                                 Positioned(
                                   width: width,
-                                  height: 160,
+                                  height: (style.width-30)/2,
                                   bottom: 0,
                                   child: Container(
                                       padding: EdgeInsets.symmetric(
@@ -277,7 +260,7 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 15.0),
                             width: width,
-                            height: 105,
+                            height: (style.width - 150) / 4 + 55,
                             child: Swiper(
                               itemBuilder: (BuildContext context, int index) {
                                 return this._itemBuilder(index);
@@ -305,7 +288,6 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: this._getCoursePanl(),
                             ),
                           ),
@@ -315,7 +297,6 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                  ),
                   // 渐变导航栏
                   if (this._barOpacity > 0)
                     NavBar(

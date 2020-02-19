@@ -33,7 +33,6 @@ class HomeworkItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(number, style: isChecked ? checked : unChecked),
               Text(title,

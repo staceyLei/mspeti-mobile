@@ -31,7 +31,6 @@ class LearnPanel extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: this.renderLearnData(this.learnData),
             )
           ],

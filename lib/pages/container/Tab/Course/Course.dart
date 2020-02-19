@@ -97,10 +97,7 @@ class _CourseState extends State<Course> {
           ),
         ),
         backgroundColor: Colors.white,
-        body: MediaQuery.removePadding(
-          context: context,
-          removeTop: true,
-          child: Column(children: <Widget>[
+        body: Column(children: <Widget>[
             Container(
               width: style.width,
               padding: EdgeInsets.fromLTRB(15, style.topPadding + 5, 15, 10),
@@ -125,7 +122,6 @@ class _CourseState extends State<Course> {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text('搜索课程', style: style.hintStyle),
                             Container(
@@ -170,7 +166,6 @@ class _CourseState extends State<Course> {
                       return CourseItem(item: _courseData[index]);
                     }))
           ]),
-        ),
       ),
     );
   }

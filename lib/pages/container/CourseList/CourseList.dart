@@ -53,10 +53,7 @@ class _CourseListState extends State<CourseList> {
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
         backgroundColor: _layout ? style.grey : Colors.white,
-        body: MediaQuery.removePadding(
-            context: context,
-            removeTop: true,
-            child: Column(children: <Widget>[
+        body: Column(children: <Widget>[
               Container(
                 width: style.width,
                 padding: EdgeInsets.fromLTRB(15, style.topPadding + 5, 15, 10),
@@ -91,7 +88,6 @@ class _CourseListState extends State<CourseList> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Container(
                                 width: 16,
@@ -153,7 +149,7 @@ class _CourseListState extends State<CourseList> {
                   ),
                 ),
               )
-            ])),
+            ]),
       ),
     );
   }

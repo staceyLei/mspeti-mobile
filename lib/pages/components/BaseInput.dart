@@ -30,7 +30,6 @@ class BaseInput extends StatelessWidget {
             bottom: BorderSide(color: style.borderColor, width: 1),
           )),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(title, style: style.mFontStyle),
           Expanded(

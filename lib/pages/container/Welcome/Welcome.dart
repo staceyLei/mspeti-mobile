@@ -38,7 +38,7 @@ class _WelcomeState extends State<Welcome> {
 
   _jumpToTab() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String schoolId = prefs.getString('schoolId');
+    String schoolId = prefs.getString('schoolId')??'';
     var route = schoolId.isNotEmpty ? '/Login':'/SelectSchool';
     if (store.state.user.isLogin) {
       route = '/';

@@ -71,7 +71,6 @@ class CardInfo extends StatelessWidget {
                   color: Colors.white
                   ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Row(

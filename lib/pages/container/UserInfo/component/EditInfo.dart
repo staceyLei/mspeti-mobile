@@ -86,7 +86,6 @@ class _EditInfoState extends State<EditInfo> {
               bottom: BorderSide(color: style.borderColor, width: 1),
             )),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text('验证码', style: style.mFontStyle),
             Expanded(

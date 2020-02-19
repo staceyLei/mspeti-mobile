@@ -31,7 +31,6 @@ class _TimeTableState extends State<TimeTable> {
         color: Colors.white,
         width: style.width,
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(

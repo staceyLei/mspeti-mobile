@@ -131,10 +131,7 @@ class _MyCenterState extends State<MyCenter> {
       backgroundColor: style.bgColor,
       body: Stack(
         children: <Widget>[
-          MediaQuery.removePadding(
-            removeTop: true,
-            context: context,
-            child: SingleChildScrollView(
+            SingleChildScrollView(
               controller: _controller,
               child: Column(
                 children: <Widget>[
@@ -215,7 +212,6 @@ class _MyCenterState extends State<MyCenter> {
                 ],
               ),
             ),
-          ),
           // 渐变导航栏
           if (_barOpacity > 0)
             NavBar(

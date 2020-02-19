@@ -26,7 +26,6 @@ class _ConfirmPayState extends State<ConfirmPay> {
               child: Container(
                 margin: EdgeInsets.only(bottom: item['id'] == payWay[payWay.length - 1]['id']?0:20.0),
                 child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
                     width: 24,

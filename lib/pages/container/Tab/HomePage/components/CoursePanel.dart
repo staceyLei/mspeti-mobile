@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:educationapp/assets/style.dart' as style;
 
 class CoursePanel extends StatefulWidget {
   var title;
@@ -28,7 +29,6 @@ class _CoursePanelState extends State<CoursePanel> {
   }
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.all(10.0),
       margin: EdgeInsets.only(top: 10.0),
@@ -45,8 +45,8 @@ class _CoursePanelState extends State<CoursePanel> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            width: (width - 2 * (10 + 15)) * 0.33,
-            height: (width - 2 * (10 + 15)) * 0.33,
+            width: (style.width - 2 * (10 + 15)) * 0.33,
+            height: (style.width - 2 * (10 + 15)) * 0.33,
             decoration: BoxDecoration(
                 border: Border.all(
               width: 1.0,
@@ -58,8 +58,8 @@ class _CoursePanelState extends State<CoursePanel> {
             ),
           ),
           Container(
-            width: (width - 2 * (10 + 15)) * 0.53,
-            height: (width - 2 * (10 + 15)) * 0.33,
+            width: (style.width - 2 * (10 + 15)) * 0.53,
+            height: (style.width - 2 * (10 + 15)) * 0.33,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -68,17 +68,14 @@ class _CoursePanelState extends State<CoursePanel> {
                   children: <Widget>[
                     Text(
                       this._title,
-                      style: TextStyle(fontSize: 16.0),
+                      style: style.mFontStyle,
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
                     Text(
                       this._info,
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Color.fromRGBO(158, 158, 163, 1),
-                      ),
+                      style: style.baseFontStyle.copyWith(color:style.secondFontColor),
                     ),
                   ],
                 ),
@@ -87,14 +84,10 @@ class _CoursePanelState extends State<CoursePanel> {
                     Navigator.pushNamed(context, '/CourseDetails',arguments:{'courseId':1234});
                   },
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Text('了解更多',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 12.0,
-                          )),
+                          style: style.baseFontStyle.copyWith(color:Colors.blue)),
                       SizedBox(
                         width: 5,
                       ),

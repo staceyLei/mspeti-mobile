@@ -33,7 +33,6 @@ class SchoolInfo extends StatelessWidget {
                       bottom: BorderSide(color: style.borderColor, width: 1.0)),
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
                       width: 64.0,
@@ -67,7 +66,6 @@ class SchoolInfo extends StatelessWidget {
                       bottom: BorderSide(color: style.borderColor, width: 1.0)),
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
                       width: 64.0,
@@ -101,7 +99,6 @@ class SchoolInfo extends StatelessWidget {
                       bottom: BorderSide(color: style.borderColor, width: 1.0)),
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
                       width: 64.0,

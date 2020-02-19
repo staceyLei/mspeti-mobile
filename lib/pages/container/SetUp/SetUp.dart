@@ -49,13 +49,11 @@ class _SetUpState extends State<SetUp> {
                       navigatorKey.currentState.pushNamed('/UserInfo');
                     },
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Row(
                           children: <Widget>[
                             Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 ClipOval(
                                   child: Image.asset(

@@ -28,12 +28,10 @@ class InfoItem extends StatelessWidget {
             border: Border(
                 bottom: BorderSide(color: style.borderColor, width: 1.0))),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
               flex: 1,
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(title, style: style.mFontStyle),
                   SizedBox(width: 5,),

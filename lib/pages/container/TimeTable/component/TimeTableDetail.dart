@@ -43,7 +43,6 @@ class _TimeTableDetailState extends State<TimeTableDetail> {
     return InkWell(
         onTap: () {},
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
               alignment: Alignment.center,
