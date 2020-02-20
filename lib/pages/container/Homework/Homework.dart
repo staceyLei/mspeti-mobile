@@ -1,3 +1,4 @@
+import 'package:educationapp/pages/components/DatePicker.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
@@ -17,11 +18,16 @@ class _HomeworkState extends State<Homework> {
   List _homeworkData;
   List _renderData;
   String _checkStatus = 'all';
+  int _selectYear;
+  int _selectMonth;
   @override
   void initState() {
     super.initState();
     _homeworkData = homeworkData;
     _renderData = _homeworkData;
+    DateTime now = DateTime.now();
+    _selectYear = now.year;
+    _selectMonth = now.month;
   }
 
   Widget _renderCount() {
@@ -85,6 +91,13 @@ class _HomeworkState extends State<Homework> {
             status: item['status']));
   }
 
+  _handleOnOk(int year, int month) {
+    setState(() {
+      _selectYear = year;
+      _selectMonth = month;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
@@ -101,18 +114,29 @@ class _HomeworkState extends State<Homework> {
                         fontSize: style.titleSize,
                         fontWeight: FontWeight.bold)),
                 InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (_) => DatePicker(
+                                selectM: _selectMonth,
+                                selectY: _selectYear,
+                                handleOnOK: _handleOnOk,
+                              ));
+                    },
                     child: Row(children: [
-                      Text('2020',
+                      Text(_selectYear.toString(),
                           style: style.baseFontStyle.copyWith(
                               fontSize: style.titleSize,
                               fontWeight: FontWeight.bold)),
                       Text('年', style: style.sFontStyle),
-                      Text('05',
+                      if(_selectMonth>0)
+                      Text(_selectMonth < 10
+                                  ? '0$_selectMonth'
+                                  : _selectMonth.toString(),
                           style: style.baseFontStyle.copyWith(
                               fontSize: style.titleSize,
                               fontWeight: FontWeight.bold)),
-                      Text('月', style: style.sFontStyle),
+                      if (_selectMonth > 0) Text('月', style: style.sFontStyle),
                       Icon(
                         Icons.arrow_drop_down,
                         size: 18,
@@ -138,8 +162,8 @@ class _HomeworkState extends State<Homework> {
                                 ),
                               ),
                               Text('暂无作业',
-                                  style: style.secondFontStyle
-                                      .copyWith(fontSize: 20,color: style.lightGrey)),
+                                  style: style.secondFontStyle.copyWith(
+                                      fontSize: 20, color: style.lightGrey)),
                             ])
                       : ListView.builder(
                           itemCount: _renderData.length,

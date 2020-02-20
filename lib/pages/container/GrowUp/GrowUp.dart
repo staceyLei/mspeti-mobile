@@ -1,4 +1,6 @@
+import 'package:educationapp/pages/components/DatePicker.dart';
 import 'package:educationapp/route/route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:flutter/services.dart';
@@ -14,16 +16,21 @@ class GrowUp extends StatefulWidget {
 
 class _GrowUpState extends State<GrowUp> {
   List _renderData = [];
+  int _selectYear;
+  int _selectMonth;
   @override
   void initState() {
     super.initState();
     _renderData = growUp;
+    DateTime now = DateTime.now();
+    _selectYear = now.year;
+    _selectMonth = now.month;
   }
 
   Widget _renderNav() {
     return Container(
       width: style.width,
-      padding: EdgeInsets.fromLTRB(15, style.topPadding + 10, 15, 10),
+      padding: EdgeInsets.fromLTRB(5, style.topPadding + 10, 5, 10),
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: style.grey, width: 1.0)),
         color: Colors.white,
@@ -81,6 +88,21 @@ class _GrowUpState extends State<GrowUp> {
         ));
   }
 
+  _handleChangeYear(int value) {
+    print('year:$value');
+  }
+
+  _handleChangeMonth(int value) {
+    print('month:$value');
+  }
+
+  _handleOnOk(int year, int month) {
+    setState(() {
+      _selectYear = year;
+      _selectMonth = month;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -104,17 +126,30 @@ class _GrowUpState extends State<GrowUp> {
                                 fontWeight: FontWeight.bold)),
                         InkWell(
                             onTap: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (_) => DatePicker(
+                                        changeMonth: _handleChangeMonth,
+                                        selectM: _selectMonth,
+                                        selectY: _selectYear,
+                                        changeYear: _handleChangeYear,
+                                        handleOnOK: _handleOnOk,
+                                      ));
                             },
                             child: Row(children: [
-                              Text('2020',
+                              Text(_selectYear.toString(),
                                   style: style.baseFontStyle.copyWith(
                                       fontSize: style.titleSize,
                                       fontWeight: FontWeight.bold)),
                               Text('年', style: style.sFontStyle),
-                              Text('05',
+                              if(_selectMonth>0)
+                              Text(_selectMonth < 10
+                                      ? '0$_selectMonth'
+                                      : _selectMonth.toString(),
                                   style: style.baseFontStyle.copyWith(
                                       fontSize: style.titleSize,
                                       fontWeight: FontWeight.bold)),
+                              if(_selectMonth > 0)
                               Text('月', style: style.sFontStyle),
                               Icon(
                                 Icons.arrow_drop_down,

@@ -36,7 +36,7 @@ class BaseLayout extends StatelessWidget {
                 Container(
                   width: style.width,
                   padding:
-                      EdgeInsets.fromLTRB(15, style.topPadding + 10, 15, 10),
+                      EdgeInsets.fromLTRB(5, style.topPadding + 10, 5, 10),
                   decoration: BoxDecoration(
                     border: Border(
                         bottom: hasBorder
