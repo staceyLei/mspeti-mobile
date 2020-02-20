@@ -74,8 +74,9 @@ class CommentItem extends StatelessWidget {
                       'data': {
                         "teacher": item['commentName'],
                         "course": item['commentCourse'],
-                        "headImg": item['headImg']
-                      }
+                        "img": item['headImg']
+                      },
+                      'isTeacher':true,
                     });
                   },
                   child: Container(

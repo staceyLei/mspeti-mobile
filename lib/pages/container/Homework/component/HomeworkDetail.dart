@@ -1,3 +1,4 @@
+import 'package:educationapp/pages/components/MediaButton.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavLayout.dart';
@@ -114,39 +115,9 @@ class HomeworkDetail extends StatelessWidget {
           SizedBox(height: 15),
           _item['status'] == '0'
               ? Row(children: [
-                  InkWell(
-                      onTap: () {},
-                      child: Container(
-                        width: 60,
-                        height: 60,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: style.lightGrey, width: 1),
-                        ),
-                        child: Icon(
-                          Icons.videocam,
-                          size: 30,
-                          color: style.lightGrey,
-                        ),
-                      )),
+                  MediaButton(isCamera:false),
                   SizedBox(width: 20),
-                  InkWell(
-                      onTap: () {},
-                      child: Container(
-                        width: 60,
-                        alignment: Alignment.center,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: style.lightGrey, width: 1),
-                        ),
-                        child: Icon(
-                          Icons.camera_alt,
-                          size: 25,
-                          color: style.lightGrey,
-                        ),
-                      )),
+                  MediaButton(isCamera:true),
                 ])
               : Wrap(
                   spacing: 10,

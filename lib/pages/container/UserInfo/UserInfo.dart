@@ -10,7 +10,10 @@ import 'component/InfoItem.dart';
 class UserInfo extends StatelessWidget {
   Widget _getContent(String key) {
     String value = userInfo[key];
-    return value.isNotEmpty ? Text(value, style: style.secondFontStyle.copyWith(fontSize:style.mFontSize)) : null;
+    return value.isNotEmpty
+        ? Text(value,
+            style: style.secondFontStyle.copyWith(fontSize: style.mFontSize))
+        : null;
   }
 
   Widget _getAuth() {
@@ -49,48 +52,41 @@ class UserInfo extends StatelessWidget {
           action: () {
             showModalBottomSheet(
                 context: context,
-                builder: (_) => Stack(children: <Widget>[
-                      Container(
-                        height: 15,
-                        width: style.width,
-                        color: Colors.black54,
+                builder: (_) => Container(
+                    width: style.width,
+                    height: 155.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                      ),
+                    ),
+                    child: Column(children: <Widget>[
+                      BaseButton(
+                        title: '拍照',
+                        onTap: () async {
+                          var res = await _getImage(true);
+                          print(res);
+                        },
+                      ),
+                      BaseButton(
+                        title: '从手机相册选取',
+                        onTap: () {
+                          _getImage(false);
+                        },
                       ),
                       Container(
                           width: style.width,
-                          height: 155.0,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              topRight: Radius.circular(15),
-                            ),
-                          ),
-                          child: Column(children: <Widget>[
-                            BaseButton(
-                              title: '拍照',
-                              onTap: () async {
-                                var res = await _getImage(true);
-                                print(res);
-                              },
-                            ),
-                            BaseButton(
-                              title: '从手机相册选取',
-                              onTap: () {
-                                _getImage(false);
-                              },
-                            ),
-                            Container(
-                                width: style.width,
-                                color: style.bgColor,
-                                height: 5.0),
-                            BaseButton(
-                              title: '取消',
-                              onTap: () {
-                                Navigator.pop(_);
-                              },
-                            ),
-                          ])),
-                    ]));
+                          color: style.bgColor,
+                          height: 5.0),
+                      BaseButton(
+                        title: '取消',
+                        onTap: () {
+                          Navigator.pop(_);
+                        },
+                      ),
+                    ])));
           },
           isModify: true,
           content: ClipOval(

@@ -1,3 +1,4 @@
+import 'package:educationapp/pages/components/MediaButton.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavLayout.dart';
@@ -15,11 +16,13 @@ class AddComment extends StatefulWidget {
 class _AddCommentState extends State<AddComment> {
   Map _item;
   int _star = 0;
+  bool _isTeacher; //点评老师/课堂
   TextEditingController _controller = TextEditingController();
   @override
   void initState() {
     super.initState();
     _item = widget.arguments['data'];
+    _isTeacher = widget.arguments['isTeacher'];
   }
 
   Widget _renderStar(bool isActive, int index) {
@@ -88,14 +91,24 @@ class _AddCommentState extends State<AddComment> {
         title: '添加点评',
         bottom: _renderBottom(),
         components: [
-          Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          Row(crossAxisAlignment: _isTeacher? CrossAxisAlignment.end:CrossAxisAlignment.start, children: [
+            _isTeacher?
             ClipOval(
               child: Image.asset(
-                _item['headImg'],
-                width: 50,
-                height: 50,
+                _item['img'],
+                width: 60,
+                height: 60,
                 fit: BoxFit.cover,
               ),
+            ):
+            ClipRRect(
+              borderRadius:style.baseRadius,
+              child: Image.asset(
+                _item['img'],
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              )
             ),
             SizedBox(width: 15),
             Expanded(
@@ -103,22 +116,26 @@ class _AddCommentState extends State<AddComment> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(_item['teacher'],
+                    Text(_isTeacher? _item['teacher']:_item['course'],
                         style: style.baseFontStyle.copyWith(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     SizedBox(height: 5),
+                    if(_isTeacher)
                     Text(_item['course'], style: style.mFontStyle)
+                    else
+                    Text(_getNowDate(), style: style.mFontStyle),
                   ],
                 )),
+                if(_isTeacher)
             Text(_getNowDate(), style: style.mFontStyle),
           ]),
           SizedBox(height: 20),
           Text('给Ta评个分吧',
               style: style.mFontStyle.copyWith(
                   fontSize: style.titleSize, fontWeight: FontWeight.bold)),
-          SizedBox(height: 15),
           Container(
             padding: EdgeInsets.all(15),
+            margin: EdgeInsets.only(top:15),
             width: style.width,
             decoration: BoxDecoration(
                 border: Border.all(color: style.themeColor, width: 1.0),
@@ -127,8 +144,8 @@ class _AddCommentState extends State<AddComment> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: _renderStarBox(_star)),
           ),
-          SizedBox(height: 15),
           Container(
+            margin: EdgeInsets.symmetric(vertical:15),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10), color: style.grey),
               child: ConstrainedBox(
@@ -144,7 +161,8 @@ class _AddCommentState extends State<AddComment> {
                         hintText: '给Ta点评...',
                         hintStyle: style.hintStyle
                             .copyWith(fontSize: style.mFontSize))),
-              ))
+              )),
+              if(!_isTeacher) MediaButton(isCamera:true)
         ]);
   }
 }

@@ -1,17 +1,19 @@
+import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/components/NavLayout.dart';
 import 'package:educationapp/assets/style.dart' as style;
+import 'package:educationapp/model/MyCourse.dart';
 
 class CourseContent extends StatelessWidget {
   final arguments;
-  Map _item;
+  MyCourse _item;
   double _percent;
   double _total;
   CourseContent({this.arguments}) {
-    _item = arguments['item'];
-    _total = style.width-2*20-2*10-80;
-    _percent = ((double.parse(_item['nowCourseHours']) /
-        double.parse(_item['courseHours'])));
+    _item = MyCourse.fromJson(arguments['item']);
+    _total = style.width - 2 * 20 - 2 * 10 - 80;
+    _percent = ((double.parse(_item.nowCourseHours) /
+        double.parse(_item.courseHours)));
   }
 
   Map _getWeekDay = {
@@ -64,7 +66,7 @@ class CourseContent extends StatelessWidget {
   }
 
   List<TableRow> _renderTable() {
-    List courseTime = _item['courseTime'] ?? [];
+    List courseTime = _item.courseTime ?? [];
     List<TableRow> table = [
       TableRow(
           decoration: BoxDecoration(
@@ -99,7 +101,7 @@ class CourseContent extends StatelessWidget {
           Row(children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.asset(_item['courseImg'],
+              child: Image.asset(_item.courseImg,
                   width: 100, height: 100, fit: BoxFit.cover),
             ),
             SizedBox(width: 10),
@@ -107,22 +109,22 @@ class CourseContent extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(_item['courseName'],
+                      Text(_item.courseName,
                           style: style.mFontStyle.copyWith(
                               fontSize: style.titleSize,
                               fontWeight: FontWeight.bold)),
                       SizedBox(height: 5),
-                      Text(_item['courseTeacher'], style: style.mFontStyle),
+                      Text(_item.courseTeacher, style: style.mFontStyle),
                       SizedBox(height: 5),
                       Text(
-                        '开始时间:${_item['beginTime']}',
+                        '开始时间:${_item.beginTime}',
                         style: style.baseFontStyle.copyWith(
                             color: style.lightGrey,
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 5),
                       Text(
-                        '结束时间:${_item['endTime']}',
+                        '结束时间:${_item.endTime}',
                         style: style.baseFontStyle.copyWith(
                             color: style.lightGrey,
                             fontWeight: FontWeight.bold),
@@ -143,15 +145,15 @@ class CourseContent extends StatelessWidget {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _renderItem('已上', _item['nowCourseHours']),
+                      _renderItem('已上', _item.nowCourseHours),
                       Container(width: 1, height: 12, color: style.lightGrey),
                       _renderItem(
                           '剩余',
-                          (int.parse(_item['courseHours']) -
-                                  int.parse(_item['nowCourseHours']))
+                          (int.parse(_item.courseHours) -
+                                  int.parse(_item.nowCourseHours))
                               .toString()),
                       Container(width: 1, height: 12, color: style.lightGrey),
-                      _renderItem('已上', _item['courseHours']),
+                      _renderItem('已上', _item.courseHours),
                     ]),
                 SizedBox(height: 15),
                 Row(
@@ -196,7 +198,11 @@ class CourseContent extends StatelessWidget {
             children: <Widget>[
               OutlineButton(
                 onPressed: () {
-                  
+                  navigatorKey.currentState
+                      .pushNamed('/AddComment', arguments: {
+                    'isTeacher': true,
+                    'data': {'teacher': _item.courseTeacher,'course':_item.courseName,'img':_item.teacherImg}
+                  });
                 },
                 borderSide: BorderSide(color: style.orangeColor),
                 highlightedBorderColor: style.orangeColor,
@@ -210,7 +216,13 @@ class CourseContent extends StatelessWidget {
               ),
               SizedBox(width: 30),
               OutlineButton(
-                onPressed: () {},
+                onPressed: () {
+                   navigatorKey.currentState
+                      .pushNamed('/AddComment', arguments: {
+                    'isTeacher': false,
+                    'data': {'teacher': _item.courseTeacher,'course':_item.courseName,'img':_item.courseImg}
+                  });
+                },
                 borderSide: BorderSide(color: style.greenColor),
                 highlightedBorderColor: style.greenColor,
                 child: Text(
@@ -231,7 +243,7 @@ class CourseContent extends StatelessWidget {
             border: TableBorder.all(color: style.borderColor, width: 1.0),
             children: _renderTable(),
           ),
-          SizedBox(height:10),
+          SizedBox(height: 10),
         ]);
   }
 }

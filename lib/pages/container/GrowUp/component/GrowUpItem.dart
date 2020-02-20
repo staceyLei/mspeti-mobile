@@ -4,7 +4,8 @@ import 'package:educationapp/pages/components/VideoItem.dart';
 
 class GrowUpItem extends StatefulWidget {
   final Map item;
-  GrowUpItem({this.item});
+  final Function itemFunc;
+  GrowUpItem({this.item,this.itemFunc});
 
   @override
   State<GrowUpItem> createState() {
@@ -13,22 +14,21 @@ class GrowUpItem extends StatefulWidget {
 }
 
 class _GrowUpItemState extends State<GrowUpItem> {
-  List<Widget> _renderHomeworkDetail() {
+  List<Widget> _renderGrowUpDetail() {
     List<Widget> res = [
       VideoItem(video: widget.item['video']),
     ];
     List imgArr = widget.item['img'].split(",");
     res.addAll(imgArr.map((ele) {
       return InkWell(
-          onTap: () {
-          },
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: Container(
-                width: 75,
-                height: 75,
-                child: Image.asset(ele, fit: BoxFit.cover)),
-          ));
+        onTap: widget.itemFunc,
+        child:ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+            width: 75, height: 75, child: Image.asset(ele, fit: BoxFit.cover)),
+      )
+    )
+      ;
     }));
     return res;
   }
@@ -75,7 +75,7 @@ class _GrowUpItemState extends State<GrowUpItem> {
                   Wrap(
                       spacing: 10,
                       runSpacing: 10,
-                      children: _renderHomeworkDetail())
+                      children: _renderGrowUpDetail())
                 ],
               )),
         ],

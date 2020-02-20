@@ -5,6 +5,7 @@ const courseData = [
     'nowCourseHours': '44',
     'courseTeacher': '李老师',
     'beginTime': '2020年02月03日',
+    'teacherImg':'assets/image/headImg.png',
     'endTime': '2020年02月14日',
     'courseImg':'assets/image/class1.png',
     'courseTime':[
@@ -20,6 +21,7 @@ const courseData = [
     'nowCourseHours': '44',
     'courseTeacher': '李老师',
     'beginTime': '2020年02月03日',
+    'teacherImg':'assets/image/headImg.png',
     'endTime': '2020年02月14日',
     'courseImg':'assets/image/class2.png',
     'courseTime':[
@@ -35,6 +37,7 @@ const courseData = [
     'nowCourseHours': '40',
     'courseTeacher': '李老师',
     'beginTime': '2020年02月03日',
+    'teacherImg':'assets/image/headImg.png',
     'endTime': '2020年02月14日',
     'courseImg':'assets/image/class1.png',
     'courseTime':[

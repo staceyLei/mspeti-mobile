@@ -268,8 +268,7 @@ class _LoginState extends State<Login> {
                             subtitle: Container(
                               padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
                               child: Text('欢迎登录',
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 14.0)),
+                                  style: style.baseFontStyle.copyWith(color:style.secondFontColor)),
                             ))),
                     Column(
                       children: this._getLoginType(this._loginType),
@@ -296,8 +295,7 @@ class _LoginState extends State<Login> {
                               children: <Widget>[
                                 Text(
                                   this._loginType == 0 ? '获取验证码' : '登 录',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16.0),
+                                  style: style.mFontStyle.copyWith(color:Colors.white),
                                 )
                               ],
                             ),

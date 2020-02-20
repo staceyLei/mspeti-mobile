@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:educationapp/Util/TimeUtil.dart';
+import 'package:educationapp/utils/TimeUtil.dart';
 import './CalendarInfo.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/const.dart';

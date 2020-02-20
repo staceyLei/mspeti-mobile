@@ -61,7 +61,8 @@ class _GrowUpState extends State<GrowUp> {
   Widget _renderFloatBtn() {
     return InkWell(
         onTap: () {
-          navigatorKey.currentState.pushNamed('/NewGrowUp',arguments: {'status':0});
+          navigatorKey.currentState
+              .pushNamed('/NewGrowUp', arguments: {'status': 0});
         },
         child: Container(
           width: 55,
@@ -102,7 +103,8 @@ class _GrowUpState extends State<GrowUp> {
                                 fontSize: style.titleSize,
                                 fontWeight: FontWeight.bold)),
                         InkWell(
-                            onTap: () {},
+                            onTap: () {
+                            },
                             child: Row(children: [
                               Text('2020',
                                   style: style.baseFontStyle.copyWith(
