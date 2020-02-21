@@ -263,7 +263,7 @@ class _LoginState extends State<Login> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: style.baseFontColor,
-                                      fontSize: 20.0,
+                                      fontSize: style.bigFontSize,
                                     )),
                             subtitle: Container(
                               padding: EdgeInsets.fromLTRB(15, 10, 0, 0),

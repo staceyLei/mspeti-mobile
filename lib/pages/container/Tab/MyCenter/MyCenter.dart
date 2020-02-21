@@ -108,7 +108,7 @@ class _MyCenterState extends State<MyCenter> {
           height: 35,
         ),
       ),
-      Text('个人中心', style: TextStyle(color: Colors.white, fontSize: 16.0)),
+      Text('个人中心', style: TextStyle(color: Colors.white, fontSize: style.titleSize)),
       InkWell(
         onTap: () {
           Navigator.pushNamed(context, '/SetUp');

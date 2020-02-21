@@ -35,7 +35,7 @@ class _CommentState extends State<Comment> {
       ),
       Text('暂无点评',
           style: style.secondFontStyle
-              .copyWith(fontSize: 20, color: style.lightGrey)),
+              .copyWith(fontSize: style.bigFontSize, color: style.lightGrey)),
     ]);
   }
 

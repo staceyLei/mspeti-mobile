@@ -30,7 +30,7 @@ class _GrowUpState extends State<GrowUp> {
   Widget _renderNav() {
     return Container(
       width: style.width,
-      padding: EdgeInsets.fromLTRB(5, style.topPadding + 10, 5, 10),
+      padding: EdgeInsets.fromLTRB(10, style.topPadding + 10, 15, 10),
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: style.grey, width: 1.0)),
         color: Colors.white,
@@ -55,7 +55,7 @@ class _GrowUpState extends State<GrowUp> {
             flex: 1,
             child: Text('我的成长',
                 textAlign: TextAlign.center,
-                style: style.baseFontStyle.copyWith(fontSize: style.titleSize)),
+                style: style.baseFontStyle.copyWith(fontSize: style.bigFontSize)),
           ),
           SizedBox(
             width: 25,

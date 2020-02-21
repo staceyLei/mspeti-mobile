@@ -7,9 +7,9 @@ class HomeworkItem extends StatelessWidget {
   final bool isChecked;
 
   final checked = TextStyle(
-      color: style.themeColor, fontSize: 20, fontWeight: FontWeight.bold);
+      color: style.themeColor, fontSize: style.bigFontSize, fontWeight: FontWeight.bold);
   final unChecked = TextStyle(
-      color: style.lightGrey, fontSize: 20, fontWeight: FontWeight.bold);
+      color: style.lightGrey, fontSize: style.bigFontSize, fontWeight: FontWeight.bold);
   HomeworkItem({this.number, this.title, this.isChecked = false});
   @override
   Widget build(BuildContext context) {

@@ -34,7 +34,7 @@ class NavLayout extends StatelessWidget {
                 Container(
                   width: style.width,
                   padding:
-                      EdgeInsets.fromLTRB(5, style.topPadding + 10, 5, 10),
+                      EdgeInsets.fromLTRB(10, style.topPadding + 10, 15, 10),
                   decoration: BoxDecoration(
                     border: Border(
                         bottom: hasBorder
@@ -67,7 +67,7 @@ class NavLayout extends StatelessWidget {
                         child: Text(this.title,
                             textAlign: TextAlign.center,
                             style: style.baseFontStyle
-                                .copyWith(fontSize: style.titleSize)),
+                                .copyWith(fontSize: style.bigFontSize)),
                       ),
                       right ??
                           SizedBox(

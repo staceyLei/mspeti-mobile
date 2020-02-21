@@ -118,7 +118,7 @@ class _AddCommentState extends State<AddComment> {
                   children: <Widget>[
                     Text(_isTeacher? _item['teacher']:_item['course'],
                         style: style.baseFontStyle.copyWith(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
+                            fontSize: style.bigFontSize, fontWeight: FontWeight.bold)),
                     SizedBox(height: 5),
                     if(_isTeacher)
                     Text(_item['course'], style: style.mFontStyle)

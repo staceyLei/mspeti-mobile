@@ -71,10 +71,14 @@ class _SearchPageState extends State<SearchPage> {
                         maxHeight: 20.0,
                       ),
                       child: TextField(
+                          textInputAction: TextInputAction.search,
                           controller: _controller,
                           focusNode: _focusNode,
                           style: style.mFontStyle,
                           autofocus: true,
+                          onEditingComplete: () {
+                            print('wancheng');
+                          },
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(bottom: 10),
                               prefixIcon: Container(
@@ -92,12 +96,12 @@ class _SearchPageState extends State<SearchPage> {
                               ))),
                     )),
               ),
-              InkWell(
+              GestureDetector(
                 onTap: () {
                   navigatorKey.currentState.pop();
                 },
                 child: Container(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.only(left: 15.0),
                   child: Text('取消',
                       style: TextStyle(
                           color: style.lightGrey, fontSize: style.mFontSize)),

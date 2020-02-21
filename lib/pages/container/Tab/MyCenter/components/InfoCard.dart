@@ -46,8 +46,8 @@ class InfoCard extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       Image.asset('assets/icon/icon-xunzhang.png'),
-                      Text('0勋章',
-                          style: TextStyle(color: Colors.white, fontSize: 11.0))
+                      Text(' 0勋章',
+                          style: style.sFontStyle.copyWith(color:Colors.white))
                     ],
                   ),
                 )
@@ -65,7 +65,7 @@ class InfoCard extends StatelessWidget {
             children: <Widget>[
               Text(
                 '我的资料卡',
-                style: TextStyle(color: Colors.white, fontSize: 14.0),
+                style: style.mFontStyle.copyWith(color:Colors.white),
               ),
               SizedBox(
                 width: 5,

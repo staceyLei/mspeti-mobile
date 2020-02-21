@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:educationapp/assets/style.dart' as style;
 
 var themeColor = Color.fromRGBO(37, 102, 177, 1);
 
@@ -40,7 +41,7 @@ class _SMSCodeState extends State<SMSCode> {
               ListTile(
                 title: Text('输入验证码',
                     style:
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: style.bigFontSize, fontWeight: FontWeight.bold)),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),

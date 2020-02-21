@@ -163,7 +163,7 @@ class _HomeworkState extends State<Homework> {
                               ),
                               Text('暂无作业',
                                   style: style.secondFontStyle.copyWith(
-                                      fontSize: 20, color: style.lightGrey)),
+                                      fontSize: style.bigFontSize, color: style.lightGrey)),
                             ])
                       : ListView.builder(
                           itemCount: _renderData.length,

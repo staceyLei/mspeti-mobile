@@ -54,7 +54,7 @@ class CollectionItem extends StatelessWidget {
                             Text(item['price'],
                                 style: TextStyle(
                                     color: style.redColor,
-                                    fontSize: 20,
+                                    fontSize: style.bigFontSize,
                                     fontWeight: FontWeight.bold)),
                           ])
                     ]),

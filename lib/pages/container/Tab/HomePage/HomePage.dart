@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:educationapp/route/route.dart';
+import 'package:educationapp/utils/TimeUtil.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,6 +46,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> renderNavBar() {
+    DateTime now = DateTime.now();
     return <Widget>[
       ClipOval(
         child: Image.asset(
@@ -56,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       ),
       SizedBox(width: 20),
       Expanded(
-        child: Text('早上好 今天是周三',
+        child: Text('${TimeUtil.getTime(now.hour)}好,今天是${TimeUtil.getWeekDay(now.weekday)}',
             style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
@@ -114,7 +116,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Text(
               '热门课程',
-              style: style.mFontStyle.copyWith(fontWeight:FontWeight.bold),
+              style: style.mFontStyle.copyWith(fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -125,7 +127,7 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: <Widget>[
               Text('查看更多',
-                  style: style.baseFontStyle.copyWith(color:Colors.blue)),
+                  style: style.baseFontStyle.copyWith(color: Colors.blue)),
               SizedBox(
                 width: 5,
               ),
@@ -149,6 +151,18 @@ class _HomePageState extends State<HomePage> {
         'title': '美术趣味课堂',
         'info': '名师教学、保证高分、一对一辅导',
         'courseId': 2,
+        'image': 'assets/image/class1.png'
+      },
+      {
+        'title': '美术趣味课堂',
+        'info': '名师教学、保证高分、一对一辅导',
+        'courseId': 3,
+        'image': 'assets/image/class1.png'
+      },
+      {
+        'title': '美术趣味课堂',
+        'info': '名师教学、保证高分、一对一辅导',
+        'courseId': 4,
         'image': 'assets/image/class1.png'
       },
     ];
@@ -177,126 +191,123 @@ class _HomePageState extends State<HomePage> {
                 backgroundColor: bgColor,
                 body: Stack(alignment: Alignment.centerLeft, children: <Widget>[
                   SingleChildScrollView(
-                      controller: this._controller,
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            height: style.width/4*3,
-                            child: Stack(
-                              children: <Widget>[
-                                Container(
-                                  height:  style.width/16*9,
-                                  decoration: BoxDecoration(
-                                      color: Color.fromRGBO(37, 177, 135, 1),
-                                      borderRadius: BorderRadius.vertical(
-                                          bottom: Radius.circular(30.0))),
-                                ),
-                                Container(
-                                  padding:
-                                      EdgeInsets.only(top: topPadding + 10),
-                                  child: Row(
-                                    children: <Widget>[
-                                      SizedBox(
-                                        width: 15.0,
+                    controller: this._controller,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: style.width / 4 * 3,
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                                height: style.width / 16 * 9,
+                                decoration: BoxDecoration(
+                                    color: Color.fromRGBO(37, 177, 135, 1),
+                                    borderRadius: BorderRadius.vertical(
+                                        bottom: Radius.circular(30.0))),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(top: topPadding + 10),
+                                child: Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: 15.0,
+                                    ),
+                                    ClipOval(
+                                      child: Image.asset(
+                                        "assets/image/headImg.png",
+                                        fit: BoxFit.cover,
+                                        width: style.width * 0.16,
+                                        height: style.width * 0.16,
                                       ),
-                                      ClipOval(
-                                        child: Image.asset(
-                                          "assets/image/headImg.png",
-                                          fit: BoxFit.cover,
-                                          width: style.width*0.16,
-                                          height: style.width*0.16,
-                                        ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      child: Text(
+                                        'HI ${user.name} ${TimeUtil.getTime(DateTime.now().hour)}好',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                        child: Text(
-                                          'HI ${user.name} 早上好',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                    )
+                                  ],
                                 ),
-                                // 轮播图
-                                Positioned(
-                                  width: width,
-                                  height: (style.width-30)/2,
-                                  bottom: 0,
-                                  child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 15.0),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        child: Swiper(
-                                          autoplay: true,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return new Image.asset(
-                                              "assets/image/banner.png",
-                                              fit: BoxFit.fill,
-                                            );
-                                          },
-                                          itemCount: 3,
-                                          pagination: new SwiperPagination(
-                                            builder: DotSwiperPaginationBuilder(
-                                              activeColor: Color.fromRGBO(
-                                                  105, 105, 112, 1),
-                                            ),
+                              ),
+                              // 轮播图
+                              Positioned(
+                                width: width,
+                                height: (style.width - 30) / 2,
+                                bottom: 0,
+                                child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 15.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Swiper(
+                                        autoplay: true,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return new Image.asset(
+                                            "assets/image/banner.png",
+                                            fit: BoxFit.fill,
+                                          );
+                                        },
+                                        itemCount: 3,
+                                        pagination: new SwiperPagination(
+                                          builder: DotSwiperPaginationBuilder(
+                                            activeColor: Color.fromRGBO(
+                                                105, 105, 112, 1),
                                           ),
                                         ),
-                                      )),
-                                ),
-                              ],
-                            ),
+                                      ),
+                                    )),
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
-                            width: width,
-                            height: (style.width - 150) / 4 + 55,
-                            child: Swiper(
-                              itemBuilder: (BuildContext context, int index) {
-                                return this._itemBuilder(index);
-                              },
-                              itemCount: this._menuCount,
-                              pagination: new SwiperPagination(
-                                builder: RectSwiperPaginationBuilder(
-                                  color: Color.fromRGBO(235, 235, 235, 1),
-                                  activeColor: Color.fromRGBO(105, 105, 112, 1),
-                                  space: 0.0,
-                                  size: Size(10, 3),
-                                  activeSize: Size(10, 3),
-                                ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          width: width,
+                          height: (style.width - 150) / 4 + 55,
+                          child: Swiper(
+                            itemBuilder: (BuildContext context, int index) {
+                              return this._itemBuilder(index);
+                            },
+                            itemCount: this._menuCount,
+                            pagination: new SwiperPagination(
+                              builder: RectSwiperPaginationBuilder(
+                                color: Color.fromRGBO(235, 235, 235, 1),
+                                activeColor: Color.fromRGBO(105, 105, 112, 1),
+                                space: 0.0,
+                                size: Size(10, 3),
+                                activeSize: Size(10, 3),
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 5.0,
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: EdgeInsets.all(15.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 10.0),
-                            padding: EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Column(
-                              children: this._getCoursePanl(),
-                            ),
+                          child: Column(
+                            children: this._getCoursePanl(),
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
                     ),
+                  ),
                   // 渐变导航栏
                   if (this._barOpacity > 0)
                     NavBar(

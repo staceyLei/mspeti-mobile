@@ -26,7 +26,7 @@ class _SetUpState extends State<SetUp> {
             appBar: AppBar(
               centerTitle: true,
               title: Text('个人设置',
-                  style: TextStyle(color: Colors.white, fontSize: 20)),
+                  style: TextStyle(color: Colors.white, fontSize: style.bigFontSize)),
               leading: IconButton(
                 icon: Image.asset('assets/icon/arrow-left-white.png'),
                 onPressed: () {

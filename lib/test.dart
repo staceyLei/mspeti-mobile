@@ -6,7 +6,7 @@ main() {
     {'id': 2}
   ];
   List a = [1,2,3,4,5];
-  print([...a]);
+  print(DateTime.now().hour);
 }
 
 enum Month {

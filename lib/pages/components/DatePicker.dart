@@ -110,7 +110,7 @@ class _DatePickerState extends State<DatePicker> {
                           .map((year) => Center(
                               child: Text(year.toString(),
                                   style:
-                                      style.mFontStyle.copyWith(fontSize: 20))))
+                                      style.mFontStyle.copyWith(fontSize: style.bigFontSize))))
                           .toList())),
               Container(
                   width: style.width / 2,
@@ -131,7 +131,7 @@ class _DatePickerState extends State<DatePicker> {
                         return Center(
                             child: Text(text,
                                 style:
-                                    style.mFontStyle.copyWith(fontSize: 20)));
+                                    style.mFontStyle.copyWith(fontSize: style.bigFontSize)));
                       }).toList()))
             ])
           ],
