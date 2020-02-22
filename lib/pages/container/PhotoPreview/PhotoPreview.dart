@@ -1,8 +1,14 @@
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/BaseButton.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show SystemUiOverlayStyle;
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class PhotoPreview extends StatefulWidget {
   final arguments;
@@ -27,7 +33,7 @@ class _PhotoPreviewState extends State<PhotoPreview> {
     _imgList = widget.arguments['img']?.split(',');
   }
 
-  _handleOpenSave() => showModalBottomSheet(
+  _handleOpenSave(String imgUrl) => showModalBottomSheet(
         context: context,
         builder: (_) => Container(
             width: style.width,
@@ -36,6 +42,10 @@ class _PhotoPreviewState extends State<PhotoPreview> {
             child: Column(children: [
               BaseButton(
                 title: '保存图片',
+                onTap: () {
+                  _savePhoto(imgUrl);
+                  Navigator.pop(_);
+                },
               ),
               BaseButton(
                 title: '取消',
@@ -53,6 +63,24 @@ class _PhotoPreviewState extends State<PhotoPreview> {
   //     }
   //   });
   // }
+  _savePhoto(String imgUrl) async {
+    var result;
+    // 访问网络请求图片
+    Response response = await Dio()
+        .get(imgUrl, options: Options(responseType: ResponseType.bytes));
+    result =
+        await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
+    print('result:$result');
+    // if (result) {
+    //   _showToast('保存成功');
+    // } else {
+    //   _showToast('保存失败');
+    // }
+  }
+
+  _showToast(String msg) {
+    Fluttertoast.showToast(msg: msg, gravity: ToastGravity.CENTER);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +88,6 @@ class _PhotoPreviewState extends State<PhotoPreview> {
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(
             onTap: () => widget.handleOnClose(),
-            onLongPress: _handleOpenSave,
             child: Opacity(
                 opacity: _opacity,
                 child: Stack(children: [
@@ -87,11 +114,13 @@ class _PhotoPreviewState extends State<PhotoPreview> {
                           loop: false,
                           itemCount: _imgList.length,
                           itemBuilder: (_, index) {
-                            Image _image = Image.asset(
+                            Image _image = Image.network(
                               _imgList[index] ?? '',
                               fit: BoxFit.fitWidth,
                             );
                             return GestureDetector(
+                              onLongPress: () =>
+                                  _handleOpenSave(_imgList[index]),
                               onVerticalDragStart: (details) {
                                 setState(() {
                                   _startY = details.globalPosition.dy;

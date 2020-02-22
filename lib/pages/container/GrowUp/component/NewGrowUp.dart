@@ -1,4 +1,5 @@
 import 'package:educationapp/pages/components/MediaButton.dart';
+import 'package:educationapp/pages/components/VideoPreview.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
@@ -31,6 +32,7 @@ class _NewGrowUpState extends State<NewGrowUp> {
       GrowUpItem(
         item: _item,
         itemFunc: _handleOpenPhoto,
+        videoFunc: _handleChangeVideo,
       ),
     ];
   }
@@ -45,6 +47,11 @@ class _NewGrowUpState extends State<NewGrowUp> {
     setState(() {
       _show = false;
     });
+  }
+
+  _handleChangeVideo() {
+    navigatorKey.currentState
+        .pushNamed('/VideoPreview', arguments: _item['video']);
   }
 
   List<Widget> _renderNew() {

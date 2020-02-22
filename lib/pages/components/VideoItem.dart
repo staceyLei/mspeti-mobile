@@ -17,7 +17,7 @@ class _VideoItemState extends State<VideoItem> {
   @override
   void initState() {
     super.initState();
-    _playerController = VideoPlayerController.asset(widget.video);
+    _playerController = VideoPlayerController.network(widget.video);
     _videoFuture = _playerController.initialize();
   }
 

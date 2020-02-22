@@ -32,6 +32,8 @@ dependencies:
   video_player: ^0.10.6
   json_serializable: ^3.2.5
   chewie: ^0.9.8+1
+  image_gallery_saver: ^1.2.2
+  path_provider: ^1.6.1
 
 dev_dependencies:
   flutter_test:
