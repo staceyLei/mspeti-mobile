@@ -70,12 +70,11 @@ class _PhotoPreviewState extends State<PhotoPreview> {
         .get(imgUrl, options: Options(responseType: ResponseType.bytes));
     result =
         await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
-    print('result:$result');
-    // if (result) {
-    //   _showToast('保存成功');
-    // } else {
-    //   _showToast('保存失败');
-    // }
+    if (result.isNotEmpty) {
+      _showToast('保存成功:$result');
+    } else {
+      _showToast('保存失败');
+    }
   }
 
   _showToast(String msg) {

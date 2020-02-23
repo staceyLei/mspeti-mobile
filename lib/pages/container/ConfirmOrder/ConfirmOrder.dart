@@ -35,7 +35,7 @@ class ConfirmOrder extends StatelessWidget {
                   gradient: style.baseGradient),
               child: Text(
                 '确认报名',
-                style: TextStyle(color: Colors.white, fontSize: 12.0),
+                style: style.baseFontStyle.copyWith(color:Colors.white),
               ),
             ),
           ),
@@ -99,9 +99,7 @@ class ConfirmOrder extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text("寒假全期小/初/高数学辅导班",
-                          style: TextStyle(
-                              color: style.baseFontColor,
-                              fontSize: style.sFontSize)),
+                          style: style.baseFontStyle),
                       SizedBox(
                         height: 5.0,
                       ),

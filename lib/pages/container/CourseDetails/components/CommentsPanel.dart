@@ -11,7 +11,7 @@ class CommentsPanel extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text('全网评价', style: TextStyle(fontSize: 12.0)),
+          Text('全网评价', style: style.baseFontStyle),
           ButtonLink(
             title: '更多',
             handleOnTap: () {

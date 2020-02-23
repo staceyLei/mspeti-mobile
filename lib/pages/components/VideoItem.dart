@@ -52,8 +52,18 @@ class _VideoItemState extends State<VideoItem> {
                 );
               default:
                 if (snapshot.hasError) {
-                  return Center(
-                    child: Text('Error:${snapshot.error}'),
+                  print('Error:${snapshot.error}');
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border:Border.all(color:Colors.red,width:1),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                      Icon(Icons.priority_high,color: Colors.red,size:24),
+                      Text('加载失败',style:style.baseFontStyle.copyWith(color:Colors.red))
+                    ],),
                   );
                 } else {
                   return Stack(alignment: Alignment.center, children: [

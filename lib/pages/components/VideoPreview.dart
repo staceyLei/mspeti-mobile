@@ -66,21 +66,16 @@ class _VideoPreviewState extends State<VideoPreview> {
 
   _saveVideo(String videoUrl) async {
     var result;
-    if (videoUrl.contains('http')) {
-      var appDocDir = await getTemporaryDirectory();
-      String savePath = appDocDir.path + videoUrl.split('/').last;
-      await Dio().download(videoUrl, savePath);
-      result = await ImageGallerySaver.saveFile(savePath);
-    } else {
-      ByteData byteData = await rootBundle.load(videoUrl);
-      result = await ImageGallerySaver.saveImage(byteData.buffer.asUint8List());
-    }
+    var appDocDir = await getTemporaryDirectory();
+    String savePath = appDocDir.path + videoUrl.split('/').last;
+    await Dio().download(videoUrl, savePath);
+    result = await ImageGallerySaver.saveFile(savePath);
     print('result:$result');
-    // if (result) {
-    //   _showToast('保存成功');
-    // } else {
-    //   _showToast('保存失败');
-    // }
+    if (result) {
+      _showToast('保存成功');
+    } else {
+      _showToast('保存失败');
+    }
   }
 
   _showToast(String msg) {

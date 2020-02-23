@@ -1,3 +1,4 @@
+import 'package:educationapp/pages/container/Tab/ShopCart/ShopCart.dart';
 import 'package:flutter/material.dart';
 import 'Course/Course.dart';
 import 'Message/Message.dart';
@@ -32,6 +33,7 @@ class _TabsState extends State<Tabs> {
     HomePage(),
     Course(),
     // Message(),
+    ShopCart(),
     MyCenter(),
   ];
   int _currentIndex;
@@ -52,8 +54,8 @@ class _TabsState extends State<Tabs> {
         onTap: this._changeIndex,
         currentIndex: this._currentIndex,
         unselectedItemColor: Colors.black,
-        unselectedFontSize: 12.0,
-        selectedFontSize: 12.0,
+        unselectedFontSize: 14.0,
+        selectedFontSize: 14.0,
         type: BottomNavigationBarType.fixed,
         iconSize: 24.0,
         items: [
@@ -72,6 +74,11 @@ class _TabsState extends State<Tabs> {
           //   icon: TabsIcon("assets/icon/message.png"),
           //   activeIcon: TabsIcon("assets/icon/message-active.png"),
           // ),
+          BottomNavigationBarItem(
+            title: Text('购物车'),
+            icon: TabsIcon("assets/icon/shopcart-unactive.png"),
+            activeIcon: TabsIcon("assets/icon/shopcart-active.png"),
+          ),
           BottomNavigationBarItem(
             title: Text('我的'),
             icon: TabsIcon("assets/icon/myCenter.png"),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:educationapp/assets/style.dart' as style;
 
 class ButtonLink extends StatelessWidget {
   var title;
@@ -12,17 +13,13 @@ class ButtonLink extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(color: Colors.blue, fontSize: 12.0),
+            style:style.baseFontStyle.copyWith(color:Colors.blue),
             textAlign: TextAlign.center,
           ),
-          Container(
-            width: 10.0,
-            height: 10.0,
-            child: Image.asset(
+          SizedBox(width:5),
+            Image.asset(
               "assets/icon/arrow-right-blue.png",
-              fit: BoxFit.contain,
             ),
-          )
         ],
       ),
     );

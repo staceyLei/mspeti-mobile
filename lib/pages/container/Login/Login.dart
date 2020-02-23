@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:educationapp/store/action/userAction.dart';
@@ -19,11 +21,16 @@ class _LoginState extends State<Login> {
   bool _isShow = true; //密码是否隐藏
   String _password = '';
   String _username = '';
+  String _smsCode = '';
   bool _disabled = true;
   Map _schoolData = {};
   final _phonController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _smscodeController = TextEditingController();
+  bool _isGetCode = false;
+  int _restTime = 10;
+  Timer _myTimer;
   SharedPreferences _prefs;
   @override
   void initState() {
@@ -44,6 +51,9 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     this._phonController.dispose();
+    _passwordController.dispose();
+    _smscodeController.dispose();
+    _handleCleanTimer();
     super.dispose();
   }
 
@@ -53,9 +63,32 @@ class _LoginState extends State<Login> {
     });
   }
 
-  onCancel(controller) {
+  onCancel(TextEditingController controller) {
     // 保证在组件build的第一帧时才去触发取消清空内容
     WidgetsBinding.instance.addPostFrameCallback((_) => controller.clear());
+  }
+
+  _handleGetCode() {
+    _myTimer = Timer.periodic(Duration(seconds: 1), (_) {
+      setState(() {
+        _restTime--;
+        if (_restTime <= 0) {
+          _handleCleanTimer();
+          _isGetCode = false;
+          _restTime = 10;
+        }
+      });
+    });
+    setState(() {
+      _isGetCode = true;
+    });
+  }
+
+  _handleCleanTimer() {
+    if (_myTimer != null) {
+      _myTimer.cancel();
+      _myTimer = null;
+    }
   }
 
   List<Widget> _getLoginType(int loginType) {
@@ -97,8 +130,68 @@ class _LoginState extends State<Login> {
                     borderSide: BorderSide(
                         color: Colors.black54,
                         style: BorderStyle.solid)), //获取焦点时，下划线的样式
-                hintText: '请输入手机号码'),
+                hintText: '手机号'),
           ),
+        ),
+        Container(
+          margin: EdgeInsets.fromLTRB(25, 0, 25, 20),
+          decoration: BoxDecoration(
+              border: Border(
+                  bottom: BorderSide(color: style.lightGrey, width: 1.0))),
+          child: Row(children: [
+            Expanded(
+                child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: 45,
+                    ),
+                    child: TextField(
+                      controller: _smscodeController,
+                      onChanged: (v) {
+                        setState(() {
+                          _smsCode = v;
+                          this._disabled =
+                              !(_phone.length >= 11 && v.isNotEmpty);
+                        });
+                      },
+                      inputFormatters: [
+                        // 长度限制
+                        LengthLimitingTextInputFormatter(6),
+                        // 数字限制
+                        WhitelistingTextInputFormatter.digitsOnly,
+                      ],
+                      keyboardType: TextInputType.number,
+                      style: TextStyle(fontSize: 16.0, color: Colors.black),
+                      decoration: InputDecoration(
+                          suffixIcon: this._smsCode.isNotEmpty
+                              ? IconButton(
+                                  icon: Image.asset(
+                                      'assets/icon/circle-cancel.png'),
+                                  onPressed: () {
+                                    setState(() {
+                                      _smsCode = '';
+                                    });
+                                    onCancel(this._smscodeController);
+                                  },
+                                )
+                              : null,
+                          border: InputBorder.none,
+                          hintText: '验证码'),
+                    )),
+                flex: 1),
+            GestureDetector(
+              onTap: _handleGetCode,
+              child: Container(
+                width: 90,
+                padding: EdgeInsets.symmetric(vertical: 5),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    border: Border(
+                        left: BorderSide(color: style.lightGrey, width: 0.5))),
+                child: Text(_isGetCode ? '$_restTime s' : '获取验证码',
+                    style: style.mFontStyle.copyWith(color: style.themeColor)),
+              ),
+            )
+          ]),
         ),
       ];
     }
@@ -155,6 +248,7 @@ class _LoginState extends State<Login> {
                       onPressed: () {
                         setState(() {
                           _disabled = true;
+                          _password = '';
                         });
                         onCancel(this._passwordController);
                       },
@@ -193,11 +287,7 @@ class _LoginState extends State<Login> {
     });
     Map params = {};
     if (loginType == 0) {
-      Navigator.pushNamed(
-          // 0 登录验证码 1 注册验证码
-          context,
-          "/SMSCode",
-          arguments: {"type": 0, "phone": this._phone});
+      // 0 登录验证码 1 注册验证码
     } else {
       params = {
         'username': this._username,
@@ -268,7 +358,8 @@ class _LoginState extends State<Login> {
                             subtitle: Container(
                               padding: EdgeInsets.fromLTRB(15, 10, 0, 0),
                               child: Text('欢迎登录',
-                                  style: style.baseFontStyle.copyWith(color:style.secondFontColor)),
+                                  style: style.baseFontStyle
+                                      .copyWith(color: style.secondFontColor)),
                             ))),
                     Column(
                       children: this._getLoginType(this._loginType),
@@ -294,8 +385,9 @@ class _LoginState extends State<Login> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  this._loginType == 0 ? '获取验证码' : '登 录',
-                                  style: style.mFontStyle.copyWith(color:Colors.white),
+                                  '登 录',
+                                  style: style.mFontStyle
+                                      .copyWith(color: Colors.white),
                                 )
                               ],
                             ),

@@ -256,13 +256,13 @@ class _CourseDetailsState extends State<CourseDetails> {
                               '¥59.00',
                               style: TextStyle(
                                   color: style.redColor,
-                                  fontSize: 18.0,
+                                  fontSize: style.bigFontSize,
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               width: 5.0,
                             ),
-                            Text('日常价:¥165', style: TextStyle(fontSize: 10.0)),
+                            Text('日常价:¥165', style: style.sFontStyle,)
                           ],
                         ),
                         InkWell(
@@ -277,8 +277,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 gradient: style.baseGradient),
                             child: Text(
                               '立即报名',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 12.0),
+                              style: style.baseFontStyle.copyWith(color:Colors.white),
                             ),
                           ),
                         )
