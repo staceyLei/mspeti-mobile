@@ -1,3 +1,4 @@
+import 'package:educationapp/model/HomeworkM.dart';
 import 'package:educationapp/pages/components/DatePicker.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
@@ -79,16 +80,15 @@ class _HomeworkState extends State<Homework> {
 
   Widget _renderContent(buildContext, index) {
     Map item = _renderData[index];
+    HomeworkM homework = HomeworkM.fromJson(item);
     return InkWell(
         onTap: () {
           navigatorKey.currentState
-              .pushNamed('/HomeworkDetail', arguments: {'details': item});
+              .pushNamed('/HomeworkDetail', arguments: {'details': homework});
         },
         child: HomeworkPanel(
-            title: item['title'],
-            course: item['course'],
-            time: item['time'],
-            status: item['status']));
+          homework:homework
+        ));
   }
 
   _handleOnOk(int year, int month) {
@@ -129,13 +129,14 @@ class _HomeworkState extends State<Homework> {
                               fontSize: style.titleSize,
                               fontWeight: FontWeight.bold)),
                       Text('年', style: style.sFontStyle),
-                      if(_selectMonth>0)
-                      Text(_selectMonth < 10
-                                  ? '0$_selectMonth'
-                                  : _selectMonth.toString(),
-                          style: style.baseFontStyle.copyWith(
-                              fontSize: style.titleSize,
-                              fontWeight: FontWeight.bold)),
+                      if (_selectMonth > 0)
+                        Text(
+                            _selectMonth < 10
+                                ? '0$_selectMonth'
+                                : _selectMonth.toString(),
+                            style: style.baseFontStyle.copyWith(
+                                fontSize: style.titleSize,
+                                fontWeight: FontWeight.bold)),
                       if (_selectMonth > 0) Text('月', style: style.sFontStyle),
                       Icon(
                         Icons.arrow_drop_down,
@@ -163,7 +164,8 @@ class _HomeworkState extends State<Homework> {
                               ),
                               Text('暂无作业',
                                   style: style.secondFontStyle.copyWith(
-                                      fontSize: style.bigFontSize, color: style.lightGrey)),
+                                      fontSize: style.bigFontSize,
+                                      color: style.lightGrey)),
                             ])
                       : ListView.builder(
                           itemCount: _renderData.length,

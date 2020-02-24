@@ -1,8 +1,9 @@
+import 'package:educationapp/model/Course.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 
 class CollectionItem extends StatelessWidget {
-  final Map item;
+  final Course item;
   final bool status; //true 管理状态 false 完成状态
   final bool isSelected;
   final Function onCancel;
@@ -14,13 +15,9 @@ class CollectionItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: style.baseRadius,
-                image: DecorationImage(
-                    image: AssetImage(item['img']), fit: BoxFit.cover)),
-            width: 120,
-            height: 120,
+          ClipRRect(
+            borderRadius:style.baseRadius,
+            child: Image.network(item.courseImg,fit:BoxFit.cover,width:style.width/3,height:style.width/3),
           ),
           SizedBox(width: 10),
           Expanded(
@@ -35,12 +32,12 @@ class CollectionItem extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: 5),
-                            Text(item['name'],
+                            Text(item.courseName,
                                 maxLines: 2,
                                 style: style.baseFontStyle
                                     .copyWith(fontSize: style.mFontSize)),
                             SizedBox(height: 10),
-                            Text(item['info'],
+                            Text(item.courseInfo,
                                 maxLines: 1,
                                 style: TextStyle(
                                     color: style.lightGrey,
@@ -59,7 +56,7 @@ class CollectionItem extends StatelessWidget {
                                         color: style.redColor,
                                         fontSize: style.baseFontSize),
                                   ),
-                                  Text(item['price'],
+                                  Text(item.coursePrice,
                                       style: TextStyle(
                                           color: style.redColor,
                                           fontSize: style.bigFontSize,

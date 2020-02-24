@@ -1,3 +1,4 @@
+import 'package:educationapp/model/CourseTable.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/components/Calender.dart';
@@ -30,27 +31,26 @@ class _TimeTableState extends State<TimeTable> {
     return Container(
         color: Colors.white,
         width: style.width,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 70,
-                height: 70,
-                child: Image.asset(
-                  'assets/icon/homework-none.png',
-                  fit: BoxFit.contain,
-                ),
-              ),
-              SizedBox(height: 20),
-              Text('今天没有课噢，预习一下别的课程吧~',
-                  style: style.baseFontStyle.copyWith(color: style.lightGrey)),
-            ]));
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Container(
+            width: 70,
+            height: 70,
+            child: Image.asset(
+              'assets/icon/homework-none.png',
+              fit: BoxFit.contain,
+            ),
+          ),
+          SizedBox(height: 20),
+          Text('今天没有课噢，预习一下别的课程吧~',
+              style: style.baseFontStyle.copyWith(color: style.lightGrey)),
+        ]));
   }
 
   _handleOnChangeDay(int selectedDay) {
     setState(() {
       _showData = _classData.where((item) {
-        List<String> _dateArr = item['date'].split('-');
+        CourseTable courseTable = CourseTable.fromJson(item);
+        List<String> _dateArr = courseTable.courseDate.split('-');
         return _dateArr[2] == selectedDay.toString();
       }).toList();
     });
@@ -70,19 +70,23 @@ class _TimeTableState extends State<TimeTable> {
       title: '课程日历',
       navBarB: Stack(alignment: Alignment.center, children: [
         Calendar(timeTable: _classData, handleOnChange: _handleOnChangeDay),
-        if(_loading) CircularProgressIndicator(),
+        if (_loading) CircularProgressIndicator(),
       ]),
       components: _showData.isEmpty
           ? _renderEmpty()
           : ListView.builder(
               padding: EdgeInsets.all(0),
               itemCount: _showData.length,
-              itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-                    navigatorKey.currentState.pushNamed('/TimeTableDetail',
-                        arguments: {'courseInfo': _showData[index]});
-                  },
-                  child: TimeTableItem(item: _showData[index]))),
+              itemBuilder: (context, index) {
+                CourseTable courseTable =
+                    CourseTable.fromJson(_showData[index]);
+                return InkWell(
+                    onTap: () {
+                      navigatorKey.currentState.pushNamed('/TimeTableDetail',
+                          arguments: {'courseInfo': courseTable});
+                    },
+                    child: TimeTableItem(item: courseTable));
+              }),
     );
   }
 }

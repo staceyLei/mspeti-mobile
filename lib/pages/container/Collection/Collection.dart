@@ -1,3 +1,4 @@
+import 'package:educationapp/model/Course.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
@@ -54,13 +55,14 @@ class _CollectionState extends State<Collection> {
 
   List<Widget> _renderComponents() {
     return _collectionList.map((item) {
+      Course course = Course.fromJson(item);
       return InkWell(
-          onTap: () => this._handleOnTap(item['id']),
+          onTap: () => this._handleOnTap(course.courseId),
           child: CollectionItem(
-            item: item,
-            onCancel:_handleOnCancel,
+            item: course,
+            onCancel: _handleOnCancel,
             status: _status,
-            isSelected: _selected.contains(item['id']),
+            isSelected: _selected.contains(course.courseId),
           ));
     }).toList();
   }
@@ -73,6 +75,9 @@ class _CollectionState extends State<Collection> {
         } else {
           _selected.add(id);
         }
+        if (_selected.length == _collectionList.length) {
+          _selectAll = true;
+        }
       });
     } else {
       navigatorKey.currentState
@@ -80,41 +85,40 @@ class _CollectionState extends State<Collection> {
     }
   }
 
-  _handleOnCancel(){
+  _handleOnCancel() {
     showModalBottomSheet(
-                context: context,
-                builder: (_) => Stack(children: <Widget>[
-                      Container(
-                        height: 15,
-                        width: style.width,
-                        color: Colors.black54,
-                      ),
-                      Container(
-                          width: style.width,
-                          height: 105.0,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              topRight: Radius.circular(15),
-                            ),
-                          ),
-                          child: Column(children: <Widget>[
-                            BaseButton(
-                              title: '取消收藏',
-                              onTap: () {
-                              },
-                              prefix: 'assets/icon/collection-heart.png',
-                            ),
-                            Container(width:style.width,height:5,color:style.grey),
-                            BaseButton(
-                              title: '取消',
-                              onTap: () {
-                                Navigator.pop(_);
-                              },
-                            ),
-                          ])),
-                    ]));
+        context: context,
+        builder: (_) => Stack(children: <Widget>[
+              Container(
+                height: 15,
+                width: style.width,
+                color: Colors.black54,
+              ),
+              Container(
+                  width: style.width,
+                  height: 105.0,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                  ),
+                  child: Column(children: <Widget>[
+                    BaseButton(
+                      title: '取消收藏',
+                      onTap: () {},
+                      prefix: 'assets/icon/collection-heart.png',
+                    ),
+                    Container(width: style.width, height: 5, color: style.grey),
+                    BaseButton(
+                      title: '取消',
+                      onTap: () {
+                        Navigator.pop(_);
+                      },
+                    ),
+                  ])),
+            ]));
   }
 
   Widget _renderBottom() {

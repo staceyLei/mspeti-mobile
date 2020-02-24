@@ -1,8 +1,9 @@
+import 'package:educationapp/model/CourseTable.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 
 class TimeTableItem extends StatelessWidget {
-  final Map item;
+  final CourseTable item;
   TimeTableItem({this.item});
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class TimeTableItem extends StatelessWidget {
             ),
             SizedBox(width: 5),
             Text(
-              '${item['startTime']} - ${item['endTime']}',
+              '${item.startTime} - ${item.endTime}',
               style: style.baseFontStyle.copyWith(color: style.grey200),
             )
           ],
@@ -46,21 +47,21 @@ class TimeTableItem extends StatelessWidget {
                 border: Border(left: BorderSide(color: style.grey, width: 4))),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(item['courseName'],
+              Text(item.courseName,
                   style: style.baseFontStyle.copyWith(
                       fontSize: style.titleSize, fontWeight: FontWeight.bold)),
               SizedBox(height: 5),
-              Text(item['courseTeacher'],
+              Text(item.courseTeacher,
                   style: style.mFontStyle.copyWith(
                       color: style.lightGrey, fontWeight: FontWeight.bold)),
               SizedBox(height: 5),
-              Text('[${item['courseHours']}学时]',
+              Text('[${item.courseHours}学时]',
                   style: style.sFontStyle.copyWith(color: style.lightGrey)),
             ]),
           ),
           ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.asset(item['courseImg'],
+              child: Image.network(item.courseImg,
                   fit: BoxFit.cover, width: 70, height: 70))
         ])
       ]),

@@ -16,6 +16,7 @@ const courseData = [
       'coursePeopleNum':'20',
       'coursePrice':'165',
       'courseId':'1',
+      'courseInfo':'名师辅导，一对一教学',
   },
   {
     'courseName': '美术趣味课堂',
@@ -33,6 +34,7 @@ const courseData = [
     ],
       'coursePrice':'165',
       'courseId':'2',
+      'courseInfo':'名师辅导，一对一教学',
       'coursePeopleNum':'20',
   },
   {
@@ -51,6 +53,7 @@ const courseData = [
     ],
       'coursePeopleNum':'20',
       'courseId':'3',
+      'courseInfo':'名师辅导，一对一教学',
       'coursePrice':'165',
   },
   {
@@ -69,12 +72,14 @@ const courseData = [
     ],
       'coursePeopleNum':'25',
       'courseId':'4',
+      'courseInfo':'名师辅导，一对一教学',
       'coursePrice':'165',
   },
   {
-    'courseName': '美术趣味课堂',
+    'courseName': '作业辅导班',
     'courseHours': '48',
     'courseTeacher': '李老师',
+    'course'
     'beginTime': '2020年02月03日',
     'teacherImg':'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582396615546&di=8d9dcce6e55d029443db04901ed30c61&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201903%2F10%2F20190310221844_guuus.thumb.700_0.jpg',
     'endTime': '2020年02月14日',
@@ -87,6 +92,7 @@ const courseData = [
     ],
       'coursePeopleNum':'20',
       'courseId':'5',
+      'courseInfo':'名师辅导，一对一教学',
       'coursePrice':'165',
   },
 ];

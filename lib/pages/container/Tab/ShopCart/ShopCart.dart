@@ -149,9 +149,12 @@ class _ShopCartState extends State<ShopCart> {
         onTap: () {
           setState(() {
             if (_selected.contains(course.courseId)) {
-              _selected.removeWhere((ele) => ele == course.courseId);
+              _selected.remove(course.courseId);
             } else {
               _selected.add(course.courseId);
+            }
+            if (_selected.length == _shopCartList.length) {
+              _selectAll = true;
             }
           });
         },
@@ -206,8 +209,9 @@ class _ShopCartState extends State<ShopCart> {
                                               child: Text(_status ? '管理' : '完成',
                                                   style: style.mFontStyle
                                                       .copyWith(
-                                                          color:
-                                                              Colors.white,fontSize: style.titleSize))),
+                                                          color: Colors.white,
+                                                          fontSize: style
+                                                              .titleSize))),
                                         )
                                       ],
                                     ),

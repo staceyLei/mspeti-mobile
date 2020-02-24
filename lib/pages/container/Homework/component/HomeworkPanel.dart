@@ -1,12 +1,9 @@
+import 'package:educationapp/model/HomeworkM.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
-import 'const.dart';
 
 class HomeworkPanel extends StatelessWidget {
-  final String status;
-  final String title;
-  final String course;
-  final String time;
+  final HomeworkM homework;
 
   final _colors = {
     '0': style.redColor,
@@ -15,7 +12,11 @@ class HomeworkPanel extends StatelessWidget {
   };
   final _alert = {'0': '未提交', '1': '待评改', '2': '已完成'};
 
-  HomeworkPanel({this.status, this.time, this.title, this.course});
+  HomeworkPanel({this.homework});
+
+  String _getFomatDate(String date) {
+    return date.split(',').join('-');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,22 +40,27 @@ class HomeworkPanel extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
-              color: _colors[status],
+              color: _colors[homework.status],
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child: Text(_alert[status],style:style.secondFontStyle.copyWith(color:Colors.white)),
+            child: Text(_alert[homework.status],
+                style: style.secondFontStyle.copyWith(color: Colors.white)),
           ),
-          SizedBox(height:10),
-          Text(title,style:style.mFontStyle.copyWith(fontWeight:FontWeight.bold),maxLines: 2,),
-          SizedBox(height:10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children:[
-              Text(course,style:style.sFontStyle.copyWith(fontWeight:FontWeight.bold,color:style.lightGrey)),
-              Text(time,style:style.sFontStyle.copyWith(fontWeight:FontWeight.bold,
-              color:style.lightGrey))
-            ]
-          )
+          SizedBox(height: 10),
+          Text(
+            homework.homeworkTitle,
+            style: style.mFontStyle.copyWith(fontWeight: FontWeight.bold),
+            maxLines: 2,
+          ),
+          SizedBox(height: 10),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text(homework.courseName,
+                style: style.sFontStyle.copyWith(
+                    fontWeight: FontWeight.bold, color: style.lightGrey)),
+            Text(_getFomatDate(homework.pubDate),
+                style: style.sFontStyle.copyWith(
+                    fontWeight: FontWeight.bold, color: style.lightGrey))
+          ])
         ],
       ),
     );

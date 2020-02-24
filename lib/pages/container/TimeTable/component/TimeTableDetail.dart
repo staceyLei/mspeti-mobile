@@ -1,4 +1,5 @@
 import 'package:educationapp/const.dart';
+import 'package:educationapp/model/CourseTable.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/components/BaseLayout.dart';
 import 'package:educationapp/assets/style.dart' as style;
@@ -13,14 +14,14 @@ class TimeTableDetail extends StatefulWidget {
 }
 
 class _TimeTableDetailState extends State<TimeTableDetail> {
-  Map _item;
+  CourseTable _item;
   int _selectStatus; //0正常 1到课 2请假 3审核 4缺勤
 
   @override
   void initState() {
     super.initState();
     _item = widget.arguments['courseInfo'];
-    _selectStatus = int.parse(_item['status']);
+    _selectStatus = int.parse(_item.courseStatus);
   }
 
   Widget _renderInfoItem(String title, String info) => Container(
@@ -94,7 +95,7 @@ class _TimeTableDetailState extends State<TimeTableDetail> {
                 child: Container(
                     width: style.width - 50,
                     child:
-                        Image.asset(_item['courseImg'], fit: BoxFit.fitWidth))),
+                        Image.network(_item.courseImg, fit: BoxFit.fitWidth))),
             Column(
               children: <Widget>[
                 Container(
@@ -103,7 +104,7 @@ class _TimeTableDetailState extends State<TimeTableDetail> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        _item['courseName'],
+                        _item.courseName,
                         style: style.mFontStyle.copyWith(
                             fontWeight: FontWeight.bold, fontSize: 22),
                       ),
@@ -119,11 +120,11 @@ class _TimeTableDetailState extends State<TimeTableDetail> {
                     ],
                   ),
                 ),
-                _renderInfoItem('授课老师', _item['courseTeacher']),
-                _renderInfoItem('课程日期', _item['date']),
+                _renderInfoItem('授课老师', _item.courseTeacher),
+                _renderInfoItem('课程日期', _item.courseDate),
                 _renderInfoItem(
-                    '上课时间', '${_item['startTime']} 至 ${_item['endTime']}'),
-                _renderInfoItem('课程学时', _item['courseHours']),
+                    '上课时间', '${_item.startTime} 至 ${_item.endTime}'),
+                _renderInfoItem('课程学时', _item.courseHours),
                 SizedBox(height: 40),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

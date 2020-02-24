@@ -1,3 +1,4 @@
+import 'package:educationapp/model/CourseTable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/utils/TimeUtil.dart';
@@ -46,8 +47,9 @@ class _CalendarState extends State<Calendar> {
       TimeTableStatus.check.index
     ];
     _classDays = widget.timeTable.map((item) {
-      List<String> dateArr = item['date'].split('-'); //得到【年，月，日】数组
-      String status = item['status'];
+      CourseTable courseTable = CourseTable.fromJson(item);
+      List<String> dateArr = courseTable.courseDate.split('-'); //得到【年，月，日】数组
+      String status = courseTable.courseStatus;
       return {
         'day': int.parse(dateArr[2]), //找到有课的日
         'isAbsent': statusArr.contains(int.parse(status)), //该日是否缺席
@@ -109,8 +111,7 @@ class _CalendarState extends State<Calendar> {
         bool hasClass = classArr.isNotEmpty; //到课 缺勤 请假 审核
         Iterable isAbsentArr = classArr.where((days) => days['isAbsent']);
         // 是否当天的课未上完
-        bool hasAbsent =
-            hasClass && isAbsentArr.isNotEmpty;
+        bool hasAbsent = hasClass && isAbsentArr.isNotEmpty;
 
         return day == -1
             ? SizedBox(
