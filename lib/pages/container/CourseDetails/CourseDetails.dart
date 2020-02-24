@@ -1,3 +1,4 @@
+import 'package:educationapp/model/Course.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavBar.dart';
@@ -10,27 +11,22 @@ class CourseDetails extends StatefulWidget {
   final arguments;
   CourseDetails({this.arguments});
   @override
-  State<StatefulWidget> createState() {
-    print('my arguments:$arguments');
-    return _CourseDetailsState(arguments: arguments);
-  }
+  State<StatefulWidget> createState() => _CourseDetailsState();
 }
 
 class _CourseDetailsState extends State<CourseDetails> {
-  var _arguments;
-  var _courseId;
+  String _courseId;
+  Course _course;
   bool _focued = false;
   final double DEFAULT_BAR = style.topPadding + 35;
   ScrollController _controller = ScrollController();
   double _barOpacity = 0.0;
-  _CourseDetailsState({arguments}) {
-    this._arguments = arguments;
-    this._courseId = arguments['courseId'];
-  }
 
   @override
   void initState() {
     super.initState();
+    _courseId = widget.arguments['courseId'];
+    _course = widget.arguments['course'];
     double t;
     _controller.addListener(() {
       t = _controller.offset / DEFAULT_BAR;
@@ -80,6 +76,14 @@ class _CourseDetailsState extends State<CourseDetails> {
     ];
   }
 
+  String _getPrice() {
+    double price = double.parse(_course.coursePrice);
+    if (_course.discount != null) {
+      price -= double.parse(_course.discount);
+    }
+    return '¥${price.toStringAsFixed(2)}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,149 +96,145 @@ class _CourseDetailsState extends State<CourseDetails> {
             child: Stack(
               children: <Widget>[
                 SingleChildScrollView(
-                    controller: _controller,
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            width: style.width,
-                            height: 220,
-                            child: Image.asset(
-                              'assets/icon/banner2.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                            color: Colors.white,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text('寒假全期小/初/高数学辅导班',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16.0)),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      this._focued = !this._focued;
-                                    });
-                                  },
-                                  child: Container(
-                                    width: 24,
-                                    height: 24,
-                                    child: Image.asset(
-                                      this._focued
-                                          ? 'assets/icon/focus-on.png'
-                                          : 'assets/icon/unfocus-on.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
+                  controller: _controller,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        width: style.width,
+                        height: style.height * 2 / 5,
+                        child: Image.network(
+                          _course.courseImg,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        color: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(_course.courseName,
+                                style: style.mFontStyle
+                                    .copyWith(fontWeight: FontWeight.bold)),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  this._focued = !this._focued;
+                                });
+                              },
+                              child: Container(
+                                width: 24,
+                                height: 24,
+                                child: Image.asset(
+                                  this._focued
+                                      ? 'assets/icon/focus-on.png'
+                                      : 'assets/icon/unfocus-on.png',
+                                  fit: BoxFit.contain,
                                 ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          // 学校信息模块
-                          Container(
-                            padding: EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border(
-                                bottom: BorderSide(
-                                    color: style.borderColor, width: 1),
                               ),
                             ),
-                            width: style.width,
-                            child: Column(
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      // 学校信息模块
+                      Container(
+                        padding: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                            bottom:
+                                BorderSide(color: style.borderColor, width: 1),
+                          ),
+                        ),
+                        width: style.width,
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text('学校信息',
-                                            style: TextStyle(fontSize: 14.0)),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text('悦学悦知辅导机构',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold)),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text('电话:1xxxxxxxx',
-                                            style: TextStyle(fontSize: 14.0)),
-                                      ],
+                                    Text('学校信息',
+                                        style: TextStyle(fontSize: 14.0)),
+                                    SizedBox(
+                                      height: 5.0,
                                     ),
-                                    ButtonLink(
-                                        title: '简介',
-                                        handleOnTap: () {
-                                          showModalBottomSheet(
-                                              context: context,
-                                              builder: (BuildContext builder) {
-                                                return SchoolInfo();
-                                              });
-                                        }),
+                                    Text('悦学悦知辅导机构',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold)),
+                                    SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text('电话:1xxxxxxxx',
+                                        style: TextStyle(fontSize: 14.0)),
+                                  ],
+                                ),
+                                ButtonLink(
+                                    title: '简介',
+                                    handleOnTap: () {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          builder: (BuildContext builder) {
+                                            return SchoolInfo();
+                                          });
+                                    }),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                          padding: EdgeInsets.all(10.0),
+                          color: Colors.white,
+                          child: InkWell(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  width: 20.0,
+                                  height: 20.0,
+                                  child: Image.asset(
+                                    'assets/icon/icon-location.png',
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      '东风路东风街道102号',
+                                      style: TextStyle(fontSize: 12.0),
+                                    ),
+                                    SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text('距您1.1千米',
+                                        style: TextStyle(
+                                            fontSize: 11.0,
+                                            color: style.lightGrey))
                                   ],
                                 )
                               ],
                             ),
-                          ),
-                          Container(
-                              padding: EdgeInsets.all(10.0),
-                              color: Colors.white,
-                              child: InkWell(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      width: 20.0,
-                                      height: 20.0,
-                                      child: Image.asset(
-                                        'assets/icon/icon-location.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          '东风路东风街道102号',
-                                          style: TextStyle(fontSize: 12.0),
-                                        ),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text('距您1.1千米',
-                                            style: TextStyle(
-                                                fontSize: 11.0,
-                                                color: style.lightGrey))
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          CommentsPanel(),
-                          SizedBox(
-                            height: 40.0,
-                          ),
-                        ],
+                          )),
+                      SizedBox(
+                        height: 10.0,
                       ),
-                    ),
+                      CommentsPanel(),
+                      SizedBox(
+                        height: 40.0,
+                      ),
+                    ],
+                  ),
+                ),
                 // 底部按钮模块
                 Positioned(
                   bottom: 0,
@@ -253,7 +253,8 @@ class _CourseDetailsState extends State<CourseDetails> {
                         Row(
                           children: <Widget>[
                             Text(
-                              '¥59.00',
+                              _getPrice(),
+                              // '¥${_getPrice()}',
                               style: TextStyle(
                                   color: style.redColor,
                                   fontSize: style.bigFontSize,
@@ -262,7 +263,11 @@ class _CourseDetailsState extends State<CourseDetails> {
                             SizedBox(
                               width: 5.0,
                             ),
-                            Text('日常价:¥165', style: style.sFontStyle,)
+                            if (_course.discount != null)
+                              Text(
+                                '日常价:¥${_course.coursePrice}',
+                                style: style.sFontStyle,
+                              )
                           ],
                         ),
                         InkWell(
@@ -277,7 +282,8 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 gradient: style.baseGradient),
                             child: Text(
                               '立即报名',
-                              style: style.baseFontStyle.copyWith(color:Colors.white),
+                              style: style.baseFontStyle
+                                  .copyWith(color: Colors.white),
                             ),
                           ),
                         )

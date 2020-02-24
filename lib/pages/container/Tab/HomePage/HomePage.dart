@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:educationapp/model/Course.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:educationapp/utils/TimeUtil.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -24,6 +25,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ScrollController _controller = ScrollController();
   double _t;
+  List _hotCourseData = [];
   final double DEFAULT_BAR = MediaQueryData.fromWindow(window).padding.top + 44;
 
   double _barOpacity = 0.0;
@@ -31,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _hotCourseData = MyConst.hotCourseData;
     this._controller.addListener(() {
       _t = this._controller.offset / DEFAULT_BAR;
       setState(() {
@@ -58,7 +61,8 @@ class _HomePageState extends State<HomePage> {
       ),
       SizedBox(width: 20),
       Expanded(
-        child: Text('${TimeUtil.getTime(now.hour)}好,今天是${TimeUtil.getWeekDay(now.weekday)}',
+        child: Text(
+            '${TimeUtil.getTime(now.hour)}好,今天是${TimeUtil.getWeekDay(now.weekday)}',
             style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
@@ -140,40 +144,12 @@ class _HomePageState extends State<HomePage> {
   ];
 
   List<Widget> _getCoursePanl() {
-    const data = [
-      {
-        'title': '数学趣味课堂',
-        'info': '名师教学、保证高分、一对一辅导',
-        'courseId': 1,
-        'image': 'assets/image/class2.png'
-      },
-      {
-        'title': '美术趣味课堂',
-        'info': '名师教学、保证高分、一对一辅导',
-        'courseId': 2,
-        'image': 'assets/image/class1.png'
-      },
-      {
-        'title': '美术趣味课堂',
-        'info': '名师教学、保证高分、一对一辅导',
-        'courseId': 3,
-        'image': 'assets/image/class1.png'
-      },
-      {
-        'title': '美术趣味课堂',
-        'info': '名师教学、保证高分、一对一辅导',
-        'courseId': 4,
-        'image': 'assets/image/class1.png'
-      },
-    ];
-    var coursePanel = data
-        .map((f) => CoursePanel(
-              title: f['title'],
-              image: f['image'],
-              courseId: f['courseId'],
-              info: f['info'],
-            ))
-        .toList();
+    var coursePanel = _hotCourseData.map((item) {
+      Course course = Course.fromJson(item);
+      return CoursePanel(
+        course: course,
+      );
+    }).toList();
     List<Widget> newCourseBox = List.from(this.courseBox);
     newCourseBox.addAll(coursePanel);
     return newCourseBox;

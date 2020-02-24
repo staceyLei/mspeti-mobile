@@ -17,6 +17,7 @@ Course _$CourseFromJson(Map<String, dynamic> json) {
     json['coursePrice'] as String,
     json['courseTeacher'] as String,
     json['endDate'] as String,
+    json['discount'] as String,
     (json['courseTime'] as List)
         ?.map(
             (e) => e == null ? null : CTime.fromJson(e as Map<String, dynamic>))
@@ -37,5 +38,6 @@ Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
       'coursePeopleNum': instance.coursePeopleNum,
       'startDate': instance.startDate,
       'endDate': instance.endDate,
+      'discount': instance.discount,
       'courseTime': instance.courseTime,
     };

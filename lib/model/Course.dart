@@ -28,6 +28,8 @@ class Course extends Object {
   String startDate;
   @JsonKey(name: 'endDate')
   String endDate;
+  @JsonKey(name: 'discount')
+  String discount;
   @JsonKey(name: 'courseTime')
   List<CTime> courseTime;
 
@@ -41,6 +43,7 @@ class Course extends Object {
       this.coursePrice,
       this.courseTeacher,
       this.endDate,
+      this.discount,
       this.courseTime,
       this.startDate);
 

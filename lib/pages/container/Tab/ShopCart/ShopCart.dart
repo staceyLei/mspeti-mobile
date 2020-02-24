@@ -3,6 +3,7 @@ import 'package:educationapp/pages/container/Tab/ShopCart/component/ShopCartItem
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'component/NavBar.dart';
 import 'const.dart';
 
@@ -12,7 +13,6 @@ class ShopCart extends StatefulWidget {
 }
 
 class _ShopCartState extends State<ShopCart> {
-  int _num = 0;
   bool _status = true; //true 管理 false 完成
   bool _selectAll = false;
   List _selected = [];
@@ -26,7 +26,6 @@ class _ShopCartState extends State<ShopCart> {
   void initState() {
     super.initState();
     _shopCartList = courseData;
-    _num = _shopCartList.length;
     double o;
     _scrollController.addListener(() {
       o = _scrollController.offset / labelHeight;
@@ -40,6 +39,17 @@ class _ShopCartState extends State<ShopCart> {
     setState(() {
       _status = !_status;
     });
+  }
+
+  String _getTotalPrice() {
+    double totalPrice = 0;
+    _shopCartList.forEach((item) {
+      Course course = Course.fromJson(item);
+      if (_selected.contains(course.courseId)) {
+        totalPrice += double.parse(course.coursePrice);
+      }
+    });
+    return '¥$totalPrice';
   }
 
   Widget _renderBottom() {
@@ -84,7 +94,8 @@ class _ShopCartState extends State<ShopCart> {
         ...bottomList,
         Text('合计：', style: style.baseFontStyle),
         Text(
-          '¥50.00',
+          // '¥50.00',
+          _getTotalPrice(),
           style: style.baseFontStyle.copyWith(color: style.redColor),
         ),
         GestureDetector(
@@ -117,7 +128,15 @@ class _ShopCartState extends State<ShopCart> {
                   style: style.mFontStyle.copyWith(color: style.orangeColor),
                 ))),
         GestureDetector(
-            onTap: () {},
+            onTap: () {
+              List resShopCartList = _shopCartList
+                  .where((item) => !_selected.contains(item['courseId'])).toList();
+              setState(() {
+                _shopCartList = resShopCartList;
+              });
+              Fluttertoast.showToast(
+                  msg: '删除成功', gravity: ToastGravity.CENTER);
+            },
             child: Container(
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                 margin: EdgeInsets.only(right: 10),
@@ -216,7 +235,7 @@ class _ShopCartState extends State<ShopCart> {
                                       ],
                                     ),
                                     SizedBox(height: 5),
-                                    Text('共$_num件宝贝',
+                                    Text('共${_shopCartList.length}件宝贝',
                                         style: style.baseFontStyle
                                             .copyWith(color: Colors.white)),
                                   ]),
@@ -241,7 +260,7 @@ class _ShopCartState extends State<ShopCart> {
                       Opacity(
                         opacity: _opacity,
                         child: NavBar(
-                          title: '购物车($_num)',
+                          title: '购物车(${_shopCartList.length})',
                           status: _status,
                           handleOnManage: _handleOnManage,
                         ),

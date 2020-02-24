@@ -3,7 +3,7 @@ import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavLayout.dart';
-import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'component/const.dart';
 import 'component/CollectionItem.dart';
 import 'package:educationapp/pages/components/BaseButton.dart';
@@ -135,7 +135,8 @@ class _CollectionState extends State<Collection> {
                     _selected = [];
                   } else {
                     _selected = _collectionList.map((ele) {
-                      return ele['id'];
+                      Course course = Course.fromJson(ele);
+                      return course.courseId;
                     }).toList();
                   }
                   _selectAll = !_selectAll;
@@ -159,17 +160,30 @@ class _CollectionState extends State<Collection> {
                       Text('全选', style: style.mFontStyle)
                     ],
                   ))),
-          Container(
-            padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-            margin: EdgeInsets.only(right: 15),
-            decoration: BoxDecoration(
-                color: style.themeColor,
-                borderRadius: BorderRadius.circular(15.0),
-                gradient: style.baseGradient),
-            child: Text('全部删除',
-                style:
-                    TextStyle(color: Colors.white, fontSize: style.mFontSize)),
-          ),
+          GestureDetector(
+            onTap: () {
+              List resCollectionList = _collectionList.where((ele) {
+                Course course = Course.fromJson(ele);
+                return !_selected.contains(course.courseId);
+              }).toList();
+              setState(() {
+                _collectionList = resCollectionList;
+              });
+              Fluttertoast.showToast(
+                  msg: '取消收藏成功', gravity: ToastGravity.CENTER);
+            },
+            child: Container(
+              padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+              margin: EdgeInsets.only(right: 15),
+              decoration: BoxDecoration(
+                  color: style.themeColor,
+                  borderRadius: BorderRadius.circular(15.0),
+                  gradient: style.baseGradient),
+              child: Text('全部删除',
+                  style: TextStyle(
+                      color: Colors.white, fontSize: style.mFontSize)),
+            ),
+          )
         ],
       ),
     );

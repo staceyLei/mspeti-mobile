@@ -17,6 +17,7 @@ const courseData = [
       'coursePrice':'165',
       'courseId':'1',
       'courseInfo':'名师辅导，一对一教学',
+      'discount':'20',
   },
   {
     'courseName': '美术趣味课堂',
@@ -35,6 +36,7 @@ const courseData = [
       'coursePrice':'165',
       'courseId':'2',
       'courseInfo':'名师辅导，一对一教学',
+      'discount':'20',
       'coursePeopleNum':'20',
   },
   {
@@ -54,6 +56,7 @@ const courseData = [
       'coursePeopleNum':'20',
       'courseId':'3',
       'courseInfo':'名师辅导，一对一教学',
+      'discount':'30',
       'coursePrice':'165',
   },
   {
@@ -73,6 +76,7 @@ const courseData = [
       'coursePeopleNum':'25',
       'courseId':'4',
       'courseInfo':'名师辅导，一对一教学',
+      'discount':'20',
       'coursePrice':'165',
   },
   {
@@ -93,6 +97,7 @@ const courseData = [
       'coursePeopleNum':'20',
       'courseId':'5',
       'courseInfo':'名师辅导，一对一教学',
+      'discount':'40',
       'coursePrice':'165',
   },
 ];
