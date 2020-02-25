@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'Teacher.dart';
 
 part 'CourseTable.g.dart';
 
@@ -7,7 +8,7 @@ class CourseTable extends Object {
   @JsonKey(name: 'tableId')
   String tableId;
   @JsonKey(name: 'courseTeacher')
-  String courseTeacher;
+  Teacher courseTeacher;
   @JsonKey(name: 'courseName')
   String courseName;
   @JsonKey(name: 'courseImg')

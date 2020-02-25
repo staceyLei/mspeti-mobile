@@ -11,7 +11,9 @@ HomeworkM _$HomeworkMFromJson(Map<String, dynamic> json) {
     json['homeworkId'] as String,
     json['courseImg'] as String,
     json['courseName'] as String,
-    json['courseTeacher'] as String,
+    json['courseTeacher'] == null
+        ? null
+        : Teacher.fromJson(json['courseTeacher'] as Map<String, dynamic>),
     json['endDate'] as String,
     json['homeworkContent'] as String,
     json['homeworkGrade'] as String,

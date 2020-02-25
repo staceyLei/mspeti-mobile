@@ -1,21 +1,19 @@
 import 'package:educationapp/model/CTime.dart';
+import 'Teacher.dart';
 import 'package:json_annotation/json_annotation.dart';
-part 'Course.g.dart';
+part 'CourseM.g.dart';
 
 @JsonSerializable()
-class Course extends Object {
+class CourseM extends Object {
   @JsonKey(name: 'courseId')
   String courseId;
 
   @JsonKey(name: 'courseName')
   String courseName;
-  @JsonKey(name: 'teacherImg')
-  String teacherImg;
-
   @JsonKey(name: 'courseHours')
   String courseHours;
   @JsonKey(name: 'courseTeacher')
-  String courseTeacher;
+  Teacher courseTeacher;
   @JsonKey(name: 'courseImg')
   String courseImg;
   @JsonKey(name: 'courseInfo')
@@ -33,7 +31,7 @@ class Course extends Object {
   @JsonKey(name: 'courseTime')
   List<CTime> courseTime;
 
-  Course(
+  CourseM(
       this.courseId,
       this.courseHours,
       this.courseImg,
@@ -47,9 +45,9 @@ class Course extends Object {
       this.courseTime,
       this.startDate);
 
-  factory Course.fromJson(Map<String, dynamic> srcJson) =>
-      _$CourseFromJson(srcJson);
+  factory CourseM.fromJson(Map<String, dynamic> srcJson) =>
+      _$CourseMFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$CourseToJson(this);
+  Map<String, dynamic> toJson() => _$CourseMToJson(this);
 }
 

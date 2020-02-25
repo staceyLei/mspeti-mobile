@@ -1,7 +1,46 @@
+import 'package:educationapp/model/CommentM.dart';
+import 'package:educationapp/model/Teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 
 class SchoolInfo extends StatelessWidget {
+  Teacher teacher;
+  SchoolInfo({this.teacher});
+
+  int _getRank() {
+    List<CommentM> comment = teacher.teacherComment;
+    double rank = 0;
+    comment.forEach((ele) {
+      rank += double.parse(ele.star);
+    });
+    return rank ~/ comment.length;
+  }
+
+  Widget _renderStar(bool isActive) {
+    return Container(
+      width: 20,
+      margin: EdgeInsets.symmetric(horizontal: 2.5),
+      height: 20,
+      child: Image.asset(
+        isActive
+            ? 'assets/icon/commentStar-active.png'
+            : 'assets/icon/commentStar-unactive.png',
+        fit: BoxFit.contain,
+      ),
+    );
+  }
+
+  List<Widget> _renderStarBox(int star) {
+    List<Widget> res = [];
+    while (res.length < star) {
+      res.add(_renderStar(true));
+    }
+    while (res.length < 5) {
+      res.add(_renderStar(false));
+    }
+    return res;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -37,7 +76,7 @@ class SchoolInfo extends StatelessWidget {
                     SizedBox(
                       width: 64.0,
                       child: Text(
-                        '名称',
+                        '姓名',
                         style: TextStyle(
                             color: style.secondFontColor,
                             fontSize: style.mFontSize),
@@ -49,7 +88,7 @@ class SchoolInfo extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Text(
-                        '广州悦学悦知辅导机构',
+                        teacher.teacherName,
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: style.mFontSize,
@@ -70,7 +109,7 @@ class SchoolInfo extends StatelessWidget {
                     SizedBox(
                       width: 64.0,
                       child: Text(
-                        '创办时间',
+                        '联系方式',
                         style: TextStyle(
                             color: style.secondFontColor,
                             fontSize: style.mFontSize),
@@ -82,7 +121,7 @@ class SchoolInfo extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Text(
-                        '1997年10月',
+                        teacher.teacherPhone,
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: style.mFontSize,
@@ -103,7 +142,7 @@ class SchoolInfo extends StatelessWidget {
                     SizedBox(
                       width: 64.0,
                       child: Text(
-                        '办学理念',
+                        '评价星级',
                         style: TextStyle(
                             color: style.secondFontColor,
                             fontSize: style.mFontSize),
@@ -114,26 +153,22 @@ class SchoolInfo extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 1,
-                      child: Text(
-                        '愉快教育成功教育',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: style.mFontSize,
-                        ),
-                      ),
+                      child:Row(
+                        children:_renderStarBox(_getRank())
+                      )
                     ),
                   ],
                 ),
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-                child: Column(
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
                       width: 64.0,
                       child: Text(
-                        '学校介绍',
+                        '个人简介',
                         style: TextStyle(
                             color: style.secondFontColor,
                             fontSize: style.mFontSize),
@@ -143,10 +178,9 @@ class SchoolInfo extends StatelessWidget {
                       width: 15.0,
                     ),
                     Container(
+                      width: style.width-3*15-75,
                       child: Text(
-                        '''
-                    卓越教育目前每年就读学生超过30万人次，拥有一支逾3000名优秀教师的师资队伍，开设了包括辅导班、一对一个性辅导、全日制高四(高考复读)、全日制初四(中考复读)在内100多个校区，遍布广州、上海、深圳、成都、佛山、珠海、东莞、中山、揭阳等城市，2010年、2011年连续两年入围“德勤高科技、高成长中国50强”，多年来获得多项来自政府、社会、媒体授予的奖项和荣誉。
-                    ''',
+                        teacher.teacherInfo,
                         style: TextStyle(
                           fontSize: style.mFontSize,
                         ),
@@ -172,7 +206,7 @@ class SchoolInfo extends StatelessWidget {
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 )),
-            child: Text('学校简介',
+            child: Text('教师简介',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: style.titleSize, fontWeight: FontWeight.bold)),
@@ -191,10 +225,9 @@ class SchoolInfo extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
-                  borderRadius: BorderRadius.circular(20.0),
-                  gradient: style.baseGradient
-                ),
+                    color: Theme.of(context).accentColor,
+                    borderRadius: BorderRadius.circular(20.0),
+                    gradient: style.baseGradient),
                 child: Text(
                   '确定',
                   textAlign: TextAlign.center,

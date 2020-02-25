@@ -1,18 +1,32 @@
+import 'package:educationapp/model/MyCourseM.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/components/NavLayout.dart';
 import 'component/CourseItem.dart';
 import 'component/const.dart';
 
-class MyCourse extends StatelessWidget {
+class MyCourse extends StatefulWidget {
+  @override
+  _MyCourseState createState() => _MyCourseState();
+}
+
+class _MyCourseState extends State<MyCourse> {
+  List _courseData;
+  @override
+  void initState() {
+    super.initState();
+    _courseData = courseData ?? [];
+  }
+
   List<Widget> _renderComponents() {
-    return (courseData ?? []).map((item) {
+    return _courseData.map((item) {
+      MyCourseM course = MyCourseM.fromJson(item);
       return InkWell(
           onTap: () {
             navigatorKey.currentState
-                .pushNamed('/CourseContent', arguments: {'item': item});
+                .pushNamed('/CourseContent', arguments: {'item': course});
           },
-          child: CourseItem(item: item));
+          child: CourseItem(item: course));
     }).toList();
   }
 

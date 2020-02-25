@@ -11,7 +11,9 @@ CourseTable _$CourseTableFromJson(Map<String, dynamic> json) {
     json['courseDate'] as String,
     json['courseHours'] as String,
     json['courseStatus'] as String,
-    json['courseTeacher'] as String,
+    json['courseTeacher'] == null
+        ? null
+        : Teacher.fromJson(json['courseTeacher'] as Map<String, dynamic>),
     json['endTime'] as String,
     json['startTime'] as String,
     json['tableId'] as String,

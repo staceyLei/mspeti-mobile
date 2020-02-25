@@ -1,9 +1,10 @@
+import 'package:educationapp/model/CommentM.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 
 class CommentItem extends StatelessWidget {
-  final Map item;
+  final CommentM item;
   final bool isSend;
   CommentItem({this.item, this.isSend});
 
@@ -43,11 +44,13 @@ class CommentItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
           boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
-      child: Column(children: [
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
         Row(
           children: <Widget>[
             ClipOval(
-              child: Image.asset(item['headImg'],
+              child: Image.network(item.pubImg,
                   fit: BoxFit.contain, width: 50, height: 50),
             ),
             SizedBox(width: 10),
@@ -58,12 +61,12 @@ class CommentItem extends StatelessWidget {
                     children: [
                       Text(
                           !isSend
-                              ? item['commentName']
-                              : 'To:${item['commentName']}',
+                              ? item.pubName
+                              : 'To:${item.receiveName}',
                           style: style.mFontStyle.copyWith(
                               fontSize: style.titleSize,
                               fontWeight: FontWeight.bold)),
-                      Text('${item['commentCourse']} ${item['commentTime']}',
+                      Text('${item.courseName} ${item.pubDate}',
                           style: style.baseFontStyle)
                     ])),
             if (!isSend)
@@ -72,9 +75,9 @@ class CommentItem extends StatelessWidget {
                     navigatorKey.currentState
                         .pushNamed('/AddComment', arguments: {
                       'data': {
-                        "teacher": item['commentName'],
-                        "course": item['commentCourse'],
-                        "img": item['headImg']
+                        "teacher": item.pubName,
+                        "course": item.courseName,
+                        "img": item.pubImg
                       },
                       'isTeacher':true,
                     });
@@ -94,12 +97,13 @@ class CommentItem extends StatelessWidget {
         ),
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: _renderStarBox(item['commentStar'])),
+            children: _renderStarBox(item.star)),
         SizedBox(height: 15),
         Container(
           padding: EdgeInsets.all(15),
+          width: style.width,
           color: style.grey,
-          child: Text(item['commentContent'],
+          child: Text(item.pubWord,
               style: style.baseFontStyle.copyWith(fontWeight: FontWeight.bold)),
         )
       ]),

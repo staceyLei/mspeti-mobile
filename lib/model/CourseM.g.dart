@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Course.dart';
+part of 'CourseM.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Course _$CourseFromJson(Map<String, dynamic> json) {
-  return Course(
+CourseM _$CourseMFromJson(Map<String, dynamic> json) {
+  return CourseM(
     json['courseId'] as String,
     json['courseHours'] as String,
     json['courseImg'] as String,
@@ -15,7 +15,9 @@ Course _$CourseFromJson(Map<String, dynamic> json) {
     json['courseName'] as String,
     json['coursePeopleNum'] as String,
     json['coursePrice'] as String,
-    json['courseTeacher'] as String,
+    json['courseTeacher'] == null
+        ? null
+        : Teacher.fromJson(json['courseTeacher'] as Map<String, dynamic>),
     json['endDate'] as String,
     json['discount'] as String,
     (json['courseTime'] as List)
@@ -23,13 +25,12 @@ Course _$CourseFromJson(Map<String, dynamic> json) {
             (e) => e == null ? null : CTime.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     json['startDate'] as String,
-  )..teacherImg = json['teacherImg'] as String;
+  );
 }
 
-Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
+Map<String, dynamic> _$CourseMToJson(CourseM instance) => <String, dynamic>{
       'courseId': instance.courseId,
       'courseName': instance.courseName,
-      'teacherImg': instance.teacherImg,
       'courseHours': instance.courseHours,
       'courseTeacher': instance.courseTeacher,
       'courseImg': instance.courseImg,

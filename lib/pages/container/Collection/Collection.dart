@@ -1,4 +1,4 @@
-import 'package:educationapp/model/Course.dart';
+import 'package:educationapp/model/CourseM.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
@@ -55,9 +55,9 @@ class _CollectionState extends State<Collection> {
 
   List<Widget> _renderComponents() {
     return _collectionList.map((item) {
-      Course course = Course.fromJson(item);
+      CourseM course = CourseM.fromJson(item);
       return InkWell(
-          onTap: () => this._handleOnTap(course.courseId),
+          onTap: () => this._handleOnTap(course),
           child: CollectionItem(
             item: course,
             onCancel: _handleOnCancel,
@@ -67,13 +67,13 @@ class _CollectionState extends State<Collection> {
     }).toList();
   }
 
-  _handleOnTap(String id) {
+  _handleOnTap(CourseM course) {
     if (_status) {
       this.setState(() {
-        if (_selected.contains(id)) {
-          _selected.remove(id);
+        if (_selected.contains(course.courseId)) {
+          _selected.remove(course.courseId);
         } else {
-          _selected.add(id);
+          _selected.add(course.courseId);
         }
         if (_selected.length == _collectionList.length) {
           _selectAll = true;
@@ -81,7 +81,7 @@ class _CollectionState extends State<Collection> {
       });
     } else {
       navigatorKey.currentState
-          .pushNamed('/CourseDetails', arguments: {'courseId': id});
+          .pushNamed('/CourseDetails', arguments: {'courseId': course.courseId,'course':course});
     }
   }
 
@@ -135,7 +135,7 @@ class _CollectionState extends State<Collection> {
                     _selected = [];
                   } else {
                     _selected = _collectionList.map((ele) {
-                      Course course = Course.fromJson(ele);
+                      CourseM course = CourseM.fromJson(ele);
                       return course.courseId;
                     }).toList();
                   }
@@ -163,7 +163,7 @@ class _CollectionState extends State<Collection> {
           GestureDetector(
             onTap: () {
               List resCollectionList = _collectionList.where((ele) {
-                Course course = Course.fromJson(ele);
+                CourseM course = CourseM.fromJson(ele);
                 return !_selected.contains(course.courseId);
               }).toList();
               setState(() {

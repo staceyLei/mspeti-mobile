@@ -1,16 +1,17 @@
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
+import 'package:educationapp/model/CTime.dart';
 import 'package:educationapp/pages/components/NavLayout.dart';
 import 'package:educationapp/assets/style.dart' as style;
-import 'package:educationapp/model/MyCourse.dart';
+import 'package:educationapp/model/MyCourseM.dart';
 
 class CourseContent extends StatelessWidget {
   final arguments;
-  MyCourse _item;
+  MyCourseM _item;
   double _percent;
   double _total;
   CourseContent({this.arguments}) {
-    _item = MyCourse.fromJson(arguments['item']);
+    _item = arguments['item'];
     _total = style.width - 2 * 20 - 2 * 10 - 80;
     _percent = ((double.parse(_item.nowCourseHours) /
         double.parse(_item.courseHours)));
@@ -82,9 +83,9 @@ class CourseContent extends StatelessWidget {
       return TableRow(
           decoration: BoxDecoration(color: Colors.white),
           children: [
-            _renderTableCell(_getWeekDay['${row['weekDay']}']),
-            _renderTableCell(row['startTime']),
-            _renderTableCell(row['endTime']),
+            _renderTableCell(_getWeekDay['${row.weekDay}']),
+            _renderTableCell(row.startTime),
+            _renderTableCell(row.endTime),
           ]);
     });
     table.addAll(tableContent);
@@ -101,7 +102,7 @@ class CourseContent extends StatelessWidget {
           Row(children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.asset(_item.courseImg,
+              child: Image.network(_item.courseImg,
                   width: 100, height: 100, fit: BoxFit.cover),
             ),
             SizedBox(width: 10),
@@ -114,7 +115,8 @@ class CourseContent extends StatelessWidget {
                               fontSize: style.titleSize,
                               fontWeight: FontWeight.bold)),
                       SizedBox(height: 5),
-                      Text(_item.courseTeacher, style: style.mFontStyle),
+                      Text(_item.courseTeacher.teacherName,
+                          style: style.mFontStyle),
                       SizedBox(height: 5),
                       Text(
                         '开始时间:${_item.beginTime}',
@@ -201,7 +203,11 @@ class CourseContent extends StatelessWidget {
                   navigatorKey.currentState
                       .pushNamed('/AddComment', arguments: {
                     'isTeacher': true,
-                    'data': {'teacher': _item.courseTeacher,'course':_item.courseName,'img':_item.teacherImg}
+                    'data': {
+                      'teacher': _item.courseTeacher,
+                      'course': _item.courseName,
+                      'img': _item.courseTeacher.teacherImg
+                    }
                   });
                 },
                 borderSide: BorderSide(color: style.orangeColor),
@@ -217,10 +223,14 @@ class CourseContent extends StatelessWidget {
               SizedBox(width: 30),
               OutlineButton(
                 onPressed: () {
-                   navigatorKey.currentState
+                  navigatorKey.currentState
                       .pushNamed('/AddComment', arguments: {
                     'isTeacher': false,
-                    'data': {'teacher': _item.courseTeacher,'course':_item.courseName,'img':_item.courseImg}
+                    'data': {
+                      'teacher': _item.courseTeacher,
+                      'course': _item.courseName,
+                      'img': _item.courseImg
+                    }
                   });
                 },
                 borderSide: BorderSide(color: style.greenColor),

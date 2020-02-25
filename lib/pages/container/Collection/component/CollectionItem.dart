@@ -1,9 +1,9 @@
-import 'package:educationapp/model/Course.dart';
+import 'package:educationapp/model/CourseM.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 
 class CollectionItem extends StatelessWidget {
-  final Course item;
+  final CourseM item;
   final bool status; //true 管理状态 false 完成状态
   final bool isSelected;
   final Function onCancel;

@@ -120,7 +120,7 @@ class _TimeTableDetailState extends State<TimeTableDetail> {
                     ],
                   ),
                 ),
-                _renderInfoItem('授课老师', _item.courseTeacher),
+                _renderInfoItem('授课老师', _item.courseTeacher.teacherName),
                 _renderInfoItem('课程日期', _item.courseDate),
                 _renderInfoItem(
                     '上课时间', '${_item.startTime} 至 ${_item.endTime}'),

@@ -1,9 +1,9 @@
-import 'package:educationapp/model/Course.dart';
+import 'package:educationapp/model/CourseM.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 
 class CoursePanel extends StatefulWidget {
-  final Course course;
+  final CourseM course;
   CoursePanel({this.course, Key key}) : super(key: key);
   @override
   _CoursePanelState createState() {
@@ -12,7 +12,7 @@ class CoursePanel extends StatefulWidget {
 }
 
 class _CoursePanelState extends State<CoursePanel> {
-  Course _course;
+  CourseM _course;
   @override
   void initState() {
     super.initState();

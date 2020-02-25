@@ -4,7 +4,11 @@ const homeworkData = [
    "courseName":"美术趣味课堂",
    "status":'0',
    "pubVideo":"assets/pubVideo/test.mp4",
-   "courseTeacher":"王老师",
+   'courseTeacher': {
+      'teacherName': '李老师',
+      'teacherImg':
+          'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582396615546&di=8d9dcce6e55d029443db04901ed30c61&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201903%2F10%2F20190310221844_guuus.thumb.700_0.jpg',
+    },
    "homeworkContent":'''
    完成美术作业6张图，其中包括2张风景图，4张
 实物图，风景图画春夏秋冬四季各选两个季节的
@@ -23,7 +27,11 @@ const homeworkData = [
    "courseName":"美术趣味课堂",
    "status":'1',
    "pubVideo":"assets/pubVideo/test.mp4",
-   "courseTeacher":"李老师",
+   'courseTeacher': {
+      'teacherName': '李老师',
+      'teacherImg':
+          'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582396615546&di=8d9dcce6e55d029443db04901ed30c61&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201903%2F10%2F20190310221844_guuus.thumb.700_0.jpg',
+    },
    "homeworkContent":'''
    完成美术作业6张图，其中包括2张风景图，4张
 实物图，风景图画春夏秋冬四季各选两个季节的
@@ -43,7 +51,11 @@ const homeworkData = [
    "courseName":"美术趣味课堂",
    "status":'2',
    "pubVideo":"assets/pubVideo/test.mp4",
-   "courseTeacher":"李老师",
+   'courseTeacher': {
+      'teacherName': '李老师',
+      'teacherImg':
+          'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582396615546&di=8d9dcce6e55d029443db04901ed30c61&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201903%2F10%2F20190310221844_guuus.thumb.700_0.jpg',
+    },
    "homeworkContent":'''
    完成美术作业6张图，其中包括2张风景图，4张
 实物图，风景图画春夏秋冬四季各选两个季节的
@@ -64,7 +76,11 @@ const homeworkData = [
    "courseName":"美术趣味课堂",
    "status":'0',
    "pubVideo":"assets/pubVideo/test.mp4",
-   "courseTeacher":"张老师",
+   'courseTeacher': {
+      'teacherName': '李老师',
+      'teacherImg':
+          'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582396615546&di=8d9dcce6e55d029443db04901ed30c61&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201903%2F10%2F20190310221844_guuus.thumb.700_0.jpg',
+    },
    "homeworkContent":'''
    完成美术作业6张图，其中包括2张风景图，4张
 实物图，风景图画春夏秋冬四季各选两个季节的

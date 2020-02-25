@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:educationapp/model/Course.dart';
+import 'package:educationapp/model/CourseM.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:educationapp/utils/TimeUtil.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> _getCoursePanl() {
     var coursePanel = _hotCourseData.map((item) {
-      Course course = Course.fromJson(item);
+      CourseM course = CourseM.fromJson(item);
       return CoursePanel(
         course: course,
       );

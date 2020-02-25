@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'Teacher.dart';
 
 part 'HomeworkM.g.dart';
 
@@ -13,7 +14,7 @@ class HomeworkM extends Object {
   @JsonKey(name: 'homeworkContent')
   String homeworkContent;
   @JsonKey(name: 'courseTeacher')
-  String courseTeacher;
+  Teacher courseTeacher;
   @JsonKey(name: 'pubDate')
   String pubDate;
   @JsonKey(name: 'endDate')

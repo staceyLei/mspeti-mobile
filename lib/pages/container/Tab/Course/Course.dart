@@ -1,5 +1,5 @@
+import 'package:educationapp/model/CourseM.dart';
 import 'package:educationapp/route/route.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:educationapp/assets/style.dart' as style;
@@ -163,7 +163,8 @@ class _CourseState extends State<Course> {
                     padding: EdgeInsets.only(top: 10),
                     itemCount: _courseData.length,
                     itemBuilder: (context, index) {
-                      return CourseItem(item: _courseData[index]);
+                      CourseM course = CourseM.fromJson(_courseData[index]);
+                      return CourseItem(item: course);
                     }))
           ]),
       ),

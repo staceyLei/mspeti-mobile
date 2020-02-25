@@ -1,5 +1,6 @@
-import 'package:educationapp/model/Course.dart';
+import 'package:educationapp/model/CourseM.dart';
 import 'package:educationapp/pages/container/Tab/ShopCart/component/ShopCartItem.dart';
+import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:flutter/services.dart';
@@ -44,7 +45,7 @@ class _ShopCartState extends State<ShopCart> {
   String _getTotalPrice() {
     double totalPrice = 0;
     _shopCartList.forEach((item) {
-      Course course = Course.fromJson(item);
+      CourseM course = CourseM.fromJson(item);
       if (_selected.contains(course.courseId)) {
         totalPrice += double.parse(course.coursePrice);
       }
@@ -63,7 +64,7 @@ class _ShopCartState extends State<ShopCart> {
                     _selected = [];
                   } else {
                     _selected = _shopCartList.map((item) {
-                      Course course = Course.fromJson(item);
+                      CourseM course = CourseM.fromJson(item);
                       return course.courseId;
                     }).toList();
                   }
@@ -130,12 +131,12 @@ class _ShopCartState extends State<ShopCart> {
         GestureDetector(
             onTap: () {
               List resShopCartList = _shopCartList
-                  .where((item) => !_selected.contains(item['courseId'])).toList();
+                  .where((item) => !_selected.contains(item['courseId']))
+                  .toList();
               setState(() {
                 _shopCartList = resShopCartList;
               });
-              Fluttertoast.showToast(
-                  msg: '删除成功', gravity: ToastGravity.CENTER);
+              Fluttertoast.showToast(msg: '删除成功', gravity: ToastGravity.CENTER);
             },
             child: Container(
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -161,24 +162,31 @@ class _ShopCartState extends State<ShopCart> {
     );
   }
 
+  _handleOnSelect(CourseM course) {
+    setState(() {
+      if (_selected.contains(course.courseId)) {
+        _selected.remove(course.courseId);
+      } else {
+        _selected.add(course.courseId);
+      }
+      if (_selected.length == _shopCartList.length) {
+        _selectAll = true;
+      }
+    });
+  }
+
   List<Widget> _renderComponent() {
     return _shopCartList.map((item) {
-      Course course = Course.fromJson(item);
+      CourseM course = CourseM.fromJson(item);
       return GestureDetector(
         onTap: () {
-          setState(() {
-            if (_selected.contains(course.courseId)) {
-              _selected.remove(course.courseId);
-            } else {
-              _selected.add(course.courseId);
-            }
-            if (_selected.length == _shopCartList.length) {
-              _selectAll = true;
-            }
-          });
+          navigatorKey.currentState.pushNamed('/CourseDetails',
+              arguments: {'courseId': course.courseId, 'course': course});
         },
         child: ShopCartItem(
-            item: course, isSelected: _selected.contains(course.courseId)),
+            item: course,
+            isSelected: _selected.contains(course.courseId),
+            handleOnSelect: () => _handleOnSelect(course)),
       );
     }).toList();
   }

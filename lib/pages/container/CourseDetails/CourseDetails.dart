@@ -1,4 +1,4 @@
-import 'package:educationapp/model/Course.dart';
+import 'package:educationapp/model/CourseM.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavBar.dart';
@@ -16,7 +16,7 @@ class CourseDetails extends StatefulWidget {
 
 class _CourseDetailsState extends State<CourseDetails> {
   String _courseId;
-  Course _course;
+  CourseM _course;
   bool _focued = false;
   final double DEFAULT_BAR = style.topPadding + 35;
   ScrollController _controller = ScrollController();
@@ -108,14 +108,15 @@ class _CourseDetailsState extends State<CourseDetails> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        padding: EdgeInsets.all(10),
                         color: Colors.white,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(_course.courseName,
-                                style: style.mFontStyle
-                                    .copyWith(fontWeight: FontWeight.bold)),
+                                style: style.mFontStyle.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: style.titleSize)),
                             InkWell(
                               onTap: () {
                                 setState(() {
@@ -158,20 +159,13 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text('学校信息',
-                                        style: TextStyle(fontSize: 14.0)),
+                                    Text('任课老师', style: style.baseFontStyle),
                                     SizedBox(
                                       height: 5.0,
                                     ),
-                                    Text('悦学悦知辅导机构',
-                                        style: TextStyle(
-                                            fontSize: 16.0,
+                                    Text(_course.courseTeacher.teacherName,
+                                        style: style.mFontStyle.copyWith(
                                             fontWeight: FontWeight.bold)),
-                                    SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text('电话:1xxxxxxxx',
-                                        style: TextStyle(fontSize: 14.0)),
                                   ],
                                 ),
                                 ButtonLink(
@@ -179,9 +173,10 @@ class _CourseDetailsState extends State<CourseDetails> {
                                     handleOnTap: () {
                                       showModalBottomSheet(
                                           context: context,
-                                          builder: (BuildContext builder) {
-                                            return SchoolInfo();
-                                          });
+                                          builder: (BuildContext builder) =>
+                                              SchoolInfo(
+                                                  teacher:
+                                                      _course.courseTeacher));
                                     }),
                               ],
                             )
@@ -193,35 +188,25 @@ class _CourseDetailsState extends State<CourseDetails> {
                           color: Colors.white,
                           child: InkWell(
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Container(
-                                  width: 20.0,
-                                  height: 20.0,
-                                  child: Image.asset(
-                                    'assets/icon/icon-location.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10.0,
-                                ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      '东风路东风街道102号',
-                                      style: TextStyle(fontSize: 12.0),
-                                    ),
+                                    Text('开课时间', style: style.baseFontStyle),
                                     SizedBox(
                                       height: 5.0,
                                     ),
-                                    Text('距您1.1千米',
-                                        style: TextStyle(
-                                            fontSize: 11.0,
-                                            color: style.lightGrey))
+                                    Text(
+                                        '${_course.startDate} 至 ${_course.endDate}',
+                                        style: style.mFontStyle.copyWith(
+                                            fontWeight: FontWeight.bold)),
                                   ],
-                                )
+                                ),
+                                ButtonLink(
+                                  title: '详细安排',
+                                  handleOnTap: () {},
+                                ),
                               ],
                             ),
                           )),
@@ -248,42 +233,58 @@ class _CourseDetailsState extends State<CourseDetails> {
                       ),
                     ]),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              _getPrice(),
-                              // '¥${_getPrice()}',
-                              style: TextStyle(
-                                  color: style.redColor,
-                                  fontSize: style.bigFontSize,
-                                  fontWeight: FontWeight.bold),
+                        Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  _getPrice(),
+                                  style: TextStyle(
+                                      color: style.redColor,
+                                      fontSize: style.bigFontSize,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  width: 5.0,
+                                ),
+                                if (_course.discount != null)
+                                  Text(
+                                    '日常价:¥${_course.coursePrice}',
+                                    style: style.sFontStyle,
+                                  )
+                              ],
                             ),
-                            SizedBox(
-                              width: 5.0,
+                            flex: 1),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                            margin: EdgeInsets.only(right: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14.0),
+                                border: Border.all(color:style.orangeColor,width:1.0)
+                                ),
+                            child: Text(
+                              '加入购物车',
+                              style: style.baseFontStyle
+                                  .copyWith(color: style.orangeColor),
                             ),
-                            if (_course.discount != null)
-                              Text(
-                                '日常价:¥${_course.coursePrice}',
-                                style: style.sFontStyle,
-                              )
-                          ],
+                          ),
                         ),
-                        InkWell(
+                        GestureDetector(
                           onTap: () {
                             Navigator.of(context).pushNamed('/ConfirmOrder');
                           },
                           child: Container(
-                            padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                            padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                             decoration: BoxDecoration(
-                                color: Theme.of(context).accentColor,
-                                borderRadius: BorderRadius.circular(14.0),
-                                gradient: style.baseGradient),
+                              border: Border.all(color:style.themeColor,width:1.0),
+                                borderRadius: BorderRadius.circular(14.0),),
                             child: Text(
                               '立即报名',
                               style: style.baseFontStyle
-                                  .copyWith(color: Colors.white),
+                                  .copyWith(color: style.themeColor),
                             ),
                           ),
                         )

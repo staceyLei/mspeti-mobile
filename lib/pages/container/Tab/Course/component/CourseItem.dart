@@ -1,15 +1,18 @@
+import 'package:educationapp/model/CourseM.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 
 class CourseItem extends StatelessWidget {
-  final Map item;
+  final CourseM item;
   CourseItem({this.item});
 
   @override
   Widget build(BuildContext context) {
+    double itemH = style.width / 3 - 10;
     return InkWell(
         onTap: () {
-          Navigator.pushNamed(context, '/CourseDetails',arguments:{"courseId":item['id']});
+          Navigator.pushNamed(context, '/CourseDetails',
+              arguments: {"courseId": item.courseId, 'course': item});
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -17,27 +20,26 @@ class CourseItem extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: style.baseRadius,
-                    image: DecorationImage(
-                        image: AssetImage(item['img']), fit: BoxFit.cover)),
-                width: 100,
-                height: 100,
+              ClipRRect(
+                borderRadius: style.baseRadius,
+                child: Image.network(item.courseImg,
+                    width: itemH,
+                    height: itemH,
+                    fit: BoxFit.cover),
               ),
-              SizedBox(width: 10),
               Expanded(
                   flex: 1,
                   child: Container(
-                    height: 100,
+                    margin: EdgeInsets.only(left:10),
+                    height: itemH,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(item['name'],
+                          Text(item.courseName,
                               style: style.baseFontStyle
                                   .copyWith(fontSize: style.mFontSize)),
-                          Text(item['info'],
+                          Text(item.courseInfo,
                               style: TextStyle(
                                   color: style.lightGrey,
                                   fontSize: style.baseFontSize)),
@@ -50,7 +52,7 @@ class CourseItem extends StatelessWidget {
                                       color: style.redColor,
                                       fontSize: style.baseFontSize),
                                 ),
-                                Text(item['price'],
+                                Text(item.coursePrice,
                                     style: TextStyle(
                                         color: style.redColor,
                                         fontSize: style.bigFontSize,
@@ -60,7 +62,7 @@ class CourseItem extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text('${item['pay']}人付款',
+                                Text('${item.coursePeopleNum}人付款',
                                     style: TextStyle(
                                         color: style.lightGrey,
                                         fontSize: style.baseFontSize)),

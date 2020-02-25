@@ -94,7 +94,7 @@ class _AddCommentState extends State<AddComment> {
           Row(crossAxisAlignment: _isTeacher? CrossAxisAlignment.end:CrossAxisAlignment.start, children: [
             _isTeacher?
             ClipOval(
-              child: Image.asset(
+              child: Image.network(
                 _item['img'],
                 width: 60,
                 height: 60,
@@ -103,7 +103,7 @@ class _AddCommentState extends State<AddComment> {
             ):
             ClipRRect(
               borderRadius:style.baseRadius,
-              child: Image.asset(
+              child: Image.network(
                 _item['img'],
                 width: 60,
                 height: 60,

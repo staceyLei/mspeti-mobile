@@ -1,3 +1,4 @@
+import 'package:educationapp/model/CommentM.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/BaseLayout.dart';
@@ -45,8 +46,9 @@ class _CommentState extends State<Comment> {
           ? _renderEmpty()
           : Column(
               children: _sendData.map((item) {
+              CommentM comment = CommentM.fromJson(item);
               return CommentItem(
-                item: item,
+                item: comment,
                 isSend: _isSend,
               );
             }).toList());
@@ -55,8 +57,9 @@ class _CommentState extends State<Comment> {
           ? _renderEmpty()
           : Column(
               children: _receivedData.map((item) {
+              CommentM comment = CommentM.fromJson(item);
               return CommentItem(
-                item: item,
+                item: comment,
                 isSend: _isSend,
               );
             }).toList());

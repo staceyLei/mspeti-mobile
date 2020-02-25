@@ -51,7 +51,7 @@ class TimeTableItem extends StatelessWidget {
                   style: style.baseFontStyle.copyWith(
                       fontSize: style.titleSize, fontWeight: FontWeight.bold)),
               SizedBox(height: 5),
-              Text(item.courseTeacher,
+              Text(item.courseTeacher.teacherName,
                   style: style.mFontStyle.copyWith(
                       color: style.lightGrey, fontWeight: FontWeight.bold)),
               SizedBox(height: 5),
