@@ -100,7 +100,7 @@ class _ShopCartState extends State<ShopCart> {
           style: style.baseFontStyle.copyWith(color: style.redColor),
         ),
         GestureDetector(
-            onTap: () {},
+            onTap: _handleConfirmOrder,
             child: Container(
                 margin: EdgeInsets.all(10),
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -189,6 +189,16 @@ class _ShopCartState extends State<ShopCart> {
             handleOnSelect: () => _handleOnSelect(course)),
       );
     }).toList();
+  }
+
+  _handleConfirmOrder() {
+    List courseList = _shopCartList.where((item) {
+      CourseM course = CourseM.fromJson(item);
+      return _selected.contains(course.courseId);
+    }).map((ele) => CourseM.fromJson(ele)).toList();
+    navigatorKey.currentState.pushNamed('/ConfirmOrder', arguments: {
+      'courseList': courseList,
+    });
   }
 
   @override

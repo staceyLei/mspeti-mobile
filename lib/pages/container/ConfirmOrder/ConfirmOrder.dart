@@ -1,11 +1,16 @@
+import 'package:educationapp/model/CourseM.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavLayout.dart';
-import 'package:flutter/services.dart';
 
 class ConfirmOrder extends StatelessWidget {
-  Widget renderBottom() {
+  final arguments;
+  List<CourseM> _courseList;
+  ConfirmOrder({this.arguments}) {
+    _courseList = arguments['courseList'];
+  }
+  Widget _renderBottom() {
     return Container(
       width: style.width,
       color: Colors.white,
@@ -15,7 +20,7 @@ class ConfirmOrder extends StatelessWidget {
         children: <Widget>[
           Text("应付款:", style: style.baseFontStyle),
           Text(
-            "¥54.00",
+            _getTotalMoney(),
             style: style.baseFontStyle.copyWith(
               color: style.redColor,
             ),
@@ -35,7 +40,7 @@ class ConfirmOrder extends StatelessWidget {
                   gradient: style.baseGradient),
               child: Text(
                 '确认报名',
-                style: style.baseFontStyle.copyWith(color:Colors.white),
+                style: style.baseFontStyle.copyWith(color: Colors.white),
               ),
             ),
           ),
@@ -44,52 +49,57 @@ class ConfirmOrder extends StatelessWidget {
     );
   }
 
-  List<Widget> renderComponents() {
-    return <Widget>[
+  String _getTotalMoney() {
+    double totalPrice = 0;
+    _courseList.forEach((course) {
+      totalPrice += double.parse(course.coursePrice);
+      if (course.discount != null) {
+        totalPrice -= double.parse(course.discount);
+      }
+    });
+    totalPrice = totalPrice < 0 ? 0 : totalPrice;
+    return '¥${totalPrice.toStringAsFixed(2)}';
+  }
+
+  Widget _renderItem(CourseM course) {
+    return Column(children: <Widget>[
       Container(
-        margin: EdgeInsets.all(10.0),
+        margin: EdgeInsets.all(5.0),
         padding: EdgeInsets.all(15.0),
         decoration:
             BoxDecoration(color: Colors.white, borderRadius: style.baseRadius),
         child: Column(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Container(
-                  width: 24.0,
-                  height: 24.0,
-                  child: Image.asset(
-                    "assets/icon/icon-head.png",
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Text(
-                  '广州悦学悦知辅导机构',
-                  style:
-                      style.baseFontStyle.copyWith(fontSize: style.mFontSize),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
+            // Row(
+            //   children: <Widget>[
+            //     Container(
+            //       margin: EdgeInsets.only(right: 10),
+            //       width: 24.0,
+            //       height: 24.0,
+            //       child: Image.asset(
+            //         "assets/icon/icon-head.png",
+            //         fit: BoxFit.contain,
+            //       ),
+            //     ),
+            //     Text(
+            //       '广州悦学悦知辅导机构',
+            //       style:
+            //           style.baseFontStyle.copyWith(fontSize: style.mFontSize),
+            //     )
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 15.0,
+            // ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
+                ClipRRect(
                     borderRadius: style.baseRadius,
-                    image: DecorationImage(
-                      image: AssetImage("assets/icon/banner2.png"),
-                      fit:BoxFit.cover,
-                      )
-                  ),
-                ),
+                    child: Image.network(course.courseImg,
+                        width: style.width / 4,
+                        height: style.width / 4,
+                        fit: BoxFit.cover)),
                 SizedBox(
                   width: 15.0,
                 ),
@@ -98,25 +108,20 @@ class ConfirmOrder extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("寒假全期小/初/高数学辅导班",
-                          style: style.baseFontStyle),
-                      SizedBox(
-                        height: 5.0,
-                      ),
+                      Text(course.courseName, style: style.mFontStyle.copyWith(fontWeight:FontWeight.bold)),
                       Container(
                         padding: EdgeInsets.all(5.0),
+                        margin: EdgeInsets.symmetric(vertical: 5),
                         decoration: BoxDecoration(
                           borderRadius: style.baseRadius,
                           color: Color.fromRGBO(243, 243, 243, 1),
                         ),
-                        child: Text('课时：64学时；人数：20人',
+                        child: Text(
+                            '课时：${course.courseHours}学时；人数：${course.coursePeopleNum}人',
                             style: TextStyle(
                                 color: style.lightGrey,
                                 fontSize: style.sFontSize,
                                 fontWeight: FontWeight.bold)),
-                      ),
-                      SizedBox(
-                        height: 5.0,
                       ),
                       Container(
                         padding: EdgeInsets.all(5.0),
@@ -134,8 +139,8 @@ class ConfirmOrder extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '¥165',
-                  style: style.baseFontStyle,
+                  '¥${course.coursePrice}',
+                  style: style.mFontStyle,
                 ),
               ],
             ),
@@ -147,7 +152,7 @@ class ConfirmOrder extends StatelessWidget {
               children: <Widget>[
                 Text("任课老师", style: style.baseFontStyle),
                 Text(
-                  "张三 李四",
+                  course.courseTeacher.teacherName,
                   style: style.baseFontStyle,
                 )
               ],
@@ -165,28 +170,30 @@ class ConfirmOrder extends StatelessWidget {
                     onTap: () {
                       //todo
                     },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Text(
-                          "-¥106",
-                          style: TextStyle(
-                              color: style.redColor,
-                              fontSize: style.baseFontSize),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          width: 10,
-                          height: 10,
-                          child: Image.asset(
-                            "assets/icon/arrow-right-grey.png",
-                            fit: BoxFit.fitHeight,
-                          ),
-                        )
-                      ],
-                    ),
+                    child: course.discount != null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Text(
+                                "-¥${course.discount}",
+                                style: TextStyle(
+                                    color: style.redColor,
+                                    fontSize: style.baseFontSize),
+                              ),
+                              Container(
+                                width: 10,
+                                height: 10,
+                                margin: EdgeInsets.only(left: 5),
+                                child: Image.asset(
+                                  "assets/icon/arrow-right-grey.png",
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              )
+                            ],
+                          )
+                        : Text('无',
+                            style: style.baseFontStyle
+                                .copyWith(color: style.secondFontColor)),
                   ),
                 )
               ],
@@ -199,7 +206,7 @@ class ConfirmOrder extends StatelessWidget {
               children: <Widget>[
                 Text("课程时间", style: style.baseFontStyle),
                 Text(
-                  "2020-1-5 至 2020-1-24",
+                  "${course.startDate} 至 ${course.endDate}",
                   style: style.baseFontStyle,
                 )
               ],
@@ -212,14 +219,12 @@ class ConfirmOrder extends StatelessWidget {
               children: <Widget>[
                 Container(
                   width: 48,
+                  margin: EdgeInsets.only(right:5),
                   child: Text(
                     "备注",
                     style: style.baseFontStyle,
                     textAlign: TextAlign.right,
                   ),
-                ),
-                SizedBox(
-                  width: 5.0,
                 ),
                 Expanded(
                   flex: 1,
@@ -238,57 +243,66 @@ class ConfirmOrder extends StatelessWidget {
           ],
         ),
       ),
-      Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.0),
-        padding: EdgeInsets.all(15.0),
-        decoration:
-            BoxDecoration(color: Colors.white, borderRadius: style.baseRadius),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-              width: 24,
-              height: 24,
-              child:
-                  Image.asset('assets/icon/icon-ticket.png', fit: BoxFit.fill),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text("可用优惠", style: style.baseFontStyle),
-            Expanded(
-              flex: 1,
-              child: InkWell(
-                onTap: () {
-                  //todo
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      "5元券",
-                      style: TextStyle(
-                          color: style.redColor, fontSize: style.baseFontSize),
+    ]);
+  }
+
+  Widget _renderTicket() {
+    return Container(
+      margin: EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(15.0),
+      decoration:
+          BoxDecoration(color: Colors.white, borderRadius: style.baseRadius),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+            width: 24,
+            height: 24,
+            child: Image.asset('assets/icon/icon-ticket.png', fit: BoxFit.fill),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text("可用优惠", style: style.baseFontStyle),
+          Expanded(
+            flex: 1,
+            child: InkWell(
+              onTap: () {
+                //todo
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Text(
+                    "5元券",
+                    style: TextStyle(
+                        color: style.redColor, fontSize: style.baseFontSize),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: 10,
+                    height: 10,
+                    child: Image.asset(
+                      "assets/icon/arrow-right-grey.png",
+                      fit: BoxFit.fitHeight,
                     ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      width: 10,
-                      height: 10,
-                      child: Image.asset(
-                        "assets/icon/arrow-right-grey.png",
-                        fit: BoxFit.fitHeight,
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
-      )
-    ];
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _renderComponents() {
+    List<Widget> res = _courseList.map((course) {
+      return _renderItem(course);
+    }).toList();
+    return [...res, _renderTicket()];
   }
 
   @override
@@ -296,7 +310,7 @@ class ConfirmOrder extends StatelessWidget {
     return NavLayout(
         backgroundColor: style.grey,
         title: '确认报名',
-        components: this.renderComponents(),
-        bottom: this.renderBottom());
+        components: _renderComponents(),
+        bottom: _renderBottom());
   }
 }

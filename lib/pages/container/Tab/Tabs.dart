@@ -4,12 +4,37 @@ import 'Course/Course.dart';
 import 'Message/Message.dart';
 import 'MyCenter/MyCenter.dart';
 import 'HomePage/HomePage.dart';
+import 'package:educationapp/assets/style.dart' as style;
 
 class TabsIcon extends StatelessWidget {
   final String imgUrl;
-  TabsIcon(this.imgUrl);
+  final bool isShopCart;
+  TabsIcon(this.imgUrl, {this.isShopCart = false});
   @override
   Widget build(BuildContext context) {
+    if (isShopCart) {
+      return Stack(children: [
+        Container(
+          height: 26.0,
+          width: 29.0,
+          padding: EdgeInsets.fromLTRB(0,2,5,0),
+          child: Image.asset(imgUrl),
+        ),
+        Positioned(child: Container(
+          alignment: Alignment.center,
+          width:12,
+          height:12,
+          decoration:BoxDecoration(color: Colors.red,
+          borderRadius:BorderRadius.circular(6),
+          ),
+          child: Text('0',textAlign: TextAlign.center,style:TextStyle(color:Colors.white,fontSize:11)),
+        ),
+        right: 0,
+        top: 0,
+        )
+        
+      ]);
+    }
     return Container(
       height: 24.0,
       width: 24.0,
@@ -23,7 +48,7 @@ class Tabs extends StatefulWidget {
   Tabs({Key key, this.arguments}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    var currentIndex = arguments == null? 0 : arguments['currentIndex'];
+    var currentIndex = arguments == null ? 0 : arguments['currentIndex'];
     return _TabsState(currentIndex: currentIndex);
   }
 }
@@ -76,8 +101,14 @@ class _TabsState extends State<Tabs> {
           // ),
           BottomNavigationBarItem(
             title: Text('购物车'),
-            icon: TabsIcon("assets/icon/shopcart-unactive.png"),
-            activeIcon: TabsIcon("assets/icon/shopcart-active.png"),
+            icon: TabsIcon(
+              "assets/icon/shopcart-unactive.png",
+              isShopCart: true,
+            ),
+            activeIcon: TabsIcon(
+              "assets/icon/shopcart-active.png",
+              isShopCart: true,
+            ),
           ),
           BottomNavigationBarItem(
             title: Text('我的'),

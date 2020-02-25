@@ -263,8 +263,8 @@ class _CourseDetailsState extends State<CourseDetails> {
                             margin: EdgeInsets.only(right: 5),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(14.0),
-                                border: Border.all(color:style.orangeColor,width:1.0)
-                                ),
+                                border: Border.all(
+                                    color: style.orangeColor, width: 1.0)),
                             child: Text(
                               '加入购物车',
                               style: style.baseFontStyle
@@ -274,13 +274,15 @@ class _CourseDetailsState extends State<CourseDetails> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushNamed('/ConfirmOrder');
+                            Navigator.of(context).pushNamed('/ConfirmOrder',arguments: {'courseList':[_course]});
                           },
                           child: Container(
                             padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                             decoration: BoxDecoration(
-                              border: Border.all(color:style.themeColor,width:1.0),
-                                borderRadius: BorderRadius.circular(14.0),),
+                              border: Border.all(
+                                  color: style.themeColor, width: 1.0),
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
                             child: Text(
                               '立即报名',
                               style: style.baseFontStyle
