@@ -81,8 +81,6 @@ flutter:
    - assets/icon/menu-result.png
    - assets/image/banner.png
    - assets/image/blank.png
-   - assets/image/class1.png
-   - assets/image/class2.png
    - assets/icon/title-bar.png
    - assets/icon/arrow-right-blue.png
    - assets/icon/icon-setup.png
@@ -107,7 +105,6 @@ flutter:
    - assets/icon/icon-star-active.png
    - assets/icon/unfocus-on.png
    - assets/icon/focus-on.png
-   - assets/icon/banner2.png
    - assets/icon/circle-cancel.png
    - assets/icon/collection.png
    - assets/icon/comment.png
@@ -152,6 +149,8 @@ flutter:
    - assets/icon/wait-for-check.png
    - assets/icon/qingjia.png
    - assets/icon/out-of-class.png
+   - assets/icon/empty-cart.png
+   - assets/icon/collection-empty.png
    
 
    

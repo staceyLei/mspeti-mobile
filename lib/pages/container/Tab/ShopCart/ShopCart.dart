@@ -192,13 +192,20 @@ class _ShopCartState extends State<ShopCart> {
   }
 
   _handleConfirmOrder() {
-    List courseList = _shopCartList.where((item) {
-      CourseM course = CourseM.fromJson(item);
-      return _selected.contains(course.courseId);
-    }).map((ele) => CourseM.fromJson(ele)).toList();
-    navigatorKey.currentState.pushNamed('/ConfirmOrder', arguments: {
-      'courseList': courseList,
-    });
+    List courseList = _shopCartList
+        .where((item) {
+          CourseM course = CourseM.fromJson(item);
+          return _selected.contains(course.courseId);
+        })
+        .map((ele) => CourseM.fromJson(ele))
+        .toList();
+    if (courseList.isNotEmpty) {
+      navigatorKey.currentState.pushNamed('/ConfirmOrder', arguments: {
+        'courseList': courseList,
+      });
+    } else {
+      Fluttertoast.showToast(msg: '您还没有选择课程哦', gravity: ToastGravity.CENTER);
+    }
   }
 
   @override
@@ -263,7 +270,22 @@ class _ShopCartState extends State<ShopCart> {
                                 height: style.height - 200,
                                 width: style.width,
                                 color: style.grey,
-                                child: Center(child: Text('购物车是空的，去添加些课程吧')),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        width: 150,
+                                        child: Image.asset(
+                                          'assets/icon/empty-cart.png',
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      ),
+                                      Text('购物车是空的，去添加些课程吧',
+                                          style: style.mFontStyle)
+                                    ]),
                               ),
                           ]),
                           Container(

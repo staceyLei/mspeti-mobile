@@ -80,8 +80,8 @@ class _CollectionState extends State<Collection> {
         }
       });
     } else {
-      navigatorKey.currentState
-          .pushNamed('/CourseDetails', arguments: {'courseId': course.courseId,'course':course});
+      navigatorKey.currentState.pushNamed('/CourseDetails',
+          arguments: {'courseId': course.courseId, 'course': course});
     }
   }
 
@@ -189,6 +189,29 @@ class _CollectionState extends State<Collection> {
     );
   }
 
+  List<Widget> _renderEmpty() {
+    return [
+      Container(
+          height: style.height - 200,
+          width: style.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 150,
+                margin: EdgeInsets.only(bottom:10),
+                child: Image.asset(
+                  'assets/icon/collection-empty.png',
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+              Text('收藏夹是空的，去添加些吧~', style: style.mFontStyle)
+            ]),
+          ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return NavLayout(
@@ -196,7 +219,8 @@ class _CollectionState extends State<Collection> {
       backgroundColor: Colors.white,
       right: _renderRight(),
       rightDistance: 65,
-      components: _renderComponents(),
+      components:
+          _collectionList.length == 0 ? _renderEmpty() : _renderComponents(),
       bottom: _status ? _renderBottom() : null,
     );
   }
