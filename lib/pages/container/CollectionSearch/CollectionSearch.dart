@@ -1,3 +1,4 @@
+import 'package:educationapp/model/CourseM.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
@@ -102,8 +103,9 @@ class _CollectionSearchState extends State<CollectionSearch> {
                   padding: EdgeInsets.only(top: 15),
                   itemCount: _searchRes.length,
                   itemBuilder: (context, index) {
+                    CourseM course = CourseM.fromJson(_searchRes[index]);
                     return CollectionItem(
-                      item: _searchRes[index],
+                      item: course,
                     );
                   }),
             ),

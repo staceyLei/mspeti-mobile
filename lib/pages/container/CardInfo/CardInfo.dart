@@ -14,9 +14,9 @@ class CardInfo extends StatelessWidget {
           Positioned(
             child: Column(
             children: <Widget>[
-              SizedBox(height:50),
               Container(
                 height: 106,
+                margin: EdgeInsets.only(top:50),
                 width: style.width-40,
                 padding: EdgeInsets.only(bottom:15),
                 decoration: BoxDecoration(

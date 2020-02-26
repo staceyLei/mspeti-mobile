@@ -1,6 +1,6 @@
+import 'package:educationapp/pages/components/CourseArrangeTable.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
-import 'package:educationapp/model/CTime.dart';
 import 'package:educationapp/pages/components/NavLayout.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/model/MyCourseM.dart';
@@ -16,16 +16,6 @@ class CourseContent extends StatelessWidget {
     _percent = ((double.parse(_item.nowCourseHours) /
         double.parse(_item.courseHours)));
   }
-
-  Map _getWeekDay = {
-    '1': '周一',
-    '2': '周二',
-    '3': '周三',
-    '4': '周四',
-    '5': '周五',
-    '7': '周日',
-    '6': '周六',
-  };
 
   Widget _renderItem(String title, String hours) {
     return Column(children: [
@@ -48,48 +38,6 @@ class CourseContent extends StatelessWidget {
         ],
       )
     ]);
-  }
-
-  Widget _renderTableHead(String title) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Text(title,
-          textAlign: TextAlign.center,
-          style: style.mFontStyle.copyWith(color: style.lightGrey)),
-    );
-  }
-
-  Widget _renderTableCell(String title) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Text(title, textAlign: TextAlign.center, style: style.mFontStyle),
-    );
-  }
-
-  List<TableRow> _renderTable() {
-    List courseTime = _item.courseTime ?? [];
-    List<TableRow> table = [
-      TableRow(
-          decoration: BoxDecoration(
-            color: style.grey,
-          ),
-          children: [
-            _renderTableHead('上课时间'),
-            _renderTableHead('开始时间'),
-            _renderTableHead('结束时间'),
-          ])
-    ];
-    Iterable<TableRow> tableContent = courseTime.map((row) {
-      return TableRow(
-          decoration: BoxDecoration(color: Colors.white),
-          children: [
-            _renderTableCell(_getWeekDay['${row.weekDay}']),
-            _renderTableCell(row.startTime),
-            _renderTableCell(row.endTime),
-          ]);
-    });
-    table.addAll(tableContent);
-    return table;
   }
 
   @override
@@ -249,10 +197,7 @@ class CourseContent extends StatelessWidget {
           Text('课程安排',
               style: style.mFontStyle.copyWith(fontWeight: FontWeight.bold)),
           SizedBox(height: 10),
-          Table(
-            border: TableBorder.all(color: style.borderColor, width: 1.0),
-            children: _renderTable(),
-          ),
+          CourseArrangeTable(_item.courseTime),
           SizedBox(height: 10),
         ]);
   }

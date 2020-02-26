@@ -1,4 +1,5 @@
 import 'package:educationapp/model/CourseM.dart';
+import 'package:educationapp/pages/container/CourseDetails/components/DetailsArrange.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavBar.dart';
@@ -205,7 +206,12 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 ),
                                 ButtonLink(
                                   title: '详细安排',
-                                  handleOnTap: () {},
+                                  handleOnTap: () =>  showModalBottomSheet(
+                                          context: context,
+                                          builder: (BuildContext builder) =>
+                                              DetailsArrange(
+                                                  course:
+                                                      _course)),
                                 ),
                               ],
                             ),

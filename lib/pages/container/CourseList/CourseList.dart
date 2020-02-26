@@ -1,3 +1,4 @@
+import 'package:educationapp/model/CourseM.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,8 +41,9 @@ class _CourseListState extends State<CourseList> {
 
   List<Widget> _renderList() {
     return _courseData.map((item) {
+      CourseM course = CourseM.fromJson(item);
       return CourseItem(
-        item: item,
+        item: course,
         layout: _layout,
       );
     }).toList();
@@ -54,102 +56,101 @@ class _CourseListState extends State<CourseList> {
       child: Scaffold(
         backgroundColor: _layout ? style.grey : Colors.white,
         body: Column(children: <Widget>[
-              Container(
-                width: style.width,
-                padding: EdgeInsets.fromLTRB(15, style.topPadding + 5, 15, 10),
-                color: Colors.white,
-                child: Row(children: <Widget>[
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      padding: EdgeInsets.all(5),
-                      child: Image.asset(
-                        "assets/icon/arrow-left-grey.png",
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 5),
-                  Expanded(
-                    flex: 1,
-                    child: InkWell(
-                        onTap: () {
-                          navigatorKey.currentState
-                              .pushNamed('/SearchPage', arguments:{'from': 'courseList'});
-                        },
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                          decoration: BoxDecoration(
-                            color: style.grey,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 16,
-                                height: 16,
-                                child: Image.asset(
-                                    'assets/icon/course-search.png',
-                                    fit: BoxFit.contain),
-                              ),
-                              SizedBox(width: 10),
-                              Text('搜索课程',
-                                  style: style.hintStyle
-                                      .copyWith(fontSize: style.mFontSize)),
-                            ],
-                          ),
-                        )),
-                  ),
-                  SizedBox(width: 10),
-                  InkWell(
-                    onTap: () {
-                      this.setState(() {
-                        _layout = !_layout;
-                      });
-                    },
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      child: Image.asset(
-                        _layout
-                            ? "assets/icon/switch-layout.png"
-                            : "assets/icon/switch-row.png",
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ]),
-              ),
-              Container(
-                  width: style.width,
-                  padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                        bottom: BorderSide(color: style.grey, width: 0.5),
-                      )),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: this._renderTopBtn(),
-                    ),
-                  )),
-              Expanded(
-                flex: 1,
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Wrap(
-                    spacing: 15,
-                    runSpacing: 15,
-                    children: this._renderList(),
+          Container(
+            width: style.width,
+            padding: EdgeInsets.fromLTRB(15, style.topPadding + 5, 15, 10),
+            color: Colors.white,
+            child: Row(children: <Widget>[
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  padding: EdgeInsets.all(5),
+                  child: Image.asset(
+                    "assets/icon/arrow-left-grey.png",
+                    fit: BoxFit.contain,
                   ),
                 ),
-              )
+              ),
+              SizedBox(width: 5),
+              Expanded(
+                flex: 1,
+                child: InkWell(
+                    onTap: () {
+                      navigatorKey.currentState.pushNamed('/SearchPage',
+                          arguments: {'from': 'courseList'});
+                    },
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                      decoration: BoxDecoration(
+                        color: style.grey,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            width: 16,
+                            height: 16,
+                            child: Image.asset('assets/icon/course-search.png',
+                                fit: BoxFit.contain),
+                          ),
+                          SizedBox(width: 10),
+                          Text('搜索课程',
+                              style: style.hintStyle
+                                  .copyWith(fontSize: style.mFontSize)),
+                        ],
+                      ),
+                    )),
+              ),
+              SizedBox(width: 10),
+              InkWell(
+                onTap: () {
+                  this.setState(() {
+                    _layout = !_layout;
+                  });
+                },
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: Image.asset(
+                    _layout
+                        ? "assets/icon/switch-layout.png"
+                        : "assets/icon/switch-row.png",
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
             ]),
+          ),
+          Container(
+              width: style.width,
+              padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                    bottom: BorderSide(color: style.grey, width: 0.5),
+                  )),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: this._renderTopBtn(),
+                ),
+              )),
+          Expanded(
+            flex: 1,
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Wrap(
+                spacing: 15,
+                runSpacing: 15,
+                children: this._renderList(),
+              ),
+            ),
+          )
+        ]),
       ),
     );
   }

@@ -1,46 +1,11 @@
-import 'package:educationapp/model/CommentM.dart';
-import 'package:educationapp/model/Teacher.dart';
+import 'package:educationapp/model/CourseM.dart';
+import 'package:educationapp/pages/components/CourseArrangeTable.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 
-class SchoolInfo extends StatelessWidget {
-  Teacher teacher;
-  SchoolInfo({this.teacher});
-
-  int _getRank() {
-    List<CommentM> comment = teacher.teacherComment;
-    double rank = 0;
-    comment.forEach((ele) {
-      rank += double.parse(ele.star);
-    });
-    return rank ~/ comment.length;
-  }
-
-  Widget _renderStar(bool isActive) {
-    return Container(
-      width: 20,
-      margin: EdgeInsets.symmetric(horizontal: 2.5),
-      height: 20,
-      child: Image.asset(
-        isActive
-            ? 'assets/icon/commentStar-active.png'
-            : 'assets/icon/commentStar-unactive.png',
-        fit: BoxFit.contain,
-      ),
-    );
-  }
-
-  List<Widget> _renderStarBox(int star) {
-    List<Widget> res = [];
-    while (res.length < star) {
-      res.add(_renderStar(true));
-    }
-    while (res.length < 5) {
-      res.add(_renderStar(false));
-    }
-    return res;
-  }
-
+class DetailsArrange extends StatelessWidget {
+  final CourseM course;
+  DetailsArrange({@required this.course});
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -74,7 +39,7 @@ class SchoolInfo extends StatelessWidget {
                     SizedBox(
                       width: 64.0,
                       child: Text(
-                        '姓名',
+                        '时间范围',
                         style: TextStyle(
                             color: style.secondFontColor,
                             fontSize: style.mFontSize),
@@ -86,7 +51,7 @@ class SchoolInfo extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Text(
-                        teacher.teacherName,
+                        '${course.startDate} - ${course.endDate}',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: style.mFontSize,
@@ -97,92 +62,22 @@ class SchoolInfo extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-                decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(color: style.borderColor, width: 1.0)),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 64.0,
-                      child: Text(
-                        '联系方式',
-                        style: TextStyle(
-                            color: style.secondFontColor,
-                            fontSize: style.mFontSize),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        teacher.teacherPhone,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: style.mFontSize,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-                decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(color: style.borderColor, width: 1.0)),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 64.0,
-                      child: Text(
-                        '评价星级',
-                        style: TextStyle(
-                            color: style.secondFontColor,
-                            fontSize: style.mFontSize),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child:Row(
-                        children:_renderStarBox(_getRank())
-                      )
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
                 margin: EdgeInsets.only(bottom:20),
-                child: Row(
+                padding: EdgeInsets.fromLTRB(5, 10, 5, 30),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(
+                    Container(
                       width: 64.0,
+                      margin: EdgeInsets.only(bottom:15),
                       child: Text(
-                        '个人简介',
+                        '课表简介',
                         style: TextStyle(
                             color: style.secondFontColor,
                             fontSize: style.mFontSize),
                       ),
                     ),
-                    Container(
-                      width: style.width-3*15-75,
-                      margin: EdgeInsets.only(left:15),
-                      child: Text(
-                        teacher.teacherInfo,
-                        style: TextStyle(
-                          fontSize: style.mFontSize,
-                        ),
-                      ),
-                    ),
+                    CourseArrangeTable(course.courseTime)
                   ],
                 ),
               ),
@@ -200,7 +95,7 @@ class SchoolInfo extends StatelessWidget {
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 )),
-            child: Text('教师简介',
+            child: Text('课程安排',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: style.titleSize, fontWeight: FontWeight.bold)),
