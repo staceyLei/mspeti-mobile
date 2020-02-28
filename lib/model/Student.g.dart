@@ -34,6 +34,7 @@ Student _$StudentFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : CommentM.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    json['studentAddress'] as String,
     json['studentPhone'] as String,
   );
 }
@@ -46,9 +47,10 @@ Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
       'studentPhone': instance.studentPhone,
       'studentEmail': instance.studentEmail,
       'studentImg': instance.studentImg,
-      'studentCourse': instance.studentCourse,
-      'studentCollection': instance.studentCollection,
-      'studentHomework': instance.studentHomework,
-      'studentGrow': instance.studentGrow,
-      'studentComment': instance.studentComment,
+      'studentAddress': instance.studentAddress,
+      'studentCourse': instance.studentCourse?.map((e) => e?.toJson())?.toList(),
+      'studentCollection': instance.studentCollection?.map((e) => e?.toJson())?.toList(),
+      'studentHomework': instance.studentHomework?.map((e) => e?.toJson())?.toList(),
+      'studentGrow': instance.studentGrow?.map((e) => e?.toJson())?.toList(),
+      'studentComment': instance.studentComment?.map((e) => e?.toJson())?.toList(),
     };

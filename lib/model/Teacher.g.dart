@@ -9,7 +9,10 @@ part of 'Teacher.dart';
 Teacher _$TeacherFromJson(Map<String, dynamic> json) {
   return Teacher(
     json['teacherAge'] as String,
-    json['teacherCourse'] as List,
+    (json['teacherCourse'] as List)
+        ?.map((e) =>
+            e == null ? null : CourseM.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     json['teacherEmail'] as String,
     json['teacherGender'] as String,
     json['teacherId'] as String,
@@ -33,6 +36,6 @@ Map<String, dynamic> _$TeacherToJson(Teacher instance) => <String, dynamic>{
       'teacherEmail': instance.teacherEmail,
       'teacherImg': instance.teacherImg,
       'teacherInfo': instance.teacherInfo,
-      'teacherCourse': instance.teacherCourse,
-      'teacherComment': instance.teacherComment,
+      'teacherCourse': instance.teacherCourse?.map((e) => e?.toJson())?.toList(),
+      'teacherComment': instance.teacherComment?.map((e) => e?.toJson())?.toList(),
     };

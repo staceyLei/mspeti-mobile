@@ -29,10 +29,10 @@ Map<String, dynamic> _$MyCourseMToJson(MyCourseM instance) => <String, dynamic>{
       'courseName': instance.courseName,
       'courseHours': instance.courseHours,
       'nowCourseHours': instance.nowCourseHours,
-      'courseTeacher': instance.courseTeacher,
+      'courseTeacher': instance.courseTeacher?.toJson(),
       'beginTime': instance.beginTime,
       'endTime': instance.endTime,
       'courseImg': instance.courseImg,
-      'courseTime': instance.courseTime,
+      'courseTime': instance.courseTime?.map((e) => e?.toJson())?.toList(),
       'myCourseId': instance.myCourseId,
     };

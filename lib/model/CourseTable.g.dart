@@ -25,7 +25,7 @@ CourseTable _$CourseTableFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$CourseTableToJson(CourseTable instance) =>
     <String, dynamic>{
       'tableId': instance.tableId,
-      'courseTeacher': instance.courseTeacher,
+      'courseTeacher': instance.courseTeacher?.toJson(),
       'courseName': instance.courseName,
       'courseImg': instance.courseImg,
       'startTime': instance.startTime,

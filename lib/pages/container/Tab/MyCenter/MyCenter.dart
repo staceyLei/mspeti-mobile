@@ -1,4 +1,6 @@
 import 'package:educationapp/assets/style.dart' as style;
+import 'package:educationapp/provider/UserProvider.dart';
+import 'package:provider/provider.dart';
 import 'components/InfoCard.dart';
 import 'package:flutter/material.dart';
 import 'components/MenuBar.dart';
@@ -108,7 +110,8 @@ class _MyCenterState extends State<MyCenter> {
           height: 35,
         ),
       ),
-      Text('个人中心', style: TextStyle(color: Colors.white, fontSize: style.titleSize)),
+      Text('个人中心',
+          style: TextStyle(color: Colors.white, fontSize: style.titleSize)),
       InkWell(
         onTap: () {
           Navigator.pushNamed(context, '/SetUp');
@@ -128,100 +131,107 @@ class _MyCenterState extends State<MyCenter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: style.bgColor,
-      body: Stack(
-        children: <Widget>[
-            SingleChildScrollView(
-              controller: _controller,
-              child: Column(
-                children: <Widget>[
-                  Stack(
-                    alignment: Alignment.center,
+        backgroundColor: style.bgColor,
+        body: Consumer<UserProvider>(
+          builder: (context, user, _) {
+            print('change my center');
+            return Stack(
+              children: <Widget>[
+                SingleChildScrollView(
+                  controller: _controller,
+                  child: Column(
                     children: <Widget>[
-                      Container(
-                        width: style.width,
-                        height: 310,
-                      ),
-                      Positioned(
-                        top: 0,
-                        child: Container(
-                          padding:
-                              EdgeInsets.fromLTRB(15, style.topPadding, 15, 15),
-                          width: style.width,
-                          height: 230,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color.fromRGBO(45, 118, 202, 0.9),
-                                Color.fromRGBO(72, 131, 202, 0.8),
-                              ],
-                            ),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: style.width,
+                            height: 310,
                           ),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                          Positioned(
+                            top: 0,
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(
+                                  15, style.topPadding, 15, 15),
+                              width: style.width,
+                              height: 230,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromRGBO(45, 118, 202, 0.9),
+                                    Color.fromRGBO(72, 131, 202, 0.8),
+                                  ],
+                                ),
+                              ),
+                              child: Column(
                                 children: <Widget>[
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(context, '/SetUp');
-                                    },
-                                    child: Container(
-                                      width: 20,
-                                      height: 20,
-                                      child: Image.asset(
-                                        'assets/icon/icon-setup.png',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  )
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, '/SetUp');
+                                        },
+                                        child: Container(
+                                          width: 20,
+                                          height: 20,
+                                          child: Image.asset(
+                                            'assets/icon/icon-setup.png',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  // 我的资料卡板块
+                                  // InfoCard(),
                                 ],
                               ),
-                              SizedBox(height: 20.0),
-                              // 我的资料卡板块
-                              // InfoCard(),
-                            ],
+                            ),
                           ),
+                          Positioned(
+                            right: 24,
+                            bottom: 114,
+                            child: Image.asset('assets/icon/circle-bg.png'),
+                          ),
+                          Positioned(
+                              left: 15.0,
+                              top: this.DEFAULT_BAR,
+                              child: InfoCard(user.student)),
+                          // 我的学习数据板块
+                          LearnPanel(
+                            renderLearnData: this._renderLearnData,
+                            learnData: this._learnData,
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(15, 5, 15, 15),
+                        padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                      ),
-                      Positioned(
-                        right: 24,
-                        bottom: 114,
-                        child: Image.asset('assets/icon/circle-bg.png'),
-                      ),
-                      Positioned(
-                          left: 15.0, top: this.DEFAULT_BAR, child: InfoCard()),
-                      // 我的学习数据板块
-                      LearnPanel(
-                        renderLearnData: this._renderLearnData,
-                        learnData: this._learnData,
-                      ),
+                        child: Column(
+                          children: this._getMenuBar(this._menuData),
+                        ),
+                      )
                     ],
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(15, 5, 15, 15),
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Column(
-                      children: this._getMenuBar(this._menuData),
-                    ),
+                ),
+                // 渐变导航栏
+                if (_barOpacity > 0)
+                  NavBar(
+                    barOpacity: this._barOpacity,
+                    barHeight: this.DEFAULT_BAR,
+                    comonent: this.renderNavBar(),
+                    color: Color.fromRGBO(45, 118, 202, 1),
                   )
-                ],
-              ),
-            ),
-          // 渐变导航栏
-          if (_barOpacity > 0)
-            NavBar(
-              barOpacity: this._barOpacity,
-              barHeight: this.DEFAULT_BAR,
-              comonent: this.renderNavBar(),
-              color: Color.fromRGBO(45, 118, 202, 1),
-            )
-        ],
-      ),
-    );
+              ],
+            );
+          },
+        ));
   }
 }

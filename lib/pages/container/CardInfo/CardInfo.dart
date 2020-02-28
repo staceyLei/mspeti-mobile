@@ -1,53 +1,59 @@
+import 'package:educationapp/model/Student.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'CardItem.dart';
 
 class CardInfo extends StatelessWidget {
+  final Student student;
+  CardInfo(this.student);
   @override
   Widget build(BuildContext context) {
-    double top = style.height/8;
+    double top = style.height / 8;
     return Padding(
       padding: EdgeInsets.fromLTRB(20, top, 20, 0),
-          child:Stack(
-          alignment: Alignment.center,
-        children:<Widget>[
-          Positioned(
-            child: Column(
+      child: Stack(alignment: Alignment.center, children: <Widget>[
+        Positioned(
+          child: Column(
             children: <Widget>[
               Container(
                 height: 106,
-                margin: EdgeInsets.only(top:50),
-                width: style.width-40,
-                padding: EdgeInsets.only(bottom:15),
+                margin: EdgeInsets.only(top: 50),
+                width: style.width - 40,
+                padding: EdgeInsets.only(bottom: 15),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top:Radius.circular(20)),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                   image: DecorationImage(
                     image: AssetImage("assets/image/card-bg.png"),
                     fit: BoxFit.cover,
-                    ),
+                  ),
                 ),
                 child: Column(
-                  crossAxisAlignment:CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children:<Widget>[
-                    Text('lili',style: TextStyle(color: Colors.white,fontSize:style.titleSize,fontWeight:FontWeight.bold,
-                      decoration: TextDecoration.none
-                    ),),
-                    SizedBox(height:5),
-                    Text('201625040411',style:TextStyle(
-                      color: Colors.white,
-                      fontSize:style.baseFontSize,
-                      fontWeight: FontWeight.normal,
-                      decoration: TextDecoration.none
-                    ))
-                  ]
-                ),
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        student.studentName,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: style.titleSize,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.none),
+                      ),
+                      SizedBox(height: 5),
+                      Text(student.studentId,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: style.baseFontSize,
+                              fontWeight: FontWeight.normal,
+                              decoration: TextDecoration.none))
+                    ]),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical:10),
-                decoration:BoxDecoration(
-                  color:Colors.white,
-                  border:Border(bottom: BorderSide(color:style.borderColor,width:0.5)),
+                padding: EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                      bottom: BorderSide(color: style.borderColor, width: 0.5)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -55,38 +61,43 @@ class CardInfo extends StatelessWidget {
                     Container(
                       width: 16,
                       height: 16,
-                      child: Image.asset("assets/icon/icon-female.png",fit: BoxFit.contain,),),
-                      SizedBox(width:5),
-                    Text('16岁',style:style.femaleStyle),
-                    SizedBox(width:5),
-                    Text('广东省 广州市',style:style.femaleStyle),
+                      child: Image.asset(
+                        student.studentGender == '0'?"assets/icon/icon-male.png":
+                        "assets/icon/icon-female.png",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                    Text('${student.studentAge}岁', style:student.studentGender == '0'?style.maleStyle: style.femaleStyle),
+                    SizedBox(width: 5),
+                    Text(student.studentAddress, style: student.studentGender == '0'?style.maleStyle: style.femaleStyle),
                   ],
                 ),
               ),
               Container(
-                width:style.width-40,
+                width: style.width - 40,
                 padding: EdgeInsets.all(15),
-                decoration:BoxDecoration(
-                  borderRadius: BorderRadius.vertical(bottom:Radius.circular(20)),
-                  color: Colors.white
-                  ),
+                decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(20)),
+                    color: Colors.white),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        CardItem(title:'学习时长(分钟)',value:'100'),
-                        CardItem(title:'课程数',value:'5'),
-                        CardItem(title:'综合评价',value:'A'),
+                        CardItem(title: '学习时长(分钟)', value: '100'),
+                        CardItem(title: '课程数', value: '5'),
+                        CardItem(title: '综合评价', value: 'A'),
                       ],
                     ),
-                    SizedBox(height:15),
+                    SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        CardItem(title:'出勤率',value:'90%'),
-                        CardItem(title:'收藏课程',value:'10'),
+                        CardItem(title: '出勤率', value: '90%'),
+                        CardItem(title: '收藏课程', value: '10'),
                       ],
                     ),
                   ],
@@ -94,17 +105,18 @@ class CardInfo extends StatelessWidget {
               )
             ],
           ),
-            ),
-          Positioned(
+        ),
+        Positioned(
             top: 0,
             child: ClipOval(
-            child: Image.asset("assets/image/headImg.png",fit: BoxFit.cover,width: 80,height:80,),
-          )
-        ),
-          
-        ]
-      ),
-        
+              child: Image.network(
+                student.studentImg,
+                fit: BoxFit.cover,
+                width: 80,
+                height: 80,
+              ),
+            )),
+      ]),
     );
   }
 }

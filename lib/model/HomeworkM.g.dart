@@ -33,7 +33,7 @@ Map<String, dynamic> _$HomeworkMToJson(HomeworkM instance) => <String, dynamic>{
       'homeworkTitle': instance.homeworkTitle,
       'status': instance.status,
       'homeworkContent': instance.homeworkContent,
-      'courseTeacher': instance.courseTeacher,
+      'courseTeacher': instance.courseTeacher?.toJson(),
       'pubDate': instance.pubDate,
       'endDate': instance.endDate,
       'homeworkGrade': instance.homeworkGrade,

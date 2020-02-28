@@ -22,6 +22,8 @@ class Student {
   String studentEmail;
   @JsonKey(name: 'studentImg')
   String studentImg;
+  @JsonKey(name: 'studentAddress')
+  String studentAddress;
   @JsonKey(name: 'studentCourse')
   List<MyCourseM> studentCourse;
   @JsonKey(name: 'studentCollection')
@@ -45,6 +47,7 @@ class Student {
       this.studentImg,
       this.studentName,
       this.studentComment,
+      this.studentAddress,
       this.studentPhone);
 
   factory Student.fromJson(Map<String, dynamic> srcJson) =>

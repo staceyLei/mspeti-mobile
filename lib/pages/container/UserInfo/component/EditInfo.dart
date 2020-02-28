@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavLayout.dart';
@@ -27,9 +28,22 @@ class _EditInfoState extends State<EditInfo> {
   Timer _timer;
   bool _isGetCode = false; //是否获取验证码
   int _status; //0 邮箱 1 手机号 2密码
+  Function _handleEdit;
+  String _info; //修改前的旧信息
 
   _EditInfoState({this.arguments}) {
-    this._status = this.arguments['status'];
+    _initData();
+  }
+
+  _initData() {
+    _status = arguments['status'];
+    _handleEdit = arguments['handleOnEdit'];
+    _info = arguments['info'];
+    if (_status == 0) {
+      _emailController.text = _info;
+    } else if (_status == 1) {
+      _phoneController.text = _info;
+    }
   }
 
   bool _isEmail(String email) {
@@ -57,7 +71,7 @@ class _EditInfoState extends State<EditInfo> {
       return <Widget>[
         SizedBox(height: 10),
         BaseInput(
-          title:'邮箱',
+          title: '邮箱',
           hintText: '请输入邮箱',
           controller: _emailController,
         ),
@@ -70,7 +84,7 @@ class _EditInfoState extends State<EditInfo> {
         hintText: '请输入手机号码',
         controller: _phoneController,
         enabled: !_isGetCode,
-        keyboardType:TextInputType.phone,
+        keyboardType: TextInputType.phone,
         formatters: [
           // 长度限制
           LengthLimitingTextInputFormatter(11),
@@ -134,9 +148,9 @@ class _EditInfoState extends State<EditInfo> {
                     border: Border(
                         left: BorderSide(color: style.borderColor, width: 1)),
                   ),
-                  child: Text(!_isGetCode?'获取验证码':'${_time}s',
-                          style: style.mFontStyle
-                              .copyWith(color: style.themeColor))),
+                  child: Text(!_isGetCode ? '获取验证码' : '${_time}s',
+                      style:
+                          style.mFontStyle.copyWith(color: style.themeColor))),
             )
           ],
         ),
@@ -152,16 +166,33 @@ class _EditInfoState extends State<EditInfo> {
   List<Widget> _renderPassword() {
     return [
       BaseInput(
-        title:'原密码',
-        hintText:'请输入原密码',
+        title: '原密码',
+        hintText: '请输入原密码',
         controller: _oldPwd,
       ),
       BaseInput(
-        title:'新密码',
-        hintText:'请输入新密码',
+        title: '新密码',
+        hintText: '请输入新密码',
         controller: _newPwd,
       )
     ];
+  }
+
+  _handleComplete(int status, bool isCorrect) {
+    List<String> tips = ['请输入正确的邮箱地址', '验证码不正确', '新旧密码不一致'];
+    List<String> editInfo = [
+      _emailController.text,
+      _phoneController.text,
+      _newPwd.text
+    ];
+    if (isCorrect) {
+      _handleEdit(editInfo[status]);
+      print('status:$status --- ${editInfo[status]}');
+      Fluttertoast.showToast(msg: '修改成功', gravity: ToastGravity.CENTER);
+      navigatorKey.currentState.pop();
+    } else {
+      Fluttertoast.showToast(msg: tips[status], gravity: ToastGravity.CENTER);
+    }
   }
 
   @override
@@ -177,26 +208,21 @@ class _EditInfoState extends State<EditInfo> {
       title: '修改信息',
       right: InkWell(
         onTap: () {
-          bool isCorrect = _isEmail(_emailController.text);
-          if (!isCorrect && _status == 0) {
-            Fluttertoast.showToast(
-                msg: '请输入正确的邮箱', gravity: ToastGravity.CENTER);
-            return;
-          }
-          if (_status == 1) {
+          bool isCorrect = false;
+          if (_status == 0) {
+            isCorrect = _isEmail(_emailController.text);
+          } else if (_status == 1) {
             //校验验证码是否正确，号码不能为空！
+            isCorrect = _isPhone(_phoneController.text);
           }
-          Fluttertoast.showToast(msg: '修改成功', gravity: ToastGravity.CENTER);
-          _timer.cancel();
-          _timer = null;
-          Navigator.pop(context);
+          _handleComplete(_status, isCorrect);
         },
         child: Container(
           width: 30.0,
           child: Text('完成', style: style.mFontStyle),
         ),
       ),
-      components: _status == 2 ? _renderPassword(): _renderComponents(),
+      components: _status == 2 ? _renderPassword() : _renderComponents(),
     );
   }
 }

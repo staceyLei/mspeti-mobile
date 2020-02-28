@@ -1,9 +1,12 @@
 import 'package:educationapp/model/CourseM.dart';
 import 'package:educationapp/pages/container/CourseDetails/components/DetailsArrange.dart';
+import 'package:educationapp/provider/UserProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavBar.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'components/ButtonLink.dart';
 import 'components/CommentsPanel.dart';
 import 'components/SchoolInfo.dart';
@@ -87,6 +90,7 @@ class _CourseDetailsState extends State<CourseDetails> {
 
   @override
   Widget build(BuildContext context) {
+    print('detaild change');
     return Scaffold(
         backgroundColor: style.grey,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -118,23 +122,35 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 style: style.mFontStyle.copyWith(
                                     fontWeight: FontWeight.bold,
                                     fontSize: style.titleSize)),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  this._focued = !this._focued;
-                                });
-                              },
-                              child: Container(
-                                width: 24,
-                                height: 24,
-                                child: Image.asset(
-                                  this._focued
-                                      ? 'assets/icon/focus-on.png'
-                                      : 'assets/icon/unfocus-on.png',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
+                            Builder(builder: (_) {
+                              print('like change');
+                              return Consumer<UserProvider>(
+                                builder: (_, user, c) {
+                                  return InkWell(
+                                    onTap: () {
+                                      String tips = !user.isCollect(_course)
+                                          ? '收藏成功'
+                                          : '取消收藏';
+                                      user.handleCollect(_course);
+                                      Fluttertoast.showToast(
+                                          msg: tips,
+                                          gravity: ToastGravity.CENTER);
+                                    },
+                                    child: Container(
+                                      width: 24,
+                                      height: 24,
+                                      child: Image.asset(
+                                        // this._focued
+                                        user.isCollect(_course)
+                                            ? 'assets/icon/focus-on.png'
+                                            : 'assets/icon/unfocus-on.png',
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            })
                           ],
                         ),
                       ),
@@ -206,12 +222,10 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 ),
                                 ButtonLink(
                                   title: '详细安排',
-                                  handleOnTap: () =>  showModalBottomSheet(
-                                          context: context,
-                                          builder: (BuildContext builder) =>
-                                              DetailsArrange(
-                                                  course:
-                                                      _course)),
+                                  handleOnTap: () => showModalBottomSheet(
+                                      context: context,
+                                      builder: (BuildContext builder) =>
+                                          DetailsArrange(course: _course)),
                                 ),
                               ],
                             ),
@@ -280,7 +294,10 @@ class _CourseDetailsState extends State<CourseDetails> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushNamed('/ConfirmOrder',arguments: {'courseList':[_course]});
+                            Navigator.of(context)
+                                .pushNamed('/ConfirmOrder', arguments: {
+                              'courseList': [_course]
+                            });
                           },
                           child: Container(
                             padding: EdgeInsets.fromLTRB(15, 5, 15, 5),

@@ -36,6 +36,7 @@ dependencies:
   path_provider: ^1.6.1
   build_runner: ^1.7.4
   json_annotation: ^3.0.1
+  provider: ^4.0.4
 
 dev_dependencies:
   flutter_test:

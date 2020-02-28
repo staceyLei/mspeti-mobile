@@ -1,9 +1,11 @@
 import 'package:educationapp/model/CourseM.dart';
+import 'package:educationapp/provider/UserProvider.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavLayout.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'component/const.dart';
 import 'component/CollectionItem.dart';
 import 'package:educationapp/pages/components/BaseButton.dart';
@@ -24,7 +26,7 @@ class _CollectionState extends State<Collection> {
   @override
   void initState() {
     super.initState();
-    _collectionList = courseData;
+    // _collectionList = courseData;
   }
 
   Widget _renderRight() {
@@ -54,8 +56,8 @@ class _CollectionState extends State<Collection> {
   }
 
   List<Widget> _renderComponents() {
-    return _collectionList.map((item) {
-      CourseM course = CourseM.fromJson(item);
+    return _collectionList.map((course) {
+      // CourseM course = CourseM.fromJson(item);
       return InkWell(
           onTap: () => this._handleOnTap(course),
           child: CollectionItem(
@@ -135,8 +137,8 @@ class _CollectionState extends State<Collection> {
                     _selected = [];
                   } else {
                     _selected = _collectionList.map((ele) {
-                      CourseM course = CourseM.fromJson(ele);
-                      return course.courseId;
+                      // CourseM course = CourseM.fromJson(ele);
+                      return ele.courseId;
                     }).toList();
                   }
                   _selectAll = !_selectAll;
@@ -163,8 +165,8 @@ class _CollectionState extends State<Collection> {
           GestureDetector(
             onTap: () {
               List resCollectionList = _collectionList.where((ele) {
-                CourseM course = CourseM.fromJson(ele);
-                return !_selected.contains(course.courseId);
+                // CourseM course = CourseM.fromJson(ele);
+                return !_selected.contains(ele.courseId);
               }).toList();
               setState(() {
                 _collectionList = resCollectionList;
@@ -192,15 +194,15 @@ class _CollectionState extends State<Collection> {
   List<Widget> _renderEmpty() {
     return [
       Container(
-          height: style.height - 200,
-          width: style.width,
-          child: Column(
+        height: style.height - 200,
+        width: style.width,
+        child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 width: 150,
-                margin: EdgeInsets.only(bottom:10),
+                margin: EdgeInsets.only(bottom: 10),
                 child: Image.asset(
                   'assets/icon/collection-empty.png',
                   fit: BoxFit.fitWidth,
@@ -208,20 +210,26 @@ class _CollectionState extends State<Collection> {
               ),
               Text('收藏夹是空的，去添加些吧~', style: style.mFontStyle)
             ]),
-          ),
+      ),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return NavLayout(
-      title: '收藏夹',
-      backgroundColor: Colors.white,
-      right: _renderRight(),
-      rightDistance: 65,
-      components:
-          _collectionList.length == 0 ? _renderEmpty() : _renderComponents(),
-      bottom: _status ? _renderBottom() : null,
+    return Consumer<UserProvider>(
+      builder: (context, user, _) {
+        _collectionList = user.collection ?? [];
+        return NavLayout(
+          title: '收藏夹',
+          backgroundColor: Colors.white,
+          right: _renderRight(),
+          rightDistance: 65,
+          components: _collectionList.length == 0
+              ? _renderEmpty()
+              : _renderComponents(),
+          bottom: _status ? _renderBottom() : null,
+        );
+      },
     );
   }
 }
