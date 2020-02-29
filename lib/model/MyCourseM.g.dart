@@ -14,14 +14,14 @@ MyCourseM _$MyCourseMFromJson(Map<String, dynamic> json) {
     json['courseTeacher'] == null
         ? null
         : Teacher.fromJson(json['courseTeacher'] as Map<String, dynamic>),
-    json['beginTime'] as String,
-    json['endTime'] as String,
+    json['startDate'] as String,
+    json['endDate'] as String,
     (json['courseTime'] as List)
         ?.map(
             (e) => e == null ? null : CTime.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     json['courseImg'] as String,
-    json['myCourseId'] as String,
+    json['courseId'] as String,
   );
 }
 
@@ -30,9 +30,9 @@ Map<String, dynamic> _$MyCourseMToJson(MyCourseM instance) => <String, dynamic>{
       'courseHours': instance.courseHours,
       'nowCourseHours': instance.nowCourseHours,
       'courseTeacher': instance.courseTeacher?.toJson(),
-      'beginTime': instance.beginTime,
-      'endTime': instance.endTime,
+      'startDate': instance.startDate,
+      'endDate': instance.endDate,
       'courseImg': instance.courseImg,
       'courseTime': instance.courseTime?.map((e) => e?.toJson())?.toList(),
-      'myCourseId': instance.myCourseId,
+      'courseId': instance.courseId,
     };

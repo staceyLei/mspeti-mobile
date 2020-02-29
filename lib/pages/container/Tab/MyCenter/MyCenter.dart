@@ -1,4 +1,5 @@
 import 'package:educationapp/assets/style.dart' as style;
+import 'package:educationapp/pages/components/Skeleton.dart';
 import 'package:educationapp/provider/UserProvider.dart';
 import 'package:provider/provider.dart';
 import 'components/InfoCard.dart';
@@ -100,16 +101,9 @@ class _MyCenterState extends State<MyCenter> {
     return null;
   }
 
-  List<Widget> renderNavBar() {
+  List<Widget> renderNavBar(UserProvider user) {
     return <Widget>[
-      ClipOval(
-        child: Image.asset(
-          'assets/image/headImg.png',
-          fit: BoxFit.cover,
-          width: 35,
-          height: 35,
-        ),
-      ),
+      Skeleton(size:35,img:user.student.studentImg),
       Text('个人中心',
           style: TextStyle(color: Colors.white, fontSize: style.titleSize)),
       InkWell(
@@ -134,7 +128,6 @@ class _MyCenterState extends State<MyCenter> {
         backgroundColor: style.bgColor,
         body: Consumer<UserProvider>(
           builder: (context, user, _) {
-            print('change my center');
             return Stack(
               children: <Widget>[
                 SingleChildScrollView(
@@ -226,7 +219,7 @@ class _MyCenterState extends State<MyCenter> {
                   NavBar(
                     barOpacity: this._barOpacity,
                     barHeight: this.DEFAULT_BAR,
-                    comonent: this.renderNavBar(),
+                    comonent: this.renderNavBar(user),
                     color: Color.fromRGBO(45, 118, 202, 1),
                   )
               ],

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:educationapp/pages/components/Skeleton.dart';
 import 'package:educationapp/pages/container/UserInfo/const.dart';
 import 'package:educationapp/provider/UserProvider.dart';
 import 'package:flutter/material.dart';
@@ -99,13 +100,9 @@ class UserInfo extends StatelessWidget {
                       ])));
             },
             isModify: true,
-            content: ClipOval(
-              child: Image.network(
-                user.student.studentImg,
-                fit: BoxFit.cover,
-                width: 40.0,
-                height: 40.0,
-              ),
+            content: Skeleton(
+              img:user.student.studentImg,
+              size:40
             ),
           ),
           InfoItem(

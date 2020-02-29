@@ -20,7 +20,7 @@ class Collection extends StatefulWidget {
 class _CollectionState extends State<Collection> {
   bool _status = false; //false 管理 true 完成
   List _collectionList = [];
-  List _selected = [];
+  List<String> _selected = [];
   bool _selectAll = false;
 
   @override
@@ -55,14 +55,14 @@ class _CollectionState extends State<Collection> {
     ]);
   }
 
-  List<Widget> _renderComponents() {
+  List<Widget> _renderComponents(UserProvider user) {
     return _collectionList.map((course) {
       // CourseM course = CourseM.fromJson(item);
       return InkWell(
           onTap: () => this._handleOnTap(course),
           child: CollectionItem(
             item: course,
-            onCancel: _handleOnCancel,
+            onCancel: () => _handleOnCancel(user),
             status: _status,
             isSelected: _selected.contains(course.courseId),
           ));
@@ -79,6 +79,8 @@ class _CollectionState extends State<Collection> {
         }
         if (_selected.length == _collectionList.length) {
           _selectAll = true;
+        } else if (_selectAll) {
+          _selectAll = false;
         }
       });
     } else {
@@ -87,7 +89,7 @@ class _CollectionState extends State<Collection> {
     }
   }
 
-  _handleOnCancel() {
+  _handleOnCancel(UserProvider user) {
     showModalBottomSheet(
         context: context,
         builder: (_) => Stack(children: <Widget>[
@@ -109,7 +111,9 @@ class _CollectionState extends State<Collection> {
                   child: Column(children: <Widget>[
                     BaseButton(
                       title: '取消收藏',
-                      onTap: () {},
+                      onTap: () {
+                        user.removeFromCollect(_selected);
+                      },
                       prefix: 'assets/icon/collection-heart.png',
                     ),
                     Container(width: style.width, height: 5, color: style.grey),
@@ -123,7 +127,7 @@ class _CollectionState extends State<Collection> {
             ]));
   }
 
-  Widget _renderBottom() {
+  Widget _renderBottom(UserProvider user) {
     return Container(
       width: style.width,
       color: style.grey,
@@ -164,15 +168,16 @@ class _CollectionState extends State<Collection> {
                   ))),
           GestureDetector(
             onTap: () {
-              List resCollectionList = _collectionList.where((ele) {
-                // CourseM course = CourseM.fromJson(ele);
-                return !_selected.contains(ele.courseId);
-              }).toList();
-              setState(() {
-                _collectionList = resCollectionList;
-              });
-              Fluttertoast.showToast(
-                  msg: '取消收藏成功', gravity: ToastGravity.CENTER);
+              // List resCollectionList = _collectionList.where((ele) {
+              //   // CourseM course = CourseM.fromJson(ele);
+              //   return !_selected.contains(ele.courseId);
+              // }).toList();
+              // setState(() {
+              //   _collectionList = resCollectionList;
+              // });
+              // Fluttertoast.showToast(
+              //     msg: '取消收藏成功', gravity: ToastGravity.CENTER);
+              user.removeFromCollect(_selected);
             },
             child: Container(
               padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
@@ -218,6 +223,7 @@ class _CollectionState extends State<Collection> {
   Widget build(BuildContext context) {
     return Consumer<UserProvider>(
       builder: (context, user, _) {
+        print('change');
         _collectionList = user.collection ?? [];
         return NavLayout(
           title: '收藏夹',
@@ -226,8 +232,8 @@ class _CollectionState extends State<Collection> {
           rightDistance: 65,
           components: _collectionList.length == 0
               ? _renderEmpty()
-              : _renderComponents(),
-          bottom: _status ? _renderBottom() : null,
+              : _renderComponents(user),
+          bottom: _status ? _renderBottom(user) : null,
         );
       },
     );

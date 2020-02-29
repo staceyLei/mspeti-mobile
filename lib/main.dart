@@ -1,3 +1,5 @@
+import 'package:educationapp/provider/OrderListProvider.dart';
+import 'package:educationapp/provider/ShopCartProvider.dart';
 import 'package:educationapp/provider/UserProvider.dart';
 import 'package:educationapp/route/route.dart' as router;
 import 'package:educationapp/store/store.dart' as store;
@@ -15,6 +17,8 @@ void main() {
     MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => UserProvider(),),
       ChangeNotifierProvider(create: (_) => CourseListProvider()),
+      ChangeNotifierProvider(create: (_) => ShopCartProvider()),
+      ChangeNotifierProvider(create: (_) => OrderListProvider()),
     ],
     child: MyApp(),
     )

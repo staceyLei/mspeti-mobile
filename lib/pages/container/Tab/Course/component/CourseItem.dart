@@ -40,6 +40,8 @@ class CourseItem extends StatelessWidget {
                               style: style.baseFontStyle
                                   .copyWith(fontSize: style.mFontSize)),
                           Text(item.courseInfo,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   color: style.lightGrey,
                                   fontSize: style.baseFontSize)),

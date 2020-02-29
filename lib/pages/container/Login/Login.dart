@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:educationapp/provider/ShopCartProvider.dart';
 import 'package:educationapp/provider/UserProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -283,7 +284,10 @@ class _LoginState extends State<Login> {
     ];
   }
 
-  _handleLogin(int loginType, UserProvider user) {
+  _handleLogin(int loginType) {
+    UserProvider user = Provider.of<UserProvider>(context,listen: false);
+    ShopCartProvider shopCart = Provider.of<ShopCartProvider>(context,listen: false);
+
     // 0 免密登录 1 密码登录
     setState(() {
       this._disabled = true;
@@ -304,6 +308,7 @@ class _LoginState extends State<Login> {
     // UserAction.toLogin(loginType, params);
     bool res = user.toLogin(loginType, params);
     if (res) {
+      shopCart.initData();
       Fluttertoast.showToast(msg: '登录成功', gravity: ToastGravity.CENTER);
       Navigator.pushNamed(context, '/');
     }
@@ -311,7 +316,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    UserProvider user = Provider.of<UserProvider>(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
@@ -377,7 +381,7 @@ class _LoginState extends State<Login> {
                         child: InkWell(
                           onTap: this._disabled
                               ? null
-                              : () => this._handleLogin(this._loginType, user),
+                              : () => this._handleLogin(this._loginType),
                           child: Container(
                             padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                             decoration: BoxDecoration(

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:educationapp/model/CourseM.dart';
 import 'package:educationapp/model/Student.dart';
+import 'package:educationapp/pages/components/Skeleton.dart';
 import 'package:educationapp/provider/CourseListProvider.dart';
 import 'package:educationapp/provider/UserProvider.dart';
 import 'package:educationapp/route/route.dart';
@@ -57,14 +58,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> renderNavBar(Student student) {
     DateTime now = DateTime.now();
     return <Widget>[
-      ClipOval(
-        child: Image.network(
-          student.studentImg,
-          fit: BoxFit.cover,
-          width: 35,
-          height: 35,
-        ),
-      ),
+      Skeleton(img:student.studentImg,size:35),
       SizedBox(width: 20),
       Expanded(
         child: Text(
@@ -177,6 +171,7 @@ class _HomePageState extends State<HomePage> {
               _hotCourseData = course.courseList?.sublist(0, 4)??[];
               print('change homepage');
               return Stack(alignment: Alignment.centerLeft, children: <Widget>[
+                if(user.student!=null)
                 SingleChildScrollView(
                   controller: this._controller,
                   child: Column(
@@ -199,13 +194,9 @@ class _HomePageState extends State<HomePage> {
                                   SizedBox(
                                     width: 15.0,
                                   ),
-                                  ClipOval(
-                                    child: Image.network(
-                                      user.student.studentImg,
-                                      fit: BoxFit.cover,
-                                      width: style.width * 0.16,
-                                      height: style.width * 0.16,
-                                    ),
+                                  Skeleton(
+                                    img:user.student.studentImg,
+                                    size:style.width * 0.16
                                   ),
                                   Container(
                                     padding: EdgeInsets.fromLTRB(20, 0, 0, 0),

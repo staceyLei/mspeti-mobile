@@ -1,4 +1,5 @@
 import 'package:educationapp/model/Student.dart';
+import 'package:educationapp/pages/components/Skeleton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/store/store.dart';
@@ -17,14 +18,7 @@ class InfoCard extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              ClipOval(
-                child: Image.network(
-                  student.studentImg,
-                  fit: BoxFit.cover,
-                  width: 65,
-                  height: 65,
-                ),
-              ),
+              Skeleton(size:style.width/5,img:student.studentImg),
               SizedBox(
                 width: 10.0,
               ),

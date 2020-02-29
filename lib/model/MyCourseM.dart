@@ -14,27 +14,27 @@ class MyCourseM {
   String nowCourseHours;
   @JsonKey(name:'courseTeacher')
   Teacher courseTeacher;
-  @JsonKey(name:'beginTime')
-  String beginTime;
-  @JsonKey(name:'endTime')
-  String endTime;
+  @JsonKey(name:'startDate')
+  String startDate;
+  @JsonKey(name:'endDate')
+  String endDate;
   @JsonKey(name:'courseImg')
   String courseImg;
   @JsonKey(name:'courseTime')
   List<CTime> courseTime;
-  @JsonKey(name:'myCourseId')
-  String myCourseId;
+  @JsonKey(name:'courseId')
+  String courseId;
 
   MyCourseM(
       this.courseName,
       this.courseHours,
       this.nowCourseHours,
       this.courseTeacher,
-      this.beginTime,
-      this.endTime,
+      this.startDate,
+      this.endDate,
       this.courseTime,
       this.courseImg,
-      this.myCourseId);
+      this.courseId);
 
   factory MyCourseM.fromJson(Map<String, dynamic> srcJson) =>
       _$MyCourseMFromJson(srcJson);

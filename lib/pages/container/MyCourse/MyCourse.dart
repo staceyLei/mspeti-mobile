@@ -1,7 +1,9 @@
 import 'package:educationapp/model/MyCourseM.dart';
+import 'package:educationapp/provider/UserProvider.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/components/NavLayout.dart';
+import 'package:provider/provider.dart';
 import 'component/CourseItem.dart';
 import 'component/const.dart';
 
@@ -11,16 +13,16 @@ class MyCourse extends StatefulWidget {
 }
 
 class _MyCourseState extends State<MyCourse> {
-  List _courseData;
+  List<MyCourseM> _courseData;
   @override
   void initState() {
     super.initState();
-    _courseData = courseData ?? [];
+    // _courseData = courseData ?? [];
   }
 
   List<Widget> _renderComponents() {
-    return _courseData.map((item) {
-      MyCourseM course = MyCourseM.fromJson(item);
+    return _courseData.map((course) {
+      // MyCourseM course = MyCourseM.fromJson(item);
       return InkWell(
           onTap: () {
             navigatorKey.currentState
@@ -32,10 +34,15 @@ class _MyCourseState extends State<MyCourse> {
 
   @override
   Widget build(BuildContext context) {
-    return NavLayout(
-        backgroundColor: Colors.white,
-        title: '我的课程',
-        padding: EdgeInsets.all(15),
-        components: _renderComponents());
+    return Consumer<UserProvider>(
+      builder: (context, user, _) {
+        _courseData = user.myCourse;
+        return NavLayout(
+            backgroundColor: Colors.white,
+            title: '我的课程',
+            padding: EdgeInsets.all(15),
+            components: _renderComponents());
+      },
+    );
   }
 }

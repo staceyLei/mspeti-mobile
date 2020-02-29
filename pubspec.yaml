@@ -152,6 +152,8 @@ flutter:
    - assets/icon/out-of-class.png
    - assets/icon/empty-cart.png
    - assets/icon/collection-empty.png
+   - assets/icon/pay-success.png
+   - assets/icon/user-head.png
    
 
    

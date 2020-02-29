@@ -1,5 +1,7 @@
 import 'package:educationapp/pages/container/Tab/ShopCart/ShopCart.dart';
+import 'package:educationapp/provider/ShopCartProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'Course/Course.dart';
 import 'Message/Message.dart';
 import 'MyCenter/MyCenter.dart';
@@ -15,24 +17,33 @@ class TabsIcon extends StatelessWidget {
     if (isShopCart) {
       return Stack(children: [
         Container(
-          height: 26.0,
+          height: 27.0,
           width: 29.0,
-          padding: EdgeInsets.fromLTRB(0,2,5,0),
+          padding: EdgeInsets.fromLTRB(0, 3, 5, 0),
           child: Image.asset(imgUrl),
         ),
-        Positioned(child: Container(
-          alignment: Alignment.center,
-          width:12,
-          height:12,
-          decoration:BoxDecoration(color: Colors.red,
-          borderRadius:BorderRadius.circular(6),
-          ),
-          child: Text('0',textAlign: TextAlign.center,style:TextStyle(color:Colors.white,fontSize:11)),
-        ),
-        right: 0,
-        top: 0,
+        Positioned(
+          child: Container(
+              alignment: Alignment.center,
+              width: 13,
+              height: 13,
+              padding: EdgeInsets.all(1),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(6.5),
+              ),
+              child: Builder(builder: (_) {
+                return Consumer<ShopCartProvider>(
+                  builder: (_, shopCart, e) {
+                    return Text(shopCart.shopCartNum.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white, fontSize: 10));
+                  },
+                );
+              })),
+          right: 0,
+          top: 0,
         )
-        
       ]);
     }
     return Container(

@@ -1,10 +1,14 @@
 import 'package:educationapp/model/CourseM.dart';
 import 'package:educationapp/pages/container/Tab/ShopCart/component/ShopCartItem.dart';
+import 'package:educationapp/provider/OrderListProvider.dart';
+import 'package:educationapp/provider/ShopCartProvider.dart';
+import 'package:educationapp/provider/UserProvider.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'component/NavBar.dart';
 import 'const.dart';
 
@@ -16,8 +20,8 @@ class ShopCart extends StatefulWidget {
 class _ShopCartState extends State<ShopCart> {
   bool _status = true; //true 管理 false 完成
   bool _selectAll = false;
-  List _selected = [];
-  List _shopCartList = [];
+  List<String> _selected = [];
+  List<CourseM> _shopCartList = [];
   double _opacity = 0;
   double labelHeight = style.topPadding + 60;
   double decorationHeight = style.height / 8;
@@ -26,7 +30,7 @@ class _ShopCartState extends State<ShopCart> {
   @override
   void initState() {
     super.initState();
-    _shopCartList = courseData;
+    // _shopCartList = courseData;
     double o;
     _scrollController.addListener(() {
       o = _scrollController.offset / labelHeight;
@@ -44,16 +48,16 @@ class _ShopCartState extends State<ShopCart> {
 
   String _getTotalPrice() {
     double totalPrice = 0;
-    _shopCartList.forEach((item) {
-      CourseM course = CourseM.fromJson(item);
+    _shopCartList.forEach((course) {
+      // CourseM course = CourseM.fromJson(item);
       if (_selected.contains(course.courseId)) {
         totalPrice += double.parse(course.coursePrice);
       }
     });
-    return '¥$totalPrice';
+    return '¥${totalPrice.toStringAsFixed(2)}';
   }
 
-  Widget _renderBottom() {
+  Widget _renderBottom(ShopCartProvider shopCart, OrderListProvider order) {
     List<Widget> bottomList = [
       Expanded(
           child: InkWell(
@@ -63,8 +67,8 @@ class _ShopCartState extends State<ShopCart> {
                   if (_selectAll) {
                     _selected = [];
                   } else {
-                    _selected = _shopCartList.map((item) {
-                      CourseM course = CourseM.fromJson(item);
+                    _selected = _shopCartList.map((course) {
+                      // CourseM course = CourseM.fromJson(item);
                       return course.courseId;
                     }).toList();
                   }
@@ -100,7 +104,9 @@ class _ShopCartState extends State<ShopCart> {
           style: style.baseFontStyle.copyWith(color: style.redColor),
         ),
         GestureDetector(
-            onTap: _handleConfirmOrder,
+            onTap: () {
+              _handleConfirmOrder(order);
+            },
             child: Container(
                 margin: EdgeInsets.all(10),
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -115,28 +121,51 @@ class _ShopCartState extends State<ShopCart> {
     } else {
       bottomList = [
         ...bottomList,
-        GestureDetector(
-            onTap: () {},
-            child: Container(
-                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                margin: EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                    border: Border.all(color: style.orangeColor, width: 1.0),
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.white),
-                child: Text(
-                  '移入收藏夹',
-                  style: style.mFontStyle.copyWith(color: style.orangeColor),
-                ))),
+        Consumer<UserProvider>(
+          builder: (context, user, _) {
+            return GestureDetector(
+                onTap: () {
+                  List<CourseM> list = _shopCartList
+                      .where((e) => _selected.contains(e.courseId))
+                      .toList();
+                  if (list.isNotEmpty) {
+                    user.moveInCollect(list);
+                    shopCart.removeFromCart(_selected);
+                    setState(() {
+                      _selected = [];
+                    });
+                  }
+                  Fluttertoast.showToast(
+                      msg: '已移入收藏夹', gravity: ToastGravity.CENTER);
+                },
+                child: Container(
+                    padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    margin: EdgeInsets.only(right: 10),
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(color: style.orangeColor, width: 1.0),
+                        borderRadius: BorderRadius.circular(40),
+                        color: Colors.white),
+                    child: Text(
+                      '移入收藏夹',
+                      style:
+                          style.mFontStyle.copyWith(color: style.orangeColor),
+                    )));
+          },
+        ),
         GestureDetector(
             onTap: () {
-              List resShopCartList = _shopCartList
-                  .where((item) => !_selected.contains(item['courseId']))
-                  .toList();
-              setState(() {
-                _shopCartList = resShopCartList;
-              });
+              // List resShopCartList = _shopCartList
+              //     .where((item) => !_selected.contains(item['courseId']))
+              //     .toList();
+              // setState(() {
+              //   _shopCartList = resShopCartList;
+              // });
+              shopCart.removeFromCart(_selected);
               Fluttertoast.showToast(msg: '删除成功', gravity: ToastGravity.CENTER);
+              setState(() {
+                _selected = [];
+              });
             },
             child: Container(
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -171,13 +200,15 @@ class _ShopCartState extends State<ShopCart> {
       }
       if (_selected.length == _shopCartList.length) {
         _selectAll = true;
+      } else if (_selectAll) {
+        _selectAll = false;
       }
     });
   }
 
   List<Widget> _renderComponent() {
-    return _shopCartList.map((item) {
-      CourseM course = CourseM.fromJson(item);
+    return _shopCartList.map((course) {
+      // CourseM course = CourseM.fromJson(item);
       return GestureDetector(
         onTap: () {
           navigatorKey.currentState.pushNamed('/CourseDetails',
@@ -191,17 +222,21 @@ class _ShopCartState extends State<ShopCart> {
     }).toList();
   }
 
-  _handleConfirmOrder() {
-    List courseList = _shopCartList
-        .where((item) {
-          CourseM course = CourseM.fromJson(item);
-          return _selected.contains(course.courseId);
-        })
-        .map((ele) => CourseM.fromJson(ele))
-        .toList();
+  _handleConfirmOrder(OrderListProvider order) {
+    // List courseList = _shopCartList
+    //     .where((item) {
+    //       CourseM course = CourseM.fromJson(item);
+    //       return _selected.contains(course.courseId);
+    //     })
+    //     .map((ele) => CourseM.fromJson(ele))
+    //     .toList();
+
+    List courseList =
+        _shopCartList.where((ele) => _selected.contains(ele.courseId)).toList();
     if (courseList.isNotEmpty) {
-      navigatorKey.currentState.pushNamed('/ConfirmOrder', arguments: {
-        'courseList': courseList,
+      order.initData(courseList);
+      navigatorKey.currentState.pushReplacementNamed('/ConfirmOrder', arguments: {
+        'courseList': courseList, 'from': '0' //0 购物车 1 立即报名
       });
     } else {
       Fluttertoast.showToast(msg: '您还没有选择课程哦', gravity: ToastGravity.CENTER);
@@ -211,105 +246,118 @@ class _ShopCartState extends State<ShopCart> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
-      child: Scaffold(
-          backgroundColor: style.grey,
-          body: Column(children: [
-            Expanded(
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                      width: style.width,
-                      child: SingleChildScrollView(
-                        controller: _scrollController,
-                        child: Stack(children: [
-                          Column(children: [
-                            Container(
-                              height: _shopCartList.isEmpty
-                                  ? labelHeight
-                                  : labelHeight + decorationHeight,
-                              padding: EdgeInsets.fromLTRB(
-                                  10, style.topPadding, 10, 0),
-                              decoration: BoxDecoration(
-                                  gradient: style.lightGradient,
-                                  color: style.themeColor),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text('购物车',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 22)),
-                                        GestureDetector(
-                                          onTap: _handleOnManage,
-                                          child: Container(
-                                              width: 40,
-                                              alignment: Alignment.centerRight,
-                                              child: Text(_status ? '管理' : '完成',
-                                                  style: style.mFontStyle
-                                                      .copyWith(
-                                                          color: Colors.white,
-                                                          fontSize: style
-                                                              .titleSize))),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: 5),
-                                    Text('共${_shopCartList.length}件宝贝',
-                                        style: style.baseFontStyle
-                                            .copyWith(color: Colors.white)),
-                                  ]),
-                            ),
-                            if (_shopCartList.isEmpty)
-                              Container(
-                                height: style.height - 200,
-                                width: style.width,
-                                color: style.grey,
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(bottom: 10),
-                                        width: 150,
-                                        child: Image.asset(
-                                          'assets/icon/empty-cart.png',
-                                          fit: BoxFit.fitWidth,
-                                        ),
-                                      ),
-                                      Text('购物车是空的，去添加些课程吧',
-                                          style: style.mFontStyle)
-                                    ]),
-                              ),
-                          ]),
+        value: SystemUiOverlayStyle.light,
+        child: Consumer2<ShopCartProvider, OrderListProvider>(
+          builder: (context, shopCart, order, _) {
+            // shopCart.setShopCartList = courseData;
+            _shopCartList = shopCart.shopCartList;
+            return Scaffold(
+                backgroundColor: style.grey,
+                body: Column(children: [
+                  Expanded(
+                      child: Stack(
+                        children: <Widget>[
                           Container(
-                              padding: EdgeInsets.only(top: labelHeight),
-                              child: Column(
-                                children: _renderComponent(),
-                              ))
-                        ]),
+                            width: style.width,
+                            child: SingleChildScrollView(
+                              controller: _scrollController,
+                              child: Stack(children: [
+                                Column(children: [
+                                  Container(
+                                    height: _shopCartList.isEmpty
+                                        ? labelHeight
+                                        : labelHeight + decorationHeight,
+                                    padding: EdgeInsets.fromLTRB(
+                                        10, style.topPadding, 10, 0),
+                                    decoration: BoxDecoration(
+                                        gradient: style.lightGradient,
+                                        color: style.themeColor),
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text('购物车',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 22)),
+                                              GestureDetector(
+                                                onTap: _handleOnManage,
+                                                child: Container(
+                                                    width: 40,
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: Text(
+                                                        _status ? '管理' : '完成',
+                                                        style: style.mFontStyle
+                                                            .copyWith(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: style
+                                                                    .titleSize))),
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(height: 5),
+                                          Text('共${_shopCartList.length}件宝贝',
+                                              style: style.baseFontStyle
+                                                  .copyWith(
+                                                      color: Colors.white)),
+                                        ]),
+                                  ),
+                                  if (_shopCartList.isEmpty)
+                                    Container(
+                                      height: style.height - 200,
+                                      width: style.width,
+                                      color: style.grey,
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(bottom: 10),
+                                              width: 150,
+                                              child: Image.asset(
+                                                'assets/icon/empty-cart.png',
+                                                fit: BoxFit.fitWidth,
+                                              ),
+                                            ),
+                                            Text('购物车是空的，去添加些课程吧',
+                                                style: style.mFontStyle)
+                                          ]),
+                                    ),
+                                ]),
+                                Container(
+                                    padding: EdgeInsets.only(top: labelHeight),
+                                    child: Column(
+                                      children: _renderComponent(),
+                                    ))
+                              ]),
+                            ),
+                          ),
+                          if (_opacity > 0)
+                            Opacity(
+                              opacity: _opacity,
+                              child: NavBar(
+                                title: '购物车(${_shopCartList.length})',
+                                status: _status,
+                                handleOnManage: _handleOnManage,
+                              ),
+                            ),
+                        ],
                       ),
-                    ),
-                    if (_opacity > 0)
-                      Opacity(
-                        opacity: _opacity,
-                        child: NavBar(
-                          title: '购物车(${_shopCartList.length})',
-                          status: _status,
-                          handleOnManage: _handleOnManage,
-                        ),
-                      ),
-                  ],
-                ),
-                flex: 1),
-            _renderBottom()
-          ])),
-    );
+                      flex: 1),
+                  _renderBottom(shopCart, order)
+                ]));
+          },
+        ));
   }
 }

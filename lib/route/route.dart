@@ -27,6 +27,7 @@ import 'package:educationapp/pages/container/TimeTable/TimeTable.dart';
 import 'package:educationapp/pages/container/TimeTable/component/TimeTableDetail.dart';
 import 'package:educationapp/pages/container/PhotoPreview/PhotoPreview.dart';
 import 'package:educationapp/pages/components/VideoPreview.dart';
+import 'package:educationapp/pages/container/PayResult/PayResult.dart';
 
 
 final routes = {
@@ -62,6 +63,8 @@ final routes = {
   '/TimeTableDetail':(context,{arguments}) => TimeTableDetail(arguments:arguments),
   '/PhotoPreview':(context,{arguments}) => PhotoPreview(arguments:arguments),
   '/VideoPreview':(context,{arguments}) => VideoPreview(arguments:arguments),
+  '/PayResult':(context,{arguments}) => PayResult(),
+  
 };
 
 // 代表当前context的路由对象

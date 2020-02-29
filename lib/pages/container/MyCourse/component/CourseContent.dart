@@ -67,14 +67,14 @@ class CourseContent extends StatelessWidget {
                           style: style.mFontStyle),
                       SizedBox(height: 5),
                       Text(
-                        '开始时间:${_item.beginTime}',
+                        '开始时间:${_item.startDate}',
                         style: style.baseFontStyle.copyWith(
                             color: style.lightGrey,
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 5),
                       Text(
-                        '结束时间:${_item.endTime}',
+                        '结束时间:${_item.endDate}',
                         style: style.baseFontStyle.copyWith(
                             color: style.lightGrey,
                             fontWeight: FontWeight.bold),

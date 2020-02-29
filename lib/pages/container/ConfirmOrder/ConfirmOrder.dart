@@ -1,16 +1,20 @@
 import 'package:educationapp/model/CourseM.dart';
+import 'package:educationapp/provider/OrderListProvider.dart';
+import 'package:educationapp/provider/ShopCartProvider.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/pages/components/NavLayout.dart';
+import 'package:provider/provider.dart';
 
 class ConfirmOrder extends StatelessWidget {
   final arguments;
   List<CourseM> _courseList;
+  bool _isFromCart;
   ConfirmOrder({this.arguments}) {
-    _courseList = arguments['courseList'];
+    _isFromCart = arguments['from'] == '0';
   }
-  Widget _renderBottom() {
+  Widget _renderBottom(OrderListProvider order) {
     return Container(
       width: style.width,
       color: Colors.white,
@@ -20,7 +24,8 @@ class ConfirmOrder extends StatelessWidget {
         children: <Widget>[
           Text("应付款:", style: style.baseFontStyle),
           Text(
-            _getTotalMoney(),
+            // _getTotalMoney(),
+            order.totalPrice.toStringAsFixed(2),
             style: style.baseFontStyle.copyWith(
               color: style.redColor,
             ),
@@ -28,21 +33,31 @@ class ConfirmOrder extends StatelessWidget {
           SizedBox(
             width: 5,
           ),
-          InkWell(
-            onTap: () {
-              navigatorKey.currentState.pushNamed('/ConfirmPay');
+          Consumer<ShopCartProvider>(
+            builder: (context, shopCart, _) {
+              return InkWell(
+                onTap: () {
+                  List<String> courseIds =
+                      _courseList.map((e) => e.courseId).toList();
+                  if (_isFromCart) {
+                    // 如果来自购物车购买，则清除购物车对应项
+                    shopCart.removeFromCart(courseIds);
+                  }
+                  navigatorKey.currentState.pushReplacementNamed('/ConfirmPay');
+                },
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                  decoration: BoxDecoration(
+                      color: style.themeColor,
+                      borderRadius: BorderRadius.circular(14.0),
+                      gradient: style.baseGradient),
+                  child: Text(
+                    '确认报名',
+                    style: style.baseFontStyle.copyWith(color: Colors.white),
+                  ),
+                ),
+              );
             },
-            child: Container(
-              padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-              decoration: BoxDecoration(
-                  color: style.themeColor,
-                  borderRadius: BorderRadius.circular(14.0),
-                  gradient: style.baseGradient),
-              child: Text(
-                '确认报名',
-                style: style.baseFontStyle.copyWith(color: Colors.white),
-              ),
-            ),
           ),
         ],
       ),
@@ -70,27 +85,6 @@ class ConfirmOrder extends StatelessWidget {
             BoxDecoration(color: Colors.white, borderRadius: style.baseRadius),
         child: Column(
           children: <Widget>[
-            // Row(
-            //   children: <Widget>[
-            //     Container(
-            //       margin: EdgeInsets.only(right: 10),
-            //       width: 24.0,
-            //       height: 24.0,
-            //       child: Image.asset(
-            //         "assets/icon/icon-head.png",
-            //         fit: BoxFit.contain,
-            //       ),
-            //     ),
-            //     Text(
-            //       '广州悦学悦知辅导机构',
-            //       style:
-            //           style.baseFontStyle.copyWith(fontSize: style.mFontSize),
-            //     )
-            //   ],
-            // ),
-            // SizedBox(
-            //   height: 15.0,
-            // ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -108,7 +102,9 @@ class ConfirmOrder extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(course.courseName, style: style.mFontStyle.copyWith(fontWeight:FontWeight.bold)),
+                      Text(course.courseName,
+                          style: style.mFontStyle
+                              .copyWith(fontWeight: FontWeight.bold)),
                       Container(
                         padding: EdgeInsets.all(5.0),
                         margin: EdgeInsets.symmetric(vertical: 5),
@@ -219,7 +215,7 @@ class ConfirmOrder extends StatelessWidget {
               children: <Widget>[
                 Container(
                   width: 48,
-                  margin: EdgeInsets.only(right:5),
+                  margin: EdgeInsets.only(right: 5),
                   child: Text(
                     "备注",
                     style: style.baseFontStyle,
@@ -307,10 +303,15 @@ class ConfirmOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NavLayout(
-        backgroundColor: style.grey,
-        title: '确认报名',
-        components: _renderComponents(),
-        bottom: _renderBottom());
+    return Consumer<OrderListProvider>(
+      builder: (context, order, _) {
+        _courseList = order.orderList;
+        return NavLayout(
+            backgroundColor: style.grey,
+            title: '确认报名',
+            components: _renderComponents(),
+            bottom: _renderBottom(order));
+      },
+    );
   }
 }

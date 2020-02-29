@@ -29,9 +29,13 @@ class CourseItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(item.courseName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                           style: style.baseFontStyle
                               .copyWith(fontSize: style.mFontSize)),
                       Text(item.courseInfo,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               color: style.lightGrey,
                               fontSize: style.baseFontSize)),
@@ -97,6 +101,7 @@ class CourseItem extends StatelessWidget {
                 SizedBox(height: 5),
                 Text(item.courseInfo,
                     maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: style.lightGrey, fontSize: style.baseFontSize)),
                 SizedBox(height: 5),

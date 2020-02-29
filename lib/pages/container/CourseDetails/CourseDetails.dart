@@ -1,5 +1,7 @@
 import 'package:educationapp/model/CourseM.dart';
 import 'package:educationapp/pages/container/CourseDetails/components/DetailsArrange.dart';
+import 'package:educationapp/provider/OrderListProvider.dart';
+import 'package:educationapp/provider/ShopCartProvider.dart';
 import 'package:educationapp/provider/UserProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
@@ -88,9 +90,17 @@ class _CourseDetailsState extends State<CourseDetails> {
     return '¥${price.toStringAsFixed(2)}';
   }
 
+  bool _handleCheckRepeat(UserProvider user, CourseM course) {
+    bool res = user.hasCourse(course);
+    if (res) {
+      Fluttertoast.showToast(
+          msg: '您已报名该课程，不可重复报名', gravity: ToastGravity.CENTER);
+    }
+    return res;
+  }
+
   @override
   Widget build(BuildContext context) {
-    print('detaild change');
     return Scaffold(
         backgroundColor: style.grey,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -123,7 +133,6 @@ class _CourseDetailsState extends State<CourseDetails> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: style.titleSize)),
                             Builder(builder: (_) {
-                              print('like change');
                               return Consumer<UserProvider>(
                                 builder: (_, user, c) {
                                   return InkWell(
@@ -276,42 +285,58 @@ class _CourseDetailsState extends State<CourseDetails> {
                               ],
                             ),
                             flex: 1),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                            margin: EdgeInsets.only(right: 5),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14.0),
-                                border: Border.all(
-                                    color: style.orangeColor, width: 1.0)),
-                            child: Text(
-                              '加入购物车',
-                              style: style.baseFontStyle
-                                  .copyWith(color: style.orangeColor),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed('/ConfirmOrder', arguments: {
-                              'courseList': [_course]
-                            });
+                        Consumer2<ShopCartProvider,UserProvider>(
+                          builder: (context, shopCart,user, _) {
+                            return GestureDetector(
+                              onTap: () {
+                                if(!_handleCheckRepeat(user, _course)){
+                                shopCart.addToCart(_course);
+                                }
+                              },
+                              child: Container(
+                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                margin: EdgeInsets.only(right: 5),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14.0),
+                                    border: Border.all(
+                                        color: style.orangeColor, width: 1.0)),
+                                child: Text(
+                                  '加入购物车',
+                                  style: style.baseFontStyle
+                                      .copyWith(color: style.orangeColor),
+                                ),
+                              ),
+                            );
                           },
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: style.themeColor, width: 1.0),
-                              borderRadius: BorderRadius.circular(14.0),
-                            ),
-                            child: Text(
-                              '立即报名',
-                              style: style.baseFontStyle
-                                  .copyWith(color: style.themeColor),
-                            ),
-                          ),
+                        ),
+                        Consumer2<OrderListProvider,UserProvider>(
+                          builder: (context, order,user, _) {
+                            return GestureDetector(
+                              onTap: () {
+                                if(!_handleCheckRepeat(user, _course)){
+                                order.initData([_course]);
+                                Navigator.of(context)
+                                    .pushNamed('/ConfirmOrder', arguments: {
+                                  'courseList': [_course],
+                                  'from': '1'
+                                });
+                                }
+                              },
+                              child: Container(
+                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: style.themeColor, width: 1.0),
+                                  borderRadius: BorderRadius.circular(14.0),
+                                ),
+                                child: Text(
+                                  '立即报名',
+                                  style: style.baseFontStyle
+                                      .copyWith(color: style.themeColor),
+                                ),
+                              ),
+                            );
+                          },
                         )
                       ],
                     ),

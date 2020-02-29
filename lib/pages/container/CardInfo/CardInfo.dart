@@ -1,4 +1,5 @@
 import 'package:educationapp/model/Student.dart';
+import 'package:educationapp/pages/components/Skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'CardItem.dart';
@@ -108,14 +109,11 @@ class CardInfo extends StatelessWidget {
         ),
         Positioned(
             top: 0,
-            child: ClipOval(
-              child: Image.network(
-                student.studentImg,
-                fit: BoxFit.cover,
-                width: 80,
-                height: 80,
-              ),
-            )),
+            child: Skeleton(
+              img:student.studentImg,
+              size:style.width/4
+            )
+            ),
       ]),
     );
   }
