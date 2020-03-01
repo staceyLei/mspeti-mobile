@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:educationapp/provider/CourseTableProvider.dart';
+import 'package:educationapp/provider/GrowUpProvider.dart';
+import 'package:educationapp/provider/HomeworkProvider.dart';
 import 'package:educationapp/provider/ShopCartProvider.dart';
 import 'package:educationapp/provider/UserProvider.dart';
 import 'package:flutter/material.dart';
@@ -285,8 +288,14 @@ class _LoginState extends State<Login> {
   }
 
   _handleLogin(int loginType) {
-    UserProvider user = Provider.of<UserProvider>(context,listen: false);
-    ShopCartProvider shopCart = Provider.of<ShopCartProvider>(context,listen: false);
+    UserProvider user = Provider.of<UserProvider>(context, listen: false);
+    ShopCartProvider shopCart =
+        Provider.of<ShopCartProvider>(context, listen: false);
+    HomeworkProvider homework =
+        Provider.of<HomeworkProvider>(context, listen: false);
+    CourseTableProvider courseTable =
+        Provider.of<CourseTableProvider>(context, listen: false);
+    GrowUpProvider growUp = Provider.of<GrowUpProvider>(context, listen: false);
 
     // 0 免密登录 1 密码登录
     setState(() {
@@ -309,8 +318,13 @@ class _LoginState extends State<Login> {
     bool res = user.toLogin(loginType, params);
     if (res) {
       shopCart.initData();
+      homework.initData();
+      courseTable.initData();
+      growUp.initData();
       Fluttertoast.showToast(msg: '登录成功', gravity: ToastGravity.CENTER);
       Navigator.pushNamed(context, '/');
+    }else{
+      Fluttertoast.showToast(msg: '用户名或密码有误', gravity: ToastGravity.CENTER);
     }
   }
 

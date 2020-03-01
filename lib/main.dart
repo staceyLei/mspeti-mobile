@@ -1,3 +1,6 @@
+import 'package:educationapp/provider/CourseTableProvider.dart';
+import 'package:educationapp/provider/GrowUpProvider.dart';
+import 'package:educationapp/provider/HomeworkProvider.dart';
 import 'package:educationapp/provider/OrderListProvider.dart';
 import 'package:educationapp/provider/ShopCartProvider.dart';
 import 'package:educationapp/provider/UserProvider.dart';
@@ -19,6 +22,9 @@ void main() {
       ChangeNotifierProvider(create: (_) => CourseListProvider()),
       ChangeNotifierProvider(create: (_) => ShopCartProvider()),
       ChangeNotifierProvider(create: (_) => OrderListProvider()),
+      ChangeNotifierProvider(create: (_) => HomeworkProvider()),
+      ChangeNotifierProvider(create: (_) => CourseTableProvider()),
+      ChangeNotifierProvider(create: (_) => GrowUpProvider()),
     ],
     child: MyApp(),
     )

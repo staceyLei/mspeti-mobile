@@ -1,3 +1,5 @@
+import 'package:educationapp/pages/components/Skeleton.dart';
+import 'package:educationapp/provider/UserProvider.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:educationapp/store/modal/User.dart';
@@ -7,6 +9,7 @@ import 'package:educationapp/assets/style.dart' as style;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/components/BaseButton.dart';
+import 'package:provider/provider.dart';
 
 class SetUp extends StatefulWidget {
   @override
@@ -53,22 +56,17 @@ class _SetUpState extends State<SetUp> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
+                            Consumer<UserProvider>(builder: (context,user,_) => 
                             Row(
                               children: <Widget>[
-                                ClipOval(
-                                  child: Image.asset(
-                                    "assets/image/headImg.png",
-                                    width: 50,
-                                    height: 50,
-                                  ),
-                                ),
+                                Skeleton(img:user.student.studentImg,size:50),
                                 SizedBox(
                                   width: 15.0,
                                 ),
-                                Text(user.name,
-                                    style: TextStyle(fontSize: 18.0)),
+                                Text(user.student.studentName,
+                                    style: style.mFontStyle),
                               ],
-                            ),
+                            ),)
                           ],
                         ),
                         Icon(

@@ -122,7 +122,7 @@ class _CourseState extends State<Course> {
                       child: InkWell(
                           onTap: () {
                             navigatorKey.currentState.pushNamed('/SearchPage',
-                                arguments: {'from': 'course'});
+                                arguments: {'from': '0'});
                           },
                           child: Container(
                             padding: EdgeInsets.fromLTRB(15, 10, 15, 10),

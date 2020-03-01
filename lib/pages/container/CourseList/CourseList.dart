@@ -10,6 +10,8 @@ import 'component/ClassifyBtn.dart';
 import 'component/CourseItem.dart';
 
 class CourseList extends StatefulWidget {
+  final arguments;
+  CourseList({this.arguments});
   @override
   State<StatefulWidget> createState() {
     return _CourseListState();
@@ -20,12 +22,16 @@ class _CourseListState extends State<CourseList> {
   String _selected = "all";
   // List<Map> _courseData;
   List<CourseM> _courseData;
+  String _keywords = '';
   bool _layout = false; // false为行列 true为纵列布局
 
   @override
   void initState() {
     super.initState();
-    // this._courseData = courseData ?? [];
+    _courseData =
+        widget.arguments != null ? widget.arguments['courseList'] ?? [] : [];
+    _keywords =
+        widget.arguments != null ? widget.arguments['keywords'] ?? '' : '';
   }
 
   List<Widget> _renderTopBtn() {
@@ -47,10 +53,18 @@ class _CourseListState extends State<CourseList> {
       // CourseM course = CourseM.fromJson(item);
       return CourseItem(
         // item: course,
-        item:item,
+        item: item,
         layout: _layout,
       );
     }).toList();
+  }
+
+  Widget _renderEmpty() {
+    return Column(children: [
+      Container(width: 150,
+      margin: EdgeInsets.symmetric(vertical:20),
+      child: Image.asset('assets/icon/icon-none.png',fit:BoxFit.fitWidth),),
+      Text('未找到课程',style:style.mFontStyle.copyWith(fontSize:style.titleSize))]);
   }
 
   @override
@@ -61,7 +75,10 @@ class _CourseListState extends State<CourseList> {
           backgroundColor: _layout ? style.grey : Colors.white,
           body: Consumer<CourseListProvider>(
             builder: (context, course, _) {
-              _courseData = course.courseList;
+              if (widget.arguments == null ||
+                  widget.arguments['courseList'] == null) {
+                _courseData = course.courseList;
+              }
               return Column(children: <Widget>[
                 Container(
                   width: style.width,
@@ -89,7 +106,7 @@ class _CourseListState extends State<CourseList> {
                       child: InkWell(
                           onTap: () {
                             navigatorKey.currentState.pushNamed('/SearchPage',
-                                arguments: {'from': 'courseList'});
+                                arguments: {'from': '0','keywords':_keywords});
                           },
                           child: Container(
                             padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
@@ -107,6 +124,7 @@ class _CourseListState extends State<CourseList> {
                                       fit: BoxFit.contain),
                                 ),
                                 SizedBox(width: 10),
+                                _keywords.isNotEmpty?Text(_keywords,style:style.mFontStyle):
                                 Text('搜索课程',
                                     style: style.hintStyle
                                         .copyWith(fontSize: style.mFontSize)),
@@ -150,14 +168,16 @@ class _CourseListState extends State<CourseList> {
                     )),
                 Expanded(
                   flex: 1,
-                  child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: Wrap(
-                      spacing: 15,
-                      runSpacing: 15,
-                      children: this._renderList(),
-                    ),
-                  ),
+                  child: _courseData.isEmpty
+                      ? _renderEmpty()
+                      : SingleChildScrollView(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Wrap(
+                            spacing: 15,
+                            runSpacing: 15,
+                            children: this._renderList(),
+                          ),
+                        ),
                 )
               ]);
             },

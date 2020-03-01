@@ -9,6 +9,7 @@ class UserProvider with ChangeNotifier {
   // Student _student = Student.fromJson(studentData);
   Student _student;
   bool _isLogin = false;
+  String _pwd;
 
   Student get student => _student;
   bool get isLogin => _isLogin;
@@ -95,6 +96,13 @@ class UserProvider with ChangeNotifier {
     }).toList();
     _student.studentCourse = [...myCourse, ...newList];
     notifyListeners();
+  }
+
+  searchForCollection(String keyWords) {
+    List<CourseM> searchRes = collection
+        .where((course) => course.courseName.contains(keyWords))
+        .toList();
+    return searchRes;
   }
 
   toLogOut() {

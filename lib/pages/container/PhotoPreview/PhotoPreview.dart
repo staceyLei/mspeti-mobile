@@ -30,7 +30,7 @@ class _PhotoPreviewState extends State<PhotoPreview> {
   @override
   void initState() {
     super.initState();
-    _imgList = widget.arguments['img']?.split(',');
+    _imgList = widget.arguments?.split(',');
   }
 
   _handleOpenSave(String imgUrl) => showModalBottomSheet(

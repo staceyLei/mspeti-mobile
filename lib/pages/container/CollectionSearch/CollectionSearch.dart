@@ -30,6 +30,10 @@ class _CollectionSearchState extends State<CollectionSearch> {
     });
   }
 
+  _handleOnSearch() {
+    print('search word:${_controller.text}');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +63,8 @@ class _CollectionSearchState extends State<CollectionSearch> {
                             controller: _controller,
                             focusNode: _focusNode,
                             style: style.mFontStyle,
+                            textInputAction: TextInputAction.search,
+                            onEditingComplete: _handleOnSearch,
                             autofocus: true,
                             decoration: InputDecoration(
                                 contentPadding: EdgeInsets.only(bottom: 10),
@@ -69,7 +75,7 @@ class _CollectionSearchState extends State<CollectionSearch> {
                                   child: Image.asset(
                                       "assets/icon/course-search.png"),
                                 ),
-                                hintText: '搜索机构',
+                                hintText: '搜索课程',
                                 hintStyle: style.hintStyle
                                     .copyWith(fontSize: style.mFontSize),
                                 border: UnderlineInputBorder(
@@ -91,10 +97,10 @@ class _CollectionSearchState extends State<CollectionSearch> {
               )
             ],
           ),
-          SizedBox(height: 20),
           Expanded(
             flex: 1,
             child: Container(
+              margin: EdgeInsets.only(top:20),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius:

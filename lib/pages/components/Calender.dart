@@ -7,9 +7,10 @@ import 'package:educationapp/assets/style.dart' as style;
 import 'package:educationapp/const.dart';
 
 class Calendar extends StatefulWidget {
-  final List timeTable;
+  final List<CourseTable> timeTable;
   final Function handleOnChange;
-  Calendar({this.timeTable, this.handleOnChange});
+  final Function handleOnChangeMonth;
+  Calendar({this.timeTable, this.handleOnChange, this.handleOnChangeMonth});
   @override
   State<Calendar> createState() {
     return _CalendarState();
@@ -24,7 +25,13 @@ class _CalendarState extends State<Calendar> {
   int _nowYear;
   int _nowMonth;
   int _nowDay;
-  List<Map> _classDays; //该月份有课程的日子，以及当天所有课程的状态
+  // List<Map> _classDays; //该月份有课程的日子，以及当天所有课程的状态
+  // 课程状态为请假/缺勤/审核
+  List<int> statusArr = [
+    TimeTableStatus.absent.index,
+    TimeTableStatus.asForLeave.index,
+    TimeTableStatus.check.index
+  ];
 
   @override
   void initState() {
@@ -40,16 +47,25 @@ class _CalendarState extends State<Calendar> {
     _nowDay = now.day;
     _nowMonth = now.month;
     _nowYear = now.year;
-    // 课程状态为请假/缺勤/审核
-    List<int> statusArr = [
-      TimeTableStatus.absent.index,
-      TimeTableStatus.asForLeave.index,
-      TimeTableStatus.check.index
-    ];
-    _classDays = widget.timeTable.map((item) {
-      CourseTable courseTable = CourseTable.fromJson(item);
-      List<String> dateArr = courseTable.courseDate.split('-'); //得到【年，月，日】数组
-      String status = courseTable.courseStatus;
+
+    // _classDays = widget.timeTable.map((item) {
+    //   // CourseTable courseTable = CourseTable.fromJson(item);
+    //   List<String> dateArr = item.courseDate.split(','); //得到【年，月，日】数组
+    //   String status = item.courseStatus;
+    //   return {
+    //     'day': int.parse(dateArr[2]), //找到有课的日
+    //     'isAbsent': statusArr.contains(int.parse(status)), //该日是否缺席
+    //   };
+    //   // return int.parse(dateArr[2]);
+    // }).toList();
+  }
+
+  List<Map<String, dynamic>> _refreshData() {
+    //该月份有课程的日子，以及当天所有课程的状态
+    return widget.timeTable.map((item) {
+      // CourseTable courseTable = CourseTable.fromJson(item);
+      List<String> dateArr = item.courseDate.split(','); //得到【年，月，日】数组
+      String status = item.courseStatus;
       return {
         'day': int.parse(dateArr[2]), //找到有课的日
         'isAbsent': statusArr.contains(int.parse(status)), //该日是否缺席
@@ -90,6 +106,7 @@ class _CalendarState extends State<Calendar> {
 
 // 渲染日期内容
   List<TableRow> _renderContent() {
+    List<Map> classDays = _refreshData();
     List<TableRow> content = <TableRow>[
       TableRow(
         children: _renderWeekHead(),
@@ -106,7 +123,7 @@ class _CalendarState extends State<Calendar> {
             _currentMonth == _nowMonth &&
             _currentYear == _nowYear;
         // 当天有几节课
-        Iterable classArr = _classDays.where((days) => days['day'] == day);
+        Iterable classArr = classDays.where((days) => days['day'] == day);
         // 当天是否有课
         bool hasClass = classArr.isNotEmpty; //到课 缺勤 请假 审核
         Iterable isAbsentArr = classArr.where((days) => days['isAbsent']);
@@ -182,6 +199,8 @@ class _CalendarState extends State<Calendar> {
       }
       _currentDay =
           _currentMonth == _nowMonth && _currentYear == _nowYear ? _nowDay : 1;
+      widget.handleOnChangeMonth(
+          _currentYear.toString(), _currentMonth.toString());
     });
   }
 

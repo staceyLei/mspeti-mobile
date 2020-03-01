@@ -1,3 +1,4 @@
+import 'package:educationapp/model/GrowUpM.dart';
 import 'package:educationapp/pages/components/MediaButton.dart';
 import 'package:educationapp/pages/components/VideoPreview.dart';
 import 'package:educationapp/route/route.dart';
@@ -16,7 +17,7 @@ class NewGrowUp extends StatefulWidget {
 
 class _NewGrowUpState extends State<NewGrowUp> {
   final TextEditingController _controller = TextEditingController();
-  Map _item;
+  GrowUpM _item;
   bool _isNew;
   bool _show = false;
 
@@ -51,7 +52,7 @@ class _NewGrowUpState extends State<NewGrowUp> {
 
   _handleChangeVideo() {
     navigatorKey.currentState
-        .pushNamed('/VideoPreview', arguments: _item['video']);
+        .pushNamed('/VideoPreview', arguments: _item.pubVideo);
   }
 
   List<Widget> _renderNew() {
@@ -114,12 +115,13 @@ class _NewGrowUpState extends State<NewGrowUp> {
                   onTap: () {},
                   child: Container(
                       padding: EdgeInsets.all(15),
-                      child: Text('分享',
+                      child: Text('',
+                        // '分享',
                           style: style.baseFontStyle
                               .copyWith(fontWeight: FontWeight.bold))),
                 )),
       if (_show)
-        PhotoPreview(arguments: _item, handleOnClose: _handleClosePhoto),
+        PhotoPreview(arguments: _item.pubImg, handleOnClose: _handleClosePhoto),
     ]);
   }
 }

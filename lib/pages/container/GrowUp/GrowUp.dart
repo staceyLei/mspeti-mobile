@@ -1,9 +1,12 @@
+import 'package:educationapp/model/GrowUpM.dart';
 import 'package:educationapp/pages/components/DatePicker.dart';
+import 'package:educationapp/provider/GrowUpProvider.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/assets/style.dart' as style;
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'component/const.dart';
 import 'component/GrowUpItem.dart';
 
@@ -15,13 +18,12 @@ class GrowUp extends StatefulWidget {
 }
 
 class _GrowUpState extends State<GrowUp> {
-  List _renderData = [];
+  List<GrowUpM> _renderData = [];
   int _selectYear;
   int _selectMonth;
   @override
   void initState() {
     super.initState();
-    _renderData = growUp;
     DateTime now = DateTime.now();
     _selectYear = now.year;
     _selectMonth = now.month;
@@ -55,7 +57,8 @@ class _GrowUpState extends State<GrowUp> {
             flex: 1,
             child: Text('我的成长',
                 textAlign: TextAlign.center,
-                style: style.baseFontStyle.copyWith(fontSize: style.bigFontSize)),
+                style:
+                    style.baseFontStyle.copyWith(fontSize: style.bigFontSize)),
           ),
           SizedBox(
             width: 25,
@@ -103,6 +106,16 @@ class _GrowUpState extends State<GrowUp> {
     });
   }
 
+  Widget _renderEmpty() {
+    return Column(children: [
+      Container(
+        width:150,
+        margin:EdgeInsets.fromLTRB(0, 50, 0, 15),
+        child:Image.asset('assets/icon/icon-none.png',fit:BoxFit.fitWidth)
+      ),
+      Text('当月没有记录',style:style.mFontStyle)]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -111,71 +124,80 @@ class _GrowUpState extends State<GrowUp> {
             floatingActionButton: _renderFloatBtn(),
             backgroundColor: style.grey,
             resizeToAvoidBottomPadding: false,
-            body: Column(
-              children: <Widget>[
-                _renderNav(),
-                Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('我的成长记录',
-                            style: style.baseFontStyle.copyWith(
-                                fontSize: style.titleSize,
-                                fontWeight: FontWeight.bold)),
-                        InkWell(
-                            onTap: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (_) => DatePicker(
-                                        changeMonth: _handleChangeMonth,
-                                        selectM: _selectMonth,
-                                        selectY: _selectYear,
-                                        changeYear: _handleChangeYear,
-                                        handleOnOK: _handleOnOk,
-                                      ));
-                            },
-                            child: Row(children: [
-                              Text(_selectYear.toString(),
-                                  style: style.baseFontStyle.copyWith(
-                                      fontSize: style.titleSize,
-                                      fontWeight: FontWeight.bold)),
-                              Text('年', style: style.sFontStyle),
-                              if(_selectMonth>0)
-                              Text(_selectMonth < 10
-                                      ? '0$_selectMonth'
-                                      : _selectMonth.toString(),
-                                  style: style.baseFontStyle.copyWith(
-                                      fontSize: style.titleSize,
-                                      fontWeight: FontWeight.bold)),
-                              if(_selectMonth > 0)
-                              Text('月', style: style.sFontStyle),
-                              Icon(
-                                Icons.arrow_drop_down,
-                                size: 18,
-                                color: style.baseFontColor,
-                              )
-                            ])),
-                      ]),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: ListView.builder(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        itemCount: _renderData.length,
-                        itemBuilder: (buildContext, index) {
-                          Map item = _renderData[index];
-                          return InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed('/NewGrowUp',
-                                    arguments: {'status': 1, 'item': item});
-                              },
-                              child: GrowUpItem(
-                                item: item,
-                              ));
-                        }))
-              ],
+            body: Consumer<GrowUpProvider>(
+              builder: (context, growUp, _) {
+                _renderData = growUp.searchGrowUp(
+                    _selectYear.toString(), _selectMonth.toString());
+                return Column(
+                  children: <Widget>[
+                    _renderNav(),
+                    Container(
+                      color: Colors.white,
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('我的成长记录',
+                                style: style.baseFontStyle.copyWith(
+                                    fontSize: style.titleSize,
+                                    fontWeight: FontWeight.bold)),
+                            InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (_) => DatePicker(
+                                            changeMonth: _handleChangeMonth,
+                                            selectM: _selectMonth,
+                                            selectY: _selectYear,
+                                            changeYear: _handleChangeYear,
+                                            handleOnOK: _handleOnOk,
+                                          ));
+                                },
+                                child: Row(children: [
+                                  Text(_selectYear.toString(),
+                                      style: style.baseFontStyle.copyWith(
+                                          fontSize: style.titleSize,
+                                          fontWeight: FontWeight.bold)),
+                                  Text('年', style: style.sFontStyle),
+                                  if (_selectMonth > 0)
+                                    Text(
+                                        _selectMonth < 10
+                                            ? '0$_selectMonth'
+                                            : _selectMonth.toString(),
+                                        style: style.baseFontStyle.copyWith(
+                                            fontSize: style.titleSize,
+                                            fontWeight: FontWeight.bold)),
+                                  if (_selectMonth > 0)
+                                    Text('月', style: style.sFontStyle),
+                                  Icon(
+                                    Icons.arrow_drop_down,
+                                    size: 18,
+                                    color: style.baseFontColor,
+                                  )
+                                ])),
+                          ]),
+                    ),
+                    Expanded(
+                        flex: 1,
+                        child: _renderData.isEmpty?_renderEmpty():
+                        ListView.builder(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            itemCount: _renderData.length,
+                            itemBuilder: (buildContext, index) {
+                              GrowUpM item = _renderData[index];
+                              return InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                        '/NewGrowUp',
+                                        arguments: {'status': 1, 'item': item});
+                                  },
+                                  child: GrowUpItem(
+                                    item: item,
+                                  ));
+                            }))
+                  ],
+                );
+              },
             )));
   }
 }

@@ -1,9 +1,11 @@
 import 'package:educationapp/model/CourseTable.dart';
+import 'package:educationapp/provider/CourseTableProvider.dart';
 import 'package:educationapp/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:educationapp/pages/components/Calender.dart';
 import 'package:educationapp/pages/components/BaseLayout.dart';
 import 'package:educationapp/assets/style.dart' as style;
+import 'package:provider/provider.dart';
 import 'const.dart';
 import 'component/TimeTableItem.dart';
 
@@ -15,16 +17,21 @@ class TimeTable extends StatefulWidget {
 }
 
 class _TimeTableState extends State<TimeTable> {
-  List _classData;
-  List _showData;
+  List<CourseTable> _classData = []; //该月所有课程
+  List<CourseTable> _showData = []; //选中日的课程
   bool _loading = false; //切换月份时候加载
+  DateTime _now;
+  String _selectYear;
+  String _selectMonth;
+  String _selectDay;
 
   @override
   void initState() {
     super.initState();
-    DateTime now = DateTime.now();
-    _handleChangeMonth(now.year, now.month);
-    _handleOnChangeDay(DateTime.now().day);
+    _now = DateTime.now();
+    _selectYear = _now.year.toString();
+    _selectMonth = _now.month.toString();
+    _selectDay = _now.day.toString();
   }
 
   Widget _renderEmpty() {
@@ -33,60 +40,86 @@ class _TimeTableState extends State<TimeTable> {
         width: style.width,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
-            width: 70,
-            height: 70,
+            width: 110,
+            margin: EdgeInsets.only(bottom: 15),
             child: Image.asset(
-              'assets/icon/homework-none.png',
-              fit: BoxFit.contain,
+              'assets/icon/icon-none.png',
+              fit: BoxFit.fitWidth,
             ),
           ),
-          SizedBox(height: 20),
-          Text('今天没有课噢，预习一下别的课程吧~',
-              style: style.baseFontStyle.copyWith(color: style.lightGrey)),
+          Text('今天没有课噢，预习一下别的课程吧~', style: style.mFontStyle),
         ]));
   }
 
+  // _handleOnChangeDay(int selectedDay) {
+  //   setState(() {
+  //     _showData = _classData.where((item) {
+  //       // CourseTable courseTable = CourseTable.fromJson(item);
+  //       List<String> _dateArr = item.courseDate.split(',');
+  //       return _dateArr[2] == selectedDay.toString();
+  //     }).toList();
+  //   });
+  // }
+
+  // 设置选中日的课程列表数据
+  _setShowData() {
+    _showData = _classData.where((item) {
+      // CourseTable courseTable = CourseTable.fromJson(item);
+      List<String> _dateArr = item.courseDate.split(',');
+      return _dateArr[2] == _selectDay;
+    }).toList();
+  }
+
+// 控制切换选中日
   _handleOnChangeDay(int selectedDay) {
     setState(() {
-      _showData = _classData.where((item) {
-        CourseTable courseTable = CourseTable.fromJson(item);
-        List<String> _dateArr = courseTable.courseDate.split('-');
-        return _dateArr[2] == selectedDay.toString();
-      }).toList();
+      _selectDay = selectedDay.toString();
     });
   }
 
-  _handleChangeMonth(int year, int month) {
-    // 接口搜索某年某月获得课表数据
+// 控制日历组件切换月份的时候的回调
+  _handleOnChangeMonth(String year, String month) {
     setState(() {
-      _classData = classList;
+      _selectMonth = month;
+      _selectYear = year;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BaseLayout(
-      backgroundColor: Colors.white,
-      title: '课程日历',
-      navBarB: Stack(alignment: Alignment.center, children: [
-        Calendar(timeTable: _classData, handleOnChange: _handleOnChangeDay),
-        if (_loading) CircularProgressIndicator(),
-      ]),
-      components: _showData.isEmpty
-          ? _renderEmpty()
-          : ListView.builder(
-              padding: EdgeInsets.all(0),
-              itemCount: _showData.length,
-              itemBuilder: (context, index) {
-                CourseTable courseTable =
-                    CourseTable.fromJson(_showData[index]);
-                return InkWell(
-                    onTap: () {
-                      navigatorKey.currentState.pushNamed('/TimeTableDetail',
-                          arguments: {'courseInfo': courseTable});
-                    },
-                    child: TimeTableItem(item: courseTable));
-              }),
+    return Consumer<CourseTableProvider>(
+      builder: (context, table, _) {
+        _classData = table.searchTable(_selectYear, _selectMonth);
+        _setShowData();
+        return BaseLayout(
+          backgroundColor: Colors.white,
+          title: '课程日历',
+          navBarB: Stack(alignment: Alignment.center, children: [
+            Calendar(
+              timeTable: _classData,
+              handleOnChange: _handleOnChangeDay,
+              handleOnChangeMonth: (String year, String month) =>
+                  _handleOnChangeMonth(year, month),
+            ),
+            if (_loading) CircularProgressIndicator(),
+          ]),
+          components: _showData.isEmpty
+              ? _renderEmpty()
+              : ListView.builder(
+                  padding: EdgeInsets.all(0),
+                  itemCount: _showData.length,
+                  itemBuilder: (context, index) {
+                    CourseTable courseTable = _showData[index];
+                    return InkWell(
+                        onTap: () {
+                          navigatorKey.currentState.pushNamed(
+                              '/TimeTableDetail',
+                              arguments: {'courseInfo': courseTable});
+                        },
+                        child: TimeTableItem(item: courseTable));
+                  }),
+        );
+      },
     );
   }
 }
