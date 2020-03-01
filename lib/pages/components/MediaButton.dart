@@ -7,7 +7,9 @@ import 'package:educationapp/assets/style.dart' as style;
 
 class MediaButton extends StatelessWidget {
   final bool isCamera;
-  MediaButton({this.isCamera});
+  final Function getImageUrl;
+  final Function getVideoUrl;
+  MediaButton({this.isCamera, this.getImageUrl, this.getVideoUrl});
 
   _showPhotoModal(BuildContext context) => showModalBottomSheet(
       context: context,
@@ -20,12 +22,14 @@ class MediaButton extends StatelessWidget {
                 title: '拍照',
                 onTap: () {
                   _getImage(true);
+                  Navigator.pop(_);
                 },
               ),
               BaseButton(
                 title: '从手机相册选取',
                 onTap: () {
                   _getImage(false);
+                  Navigator.pop(_);
                 },
               ),
               Container(width: style.width, color: style.bgColor, height: 5.0),
@@ -47,12 +51,14 @@ class MediaButton extends StatelessWidget {
                 title: '拍摄',
                 onTap: () {
                   _getVideo(true);
+                  Navigator.pop(_);
                 },
               ),
               BaseButton(
                 title: '从手机选取视频',
                 onTap: () {
                   _getVideo(false);
+                  Navigator.pop(_);
                 },
               ),
               Container(width: style.width, color: style.bgColor, height: 5.0),
@@ -67,16 +73,14 @@ class MediaButton extends StatelessWidget {
   _getImage(bool isCamera) async {
     var source = isCamera ? ImageSource.camera : ImageSource.gallery;
     File image = await ImagePicker.pickImage(source: source);
-    print('image:${image.toString()}');
-    return image;
+    getImageUrl(image.path);
   }
 
   // 打开手机视频/拍摄获取图片
   _getVideo(bool isCamera) async {
     var source = isCamera ? ImageSource.camera : ImageSource.gallery;
     File video = await ImagePicker.pickVideo(source: source);
-    print('video:${video.toString()}');
-    return video;
+    getVideoUrl(video.path);
   }
 
   @override
@@ -85,9 +89,9 @@ class MediaButton extends StatelessWidget {
         onTap: () =>
             isCamera ? _showPhotoModal(context) : _showVideoModal(context),
         child: Container(
-          width: 70,
+          width: style.width / 5,
           alignment: Alignment.center,
-          height: 70,
+          height: style.width / 5,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: style.lightGrey, width: 1),

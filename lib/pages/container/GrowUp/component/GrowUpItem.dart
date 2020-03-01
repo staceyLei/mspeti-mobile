@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:educationapp/model/GrowUpM.dart';
 import 'package:educationapp/pages/components/Skeleton.dart';
 import 'package:educationapp/provider/UserProvider.dart';
@@ -27,19 +29,26 @@ class _GrowUpItemState extends State<GrowUpItem> {
           child: VideoItem(video: widget.item.pubVideo),
         )
     ];
-    List imgArr = widget.item.pubImg.split(",");
+    List<String> imgArr = widget.item.pubImg.isNotEmpty? widget.item.pubImg.split(","):[];
     res.addAll(imgArr.map((ele) {
       return InkWell(
           onTap: widget.itemFunc,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: Container(
-                width: 75,
-                height: 75,
-                child: Image.network(ele, fit: BoxFit.cover)),
+            child: Container(width: 75, height: 75, child: _getImageItem(ele)),
           ));
     }));
     return res;
+  }
+
+  _getImageItem(String url) {
+    if (url.contains('http')) {
+      return Image.network(url, fit: BoxFit.cover);
+    } else {
+      File image = File(
+          url);
+      return Image.file(image, fit: BoxFit.cover);
+    }
   }
 
   String _getTimeFormat(String date) {

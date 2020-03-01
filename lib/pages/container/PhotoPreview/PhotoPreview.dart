@@ -26,6 +26,7 @@ class _PhotoPreviewState extends State<PhotoPreview> {
   bool _isMoving = false;
   double _moveY = 0;
   double _moveX = 0;
+  
 
   @override
   void initState() {

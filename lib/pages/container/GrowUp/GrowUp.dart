@@ -109,11 +109,12 @@ class _GrowUpState extends State<GrowUp> {
   Widget _renderEmpty() {
     return Column(children: [
       Container(
-        width:150,
-        margin:EdgeInsets.fromLTRB(0, 50, 0, 15),
-        child:Image.asset('assets/icon/icon-none.png',fit:BoxFit.fitWidth)
-      ),
-      Text('当月没有记录',style:style.mFontStyle)]);
+          width: 150,
+          margin: EdgeInsets.fromLTRB(0, 50, 0, 15),
+          child:
+              Image.asset('assets/icon/icon-none.png', fit: BoxFit.fitWidth)),
+      Text('当月没有记录', style: style.mFontStyle)
+    ]);
   }
 
   @override
@@ -179,22 +180,26 @@ class _GrowUpState extends State<GrowUp> {
                     ),
                     Expanded(
                         flex: 1,
-                        child: _renderData.isEmpty?_renderEmpty():
-                        ListView.builder(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            itemCount: _renderData.length,
-                            itemBuilder: (buildContext, index) {
-                              GrowUpM item = _renderData[index];
-                              return InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed(
-                                        '/NewGrowUp',
-                                        arguments: {'status': 1, 'item': item});
-                                  },
-                                  child: GrowUpItem(
-                                    item: item,
-                                  ));
-                            }))
+                        child: _renderData.isEmpty
+                            ? _renderEmpty()
+                            : ListView.builder(
+                                padding: EdgeInsets.symmetric(vertical: 10),
+                                itemCount: _renderData.length,
+                                itemBuilder: (buildContext, index) {
+                                  GrowUpM item = _renderData[index];
+                                  return InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                            '/NewGrowUp',
+                                            arguments: {
+                                              'status': 1,
+                                              'item': item
+                                            });
+                                      },
+                                      child: GrowUpItem(
+                                        item: item,
+                                      ));
+                                }))
                   ],
                 );
               },
