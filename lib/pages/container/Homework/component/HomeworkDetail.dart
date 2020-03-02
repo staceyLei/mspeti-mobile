@@ -17,6 +17,7 @@ class HomeworkDetail extends StatelessWidget {
 
   List<Widget> _renderHomeworkDetail() {
     List<Widget> res = [
+      if(_homework.pubVideo!=null&&_homework.pubVideo!='')
       VideoItem(video: _homework.pubVideo),
     ];
     List imgArr = _homework.pubImg.split(",");
@@ -56,7 +57,7 @@ class HomeworkDetail extends StatelessWidget {
                         fontSize: style.titleSize,
                         fontWeight: FontWeight.bold)),
                 SizedBox(height: 10),
-                Text('发布者：${_homework.courseTeacher}', style: style.mFontStyle),
+                Text('发布者：${_homework.courseTeacher.teacherName}', style: style.mFontStyle),
                 SizedBox(height: 10),
                 Text(_getFormatDate(_homework.pubDate),
                     style: style.mFontStyle.copyWith(

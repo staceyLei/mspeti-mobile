@@ -33,12 +33,12 @@ const warnColor = Color.fromRGBO(255, 235, 210, 1);
 const successColor = Color.fromRGBO(205, 255, 189, 1);
 TextStyle femaleStyle = TextStyle(
     color: redColor,
-    fontSize: sFontSize,
+    fontSize: baseFontSize,
     fontWeight: FontWeight.normal,
     decoration: TextDecoration.none);
 TextStyle maleStyle = TextStyle(
     color: themeColor,
-    fontSize: sFontSize,
+    fontSize: baseFontSize,
     fontWeight: FontWeight.normal,
     decoration: TextDecoration.none);
 LinearGradient baseGradient = LinearGradient(colors: [

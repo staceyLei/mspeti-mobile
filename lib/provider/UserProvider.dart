@@ -24,9 +24,16 @@ class UserProvider with ChangeNotifier {
   }
 
   editPhone(String phone) {
+    // 想用于检测一下selector
     Student newStudent = Student.fromJson(_student.toJson());
     newStudent.studentPhone = phone;
     _student = newStudent;
+    notifyListeners();
+  }
+
+  editHeadImg(String image) {
+    _student.studentImg = image;
+    Fluttertoast.showToast(msg: '修改头像成功', gravity: ToastGravity.CENTER);
     notifyListeners();
   }
 

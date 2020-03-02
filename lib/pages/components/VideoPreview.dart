@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
 import 'package:educationapp/pages/components/BaseButton.dart';
@@ -65,14 +67,19 @@ class _VideoPreviewState extends State<VideoPreview> {
           ));
 
   _saveVideo(String videoUrl) async {
-    var result;
+    String result;
     var appDocDir = await getTemporaryDirectory();
     String savePath = appDocDir.path + videoUrl.split('/').last;
-    await Dio().download(videoUrl, savePath);
-    result = await ImageGallerySaver.saveFile(savePath);
-    print('result:$result');
-    if (result) {
-      _showToast('保存成功');
+    if (videoUrl.contains('http')) {
+      // 访问网络请求
+      await Dio().download(videoUrl, savePath);
+      result = await ImageGallerySaver.saveFile(savePath);
+    } else {
+      File f = File(videoUrl);
+      result = await ImageGallerySaver.saveFile(videoUrl);
+    }
+    if (result.isNotEmpty) {
+      _showToast('成功保存到:$savePath');
     } else {
       _showToast('保存失败');
     }

@@ -13,7 +13,7 @@ class CardItem extends StatelessWidget {
         Text(title,
             style:
                 TextStyle(color: style.lightGrey, 
-                fontSize: style.sFontSize,
+                fontSize: style.baseFontSize,
                 fontWeight: FontWeight.normal,
                 decoration: TextDecoration.none
                 )),

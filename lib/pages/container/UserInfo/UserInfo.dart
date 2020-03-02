@@ -20,7 +20,7 @@ class UserInfo extends StatelessWidget {
   }
 
   Widget _getContentInfo(String value) {
-    return value!=null&&value.isNotEmpty
+    return value != null && value.isNotEmpty
         ? Text(value,
             style: style.secondFontStyle.copyWith(fontSize: style.mFontSize))
         : null;
@@ -42,10 +42,11 @@ class UserInfo extends StatelessWidget {
   }
 
 // 打开手机相册/拍照获取图片
-  _getImage(bool isCamera) async {
+  _getImage(bool isCamera, UserProvider user) async {
     var source = isCamera ? ImageSource.camera : ImageSource.gallery;
     File image = await ImagePicker.pickImage(source: source);
-    return image;
+    if(image!=null)
+    user.editHeadImg(image.path);
   }
 
   @override
@@ -76,15 +77,16 @@ class UserInfo extends StatelessWidget {
                       child: Column(children: <Widget>[
                         BaseButton(
                           title: '拍照',
-                          onTap: () async {
-                            var res = await _getImage(true);
-                            print(res);
+                          onTap: () {
+                            _getImage(true, user);
+                            Navigator.pop(_);
                           },
                         ),
                         BaseButton(
                           title: '从手机相册选取',
                           onTap: () {
-                            _getImage(false);
+                            _getImage(false, user);
+                            Navigator.pop(_);
                           },
                         ),
                         Container(
@@ -100,10 +102,7 @@ class UserInfo extends StatelessWidget {
                       ])));
             },
             isModify: true,
-            content: Skeleton(
-              img:user.student.studentImg,
-              size:40
-            ),
+            content: Skeleton(img: user.student.studentImg, size: 40),
           ),
           InfoItem(
             title: '姓名',
@@ -119,8 +118,15 @@ class UserInfo extends StatelessWidget {
             title: '邮箱',
             isModify: true,
             action: () {
-              Navigator.pushNamed(context, '/EditInfo',
-                  arguments: {'status': 0,'info':user.student.studentEmail,'handleOnEdit':user.editEmail},);
+              Navigator.pushNamed(
+                context,
+                '/EditInfo',
+                arguments: {
+                  'status': 0,
+                  'info': user.student.studentEmail,
+                  'handleOnEdit': user.editEmail
+                },
+              );
             },
             // content: _getContent("email"),
             content: _getContentInfo(user.student.studentEmail),
@@ -129,8 +135,11 @@ class UserInfo extends StatelessWidget {
             title: '联系方式',
             isModify: true,
             action: () {
-              Navigator.pushNamed(context, '/EditInfo',
-                  arguments: {'status': 1,'info':user.student.studentPhone,'handleOnEdit':user.editPhone});
+              Navigator.pushNamed(context, '/EditInfo', arguments: {
+                'status': 1,
+                'info': user.student.studentPhone,
+                'handleOnEdit': user.editPhone
+              });
             },
             prefix: _getAuth(),
             // content: _getContent("phone"),

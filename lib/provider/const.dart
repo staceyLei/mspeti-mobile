@@ -538,7 +538,7 @@ const homeworkData = [
     "homeworkTitle": "完成美术写作作业6张，其中画风景画2张,实物图4张",
     "courseName": "美术趣味课堂",
     "status": '0',
-    "pubVideo": "assets/pubVideo/test.mp4",
+    "pubVideo": "https://vdept.bdstatic.com/534c5749536c6358597473614262314a/3657464573677331/74b2ee243b7ce7aa6efc468ac7fb3845969fdca1a60a2cc2bbe278110aab6b4912f9d4b9d27a9c60c6932c60882556dc.mp4?auth_key=1583132410-0-0-fa98585f96201751da7844c5befb2d7d",
     'courseTeacher': {
       'teacherName': '李老师',
       'teacherImg':
@@ -563,7 +563,7 @@ const homeworkData = [
     "homeworkTitle": "完成美术写作作业6张，其中画风景画2张,实物图4张",
     "courseName": "美术趣味课堂",
     "status": '1',
-    "pubVideo": "assets/pubVideo/test.mp4",
+    "pubVideo": "https://vdept.bdstatic.com/534c5749536c6358597473614262314a/3657464573677331/74b2ee243b7ce7aa6efc468ac7fb3845969fdca1a60a2cc2bbe278110aab6b4912f9d4b9d27a9c60c6932c60882556dc.mp4?auth_key=1583132410-0-0-fa98585f96201751da7844c5befb2d7d",
     'courseTeacher': {
       'teacherName': '李老师',
       'teacherImg':
@@ -590,7 +590,7 @@ const homeworkData = [
     "homeworkTitle": "完成美术写作作业6张，其中画风景画2张,实物图4张",
     "courseName": "美术趣味课堂",
     "status": '2',
-    "pubVideo": "assets/pubVideo/test.mp4",
+    "pubVideo": "https://vdept.bdstatic.com/534c5749536c6358597473614262314a/3657464573677331/74b2ee243b7ce7aa6efc468ac7fb3845969fdca1a60a2cc2bbe278110aab6b4912f9d4b9d27a9c60c6932c60882556dc.mp4?auth_key=1583132410-0-0-fa98585f96201751da7844c5befb2d7d",
     'courseTeacher': {
       'teacherName': '李老师',
       'teacherImg':
@@ -618,7 +618,7 @@ const homeworkData = [
     "homeworkTitle": "完成美术写作作业6张，其中画风景画2张,实物图4张",
     "courseName": "美术趣味课堂",
     "status": '0',
-    "pubVideo": "assets/pubVideo/test.mp4",
+    "pubVideo": "https://vdept.bdstatic.com/534c5749536c6358597473614262314a/3657464573677331/74b2ee243b7ce7aa6efc468ac7fb3845969fdca1a60a2cc2bbe278110aab6b4912f9d4b9d27a9c60c6932c60882556dc.mp4?auth_key=1583132410-0-0-fa98585f96201751da7844c5befb2d7d",
     'courseTeacher': {
       'teacherName': '李老师',
       'teacherImg':
@@ -644,7 +644,7 @@ const homeworkData = [
     "homeworkTitle": "完成美术写作作业6张，其中画风景画2张,实物图4张",
     "courseName": "趣味数学课",
     "status": '0',
-    "pubVideo": "assets/pubVideo/test.mp4",
+    "pubVideo": "https://vdept.bdstatic.com/534c5749536c6358597473614262314a/3657464573677331/74b2ee243b7ce7aa6efc468ac7fb3845969fdca1a60a2cc2bbe278110aab6b4912f9d4b9d27a9c60c6932c60882556dc.mp4?auth_key=1583132410-0-0-fa98585f96201751da7844c5befb2d7d",
     'courseTeacher': {
       'teacherName': '李老师',
       'teacherImg':
@@ -670,7 +670,7 @@ const homeworkData = [
     "homeworkTitle": "完成课堂上的应用题目，复习教过的内容，熟记公式。",
     "courseName": "趣味数学课",
     "status": '0',
-    "pubVideo": "assets/pubVideo/test.mp4",
+    "pubVideo": "https://vdept.bdstatic.com/534c5749536c6358597473614262314a/3657464573677331/74b2ee243b7ce7aa6efc468ac7fb3845969fdca1a60a2cc2bbe278110aab6b4912f9d4b9d27a9c60c6932c60882556dc.mp4?auth_key=1583132410-0-0-fa98585f96201751da7844c5befb2d7d",
     'courseTeacher': {
       'teacherName': '张老师',
       'teacherImg':
@@ -693,7 +693,7 @@ const homeworkData = [
     "homeworkTitle": "完成课堂上的应用题目，复习教过的内容，熟记公式。",
     "courseName": "趣味数学课",
     "status": '2',
-    "pubVideo": "assets/pubVideo/test.mp4",
+    "pubVideo": "https://vdept.bdstatic.com/534c5749536c6358597473614262314a/3657464573677331/74b2ee243b7ce7aa6efc468ac7fb3845969fdca1a60a2cc2bbe278110aab6b4912f9d4b9d27a9c60c6932c60882556dc.mp4?auth_key=1583132410-0-0-fa98585f96201751da7844c5befb2d7d",
     'courseTeacher': {
       'teacherName': '张老师',
       'teacherImg':
@@ -1008,7 +1008,7 @@ const growUp = [
   {
     "pubDate": "2020,3,1,22,22,22",
     "pubVideo":
-        "https://vdept.bdstatic.com/534d50773865355137634d71644c5279/6e654a616972446c/03a776f98bd231dd19e4fb9cccf8c65b8c87b8b9568a6a3f93b2888afd94f8e354e5580de63277afc1bd9172e3f95e26.mp4?auth_key=1582395704-0-0-57d6575089d4fb532f7ca032c6307e0d",
+        "https://vdept.bdstatic.com/534c5749536c6358597473614262314a/3657464573677331/74b2ee243b7ce7aa6efc468ac7fb3845969fdca1a60a2cc2bbe278110aab6b4912f9d4b9d27a9c60c6932c60882556dc.mp4?auth_key=1583132410-0-0-fa98585f96201751da7844c5befb2d7d",
     "pubImg":
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582396514941&di=e9e4873d161571b52bea030f7245d754&imgtype=0&src=http%3A%2F%2Fimg.aiimg.com%2Fuploads%2Fallimg%2F180408%2F1-1P40Q63534.jpg,https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582396514940&di=9ae7e71d6f8b8a655ca90d9ef630022f&imgtype=0&src=http%3A%2F%2Fimg1.maka.im%2Fuser%2F521311600b41677ab197d562665ace1fd9fddcf.jpg",
     "pubWord": "今天课程十分有意思，我掌握了许多新知识，比如。。。",

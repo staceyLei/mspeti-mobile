@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
@@ -26,7 +27,6 @@ class _PhotoPreviewState extends State<PhotoPreview> {
   bool _isMoving = false;
   double _moveY = 0;
   double _moveX = 0;
-  
 
   @override
   void initState() {
@@ -66,15 +66,28 @@ class _PhotoPreviewState extends State<PhotoPreview> {
   // }
   _savePhoto(String imgUrl) async {
     var result;
-    // 访问网络请求图片
-    Response response = await Dio()
-        .get(imgUrl, options: Options(responseType: ResponseType.bytes));
-    result =
-        await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
+    if (imgUrl.contains('http')) {
+      // 访问网络请求图片
+      Response response = await Dio()
+          .get(imgUrl, options: Options(responseType: ResponseType.bytes));
+      result =
+          await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
+    } else {
+      result = await ImageGallerySaver.saveFile(imgUrl);
+    }
     if (result.isNotEmpty) {
       _showToast('保存成功:$result');
     } else {
       _showToast('保存失败');
+    }
+  }
+
+  Image _getImageItem(String url) {
+    if (url.contains('http')) {
+      return Image.network(url, fit: BoxFit.fitWidth);
+    } else {
+      File image = File(url);
+      return Image.file(image, fit: BoxFit.fitWidth);
     }
   }
 
@@ -114,10 +127,6 @@ class _PhotoPreviewState extends State<PhotoPreview> {
                           loop: false,
                           itemCount: _imgList.length,
                           itemBuilder: (_, index) {
-                            Image _image = Image.network(
-                              _imgList[index] ?? '',
-                              fit: BoxFit.fitWidth,
-                            );
                             return GestureDetector(
                               onLongPress: () =>
                                   _handleOpenSave(_imgList[index]),
@@ -149,7 +158,7 @@ class _PhotoPreviewState extends State<PhotoPreview> {
                                 }
                               },
                               child: ClipRect(
-                                child: _image,
+                                child: _getImageItem(_imgList[index]),
                               ),
                             );
                           }))

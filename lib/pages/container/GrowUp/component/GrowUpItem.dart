@@ -23,7 +23,7 @@ class GrowUpItem extends StatefulWidget {
 class _GrowUpItemState extends State<GrowUpItem> {
   List<Widget> _renderGrowUpDetail() {
     List<Widget> res = [
-      if (widget.item.pubVideo != null)
+      if (widget.item.pubVideo != null&& widget.item.pubVideo!='')
         GestureDetector(
           onTap: widget.videoFunc,
           child: VideoItem(video: widget.item.pubVideo),

@@ -62,7 +62,7 @@ class _CollectionState extends State<Collection> {
           onTap: () => this._handleOnTap(course),
           child: CollectionItem(
             item: course,
-            onCancel: () => _handleOnCancel(user),
+            onCancel: () => _handleOnCancel(user,course),
             status: _status,
             isSelected: _selected.contains(course.courseId),
           ));
@@ -89,7 +89,7 @@ class _CollectionState extends State<Collection> {
     }
   }
 
-  _handleOnCancel(UserProvider user) {
+  _handleOnCancel(UserProvider user,CourseM course) {
     showModalBottomSheet(
         context: context,
         builder: (_) => Stack(children: <Widget>[
@@ -112,7 +112,8 @@ class _CollectionState extends State<Collection> {
                     BaseButton(
                       title: '取消收藏',
                       onTap: () {
-                        user.removeFromCollect(_selected);
+                        user.removeFromCollect([course.courseId]);
+                        Navigator.pop(_);
                       },
                       prefix: 'assets/icon/collection-heart.png',
                     ),

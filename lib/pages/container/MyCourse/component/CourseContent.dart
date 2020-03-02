@@ -152,7 +152,7 @@ class CourseContent extends StatelessWidget {
                       .pushNamed('/AddComment', arguments: {
                     'isTeacher': true,
                     'data': {
-                      'teacher': _item.courseTeacher,
+                      'teacher': _item.courseTeacher.teacherName,
                       'course': _item.courseName,
                       'img': _item.courseTeacher.teacherImg
                     }

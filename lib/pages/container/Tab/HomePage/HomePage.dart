@@ -169,7 +169,6 @@ class _HomePageState extends State<HomePage> {
             body: Consumer2<UserProvider, CourseListProvider>(
                 builder: (context, user, course, _) {
               _hotCourseData = course.courseList?.sublist(0, 4)??[];
-              print('change homepage');
               return Stack(alignment: Alignment.centerLeft, children: <Widget>[
                 if(user.student!=null)
                 SingleChildScrollView(

@@ -23,7 +23,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  int _loginType = 0; //0 免密登录 1 密码登录
+  int _loginType = 1; //0 免密登录 1 密码登录
   String _phone = '';
   bool _isShow = true; //密码是否隐藏
   String _password = '';
@@ -333,7 +333,7 @@ class _LoginState extends State<Login> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
-        // resizeToAvoidBottomPadding: false, //解决键盘遮挡问题
+        resizeToAvoidBottomPadding: false, //解决键盘遮挡问题
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[

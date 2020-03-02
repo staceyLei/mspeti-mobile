@@ -298,7 +298,8 @@ class ConfirmOrder extends StatelessWidget {
     List<Widget> res = _courseList.map((course) {
       return _renderItem(course);
     }).toList();
-    return [...res, _renderTicket()];
+    // return [...res, _renderTicket()];
+    return res;
   }
 
   @override

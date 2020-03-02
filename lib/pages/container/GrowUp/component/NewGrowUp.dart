@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:educationapp/model/GrowUpM.dart';
 import 'package:educationapp/pages/components/MediaButton.dart';
+import 'package:educationapp/pages/components/VideoItem.dart';
 import 'package:educationapp/pages/components/VideoPreview.dart';
 import 'package:educationapp/provider/GrowUpProvider.dart';
 import 'package:educationapp/route/route.dart';
@@ -61,12 +62,13 @@ class _NewGrowUpState extends State<NewGrowUp> {
         .pushNamed('/VideoPreview', arguments: _item.pubVideo);
   }
 
-  _handleGetUrl(bool isImg, String url) {
+  _handleGetUrl(bool isImg, List<File> url) {
     setState(() {
       if (isImg) {
-        _pubImg.add(url);
+        List<String> list = url.map((f) => f.path).toList();
+        _pubImg = [..._pubImg, ...list];
       } else {
-        _pubVideo = url;
+        _pubVideo = url[0].path ?? '';
       }
     });
   }
@@ -97,14 +99,18 @@ class _NewGrowUpState extends State<NewGrowUp> {
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Wrap(spacing: 10, runSpacing: 10, children: [
             ..._getUpLoadImage(),
-            MediaButton(
-              isCamera: true,
-              getImageUrl: (String url) => _handleGetUrl(true, url),
-            ),
-            MediaButton(
-              isCamera: false,
-              getVideoUrl: (String url) => _handleGetUrl(false, url),
-            ),
+            if (_pubImg.length < 6)
+              MediaButton(
+                isCamera: true,
+                maxNum: 6 - _pubImg.length,
+                getImageUrl: (List url) => _handleGetUrl(true, url),
+              ),
+            if (_pubVideo != null && _pubVideo != '') _getUpLoadVideo(),
+            if (_pubVideo == null || _pubVideo == '')
+              MediaButton(
+                isCamera: false,
+                getVideoUrl: (List url) => _handleGetUrl(false, url),
+              ),
           ]))
     ];
   }
@@ -140,6 +146,32 @@ class _NewGrowUpState extends State<NewGrowUp> {
         ],
       );
     }).toList();
+  }
+
+  Widget _getUpLoadVideo() {
+    return Stack(
+      children: <Widget>[
+        VideoItem(video: _pubVideo),
+        Positioned(
+            top: 0,
+            right: 0,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _pubVideo = null;
+                });
+              },
+              child: Container(
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  borderRadius: style.baseRadius,
+                  color: Colors.black12,
+                ),
+                child: Icon(Icons.close, color: Colors.white, size: 14),
+              ),
+            ))
+      ],
+    );
   }
 
   Image _getImageItem(String url) {

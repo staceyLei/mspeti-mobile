@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:educationapp/assets/style.dart' as style;
@@ -17,7 +19,12 @@ class _VideoItemState extends State<VideoItem> {
   @override
   void initState() {
     super.initState();
-    _playerController = VideoPlayerController.network(widget.video);
+    if (widget.video.contains('http')) {
+      _playerController = VideoPlayerController.network(widget.video);
+    } else {
+      File f = File(widget.video);
+      _playerController = VideoPlayerController.file(f);
+    }
     _videoFuture = _playerController.initialize();
   }
 
@@ -56,14 +63,17 @@ class _VideoItemState extends State<VideoItem> {
                   return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      border:Border.all(color:Colors.red,width:1),
+                      border: Border.all(color: Colors.red, width: 1),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                      Icon(Icons.priority_high,color: Colors.red,size:24),
-                      Text('加载失败',style:style.baseFontStyle.copyWith(color:Colors.red))
-                    ],),
+                        Icon(Icons.priority_high, color: Colors.red, size: 24),
+                        Text('加载失败',
+                            style:
+                                style.baseFontStyle.copyWith(color: Colors.red))
+                      ],
+                    ),
                   );
                 } else {
                   return Stack(alignment: Alignment.center, children: [

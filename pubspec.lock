@@ -352,6 +352,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.9.6+3"
+  multi_image_picker:
+    dependency: "direct main"
+    description:
+      name: multi_image_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.6.1"
   nested:
     dependency: transitive
     description:
@@ -615,7 +622,7 @@ packages:
       name: video_player
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.10.6"
+    version: "0.10.8+1"
   video_player_platform_interface:
     dependency: transitive
     description:
